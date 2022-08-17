@@ -1,9 +1,93 @@
 <html>
     <head>
         <title>Wally71551 Collection</title>
+        <link rel="stylesheet" href="index.css"/>
     </head>
     <body>
-        <header>Wally71551 Collection</header>
-        <p>Test Page</p>
+        <div id="hero">
+            <h1>Wally71551 Collection</h1>
+            <h2>Test Page</h2>
+        </div>
+        <div id="display">
+            <div id="loader">
+                <h1>Loading</h1>
+            </div>
+            <div id="collection">
+            </div>
+            <div id="error">
+                <h1>Failed to get data. Please refresh.</h1>
+            </div>
+        </div>
+        <footer>
+            <h4>Built by Wally71551.</h4>
+        </footer>
+        <script>
+            let collectionElement = document.getElementById("collection");
+            let loaderElement = document.getElementById("loader");
+            let errorElement = document.getElementById("error");
+
+            function setErrorDisplay() {
+                loaderElement.style.display = "none"
+                collectionElement.style.display = "none"
+                errorElement.style.display = "block"
+            }
+
+            fetch("https://api.apispreadsheets.com/data/ky1MkCHp23uC5HxH/").then(res => {
+                if (res.status === 200) {
+                    // SUCCESS
+                    res.json().then(data => {
+                        const yourData = data["data"]
+                        for (let i = 0; i < yourData.length; i++) {
+                            let itemInfo = yourData[i]
+                            let itemInfoDiv = document.createElement("div")
+                            itemInfoDiv.classList.add("name-item")
+
+                            let itemTitle = document.createElement("h4")
+                            let itemTitleNode = document.createTextNode(itemInfo["title"])
+                            itemTitle.appendChild(itemTitleNode)
+                            itemTitle.classList.add("title")
+
+                            let itemType = document.createElement("p")
+                            let itemTypeNode = document.createTextNode(itemType["type"])
+                            itemType.appendChild(itemTypeNode)
+                            itemType.classList.add("type")
+
+                            let itemPlatform = document.createElement("p")
+                            let itemPlatformNode = document.createTextNode(itemPlatform["platform"])
+                            itemPlatform.appendChild(itemPlatformNode)
+                            itemPlatform.classList.add("platform")
+
+                            let itemStorefront = document.createElement("p")
+                            let itemStorefrontNode = document.createTextNode(itemStorefront["storefront"])
+                            itemStorefront.appendChild(itemStorefrontNode)
+                            itemStorefront.classList.add("storefront")
+
+                            let itemImage = document.createElement("img")
+                            itemImage.src = itemInfo["image"]
+                            itemImage.classList.add("image")
+
+                            itemInfoDiv.appendChild(itemTitle)
+                            itemInfoDiv.appendChild(itemType)
+                            itemInfoDiv.appendChild(itemPlatform)
+                            itemInfoDiv.appendChild(itemStorefront)
+                            itemInfoDiv.appendChild(itemImage)
+
+                            collectionElement.appendChild(itemInfoDiv)
+                        }
+
+                        loaderElement.style.display = "none"
+                        collectionElement.style.display = "block"
+                        errorElement.style.display = "none"
+                    }).catch(err => {
+                            setErrorDisplay()
+                                })
+                }
+                else {
+                    setErrorDisplay()
+                }
+            }).catch(err => {
+                setErrorDisplay()
+            })
+        </script>
     </body>
 </html>
