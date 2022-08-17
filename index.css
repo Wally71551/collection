@@ -64,7 +64,7 @@ footer {
     }
 }
 
-.name {
+.title {
     color: blue;
     display: inline-block;
     padding: 10px;
@@ -72,19 +72,28 @@ footer {
     text-align: center;
 }
 
-.written {
+.type {
     display: inline-block;
     text-align: center;
-    r
 }
 
-.audio {
+.platform {
+    display: inline-block;
+    text-align: center;
+}
+
+.storefront {
+    display: inline-block;
+    text-align: center;
+}
+
+.image {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
-.name-row {
+.name-item {
     text-align: center;
 }
 

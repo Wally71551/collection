@@ -5,8 +5,8 @@
     </head>
     <body>
         <div id="hero">
-            <h1>Wally71551 Collection</h1>
-            <h2>Test Page</h2>
+            <h1>Wally71551's Collection</h1>
+            <h2>Under Construction | Functionality Testing</h2>
         </div>
         <div id="display">
             <div id="loader">
@@ -42,28 +42,28 @@
                             let itemInfoDiv = document.createElement("div")
                             itemInfoDiv.classList.add("name-item")
 
-                            let itemTitle = document.createElement("h4")
-                            let itemTitleNode = document.createTextNode(itemInfo["title"])
+                            let itemTitle = document.createElement("h3")
+                            let itemTitleNode = document.createTextNode(itemInfo["Title"])
                             itemTitle.appendChild(itemTitleNode)
                             itemTitle.classList.add("title")
 
-                            let itemType = document.createElement("p")
-                            let itemTypeNode = document.createTextNode(itemType["type"])
+                            let itemType = document.createElement("h4")
+                            let itemTypeNode = document.createTextNode(itemInfo["Type"])
                             itemType.appendChild(itemTypeNode)
                             itemType.classList.add("type")
 
                             let itemPlatform = document.createElement("p")
-                            let itemPlatformNode = document.createTextNode(itemPlatform["platform"])
+                            let itemPlatformNode = document.createTextNode(itemInfo["Platform"])
                             itemPlatform.appendChild(itemPlatformNode)
                             itemPlatform.classList.add("platform")
 
                             let itemStorefront = document.createElement("p")
-                            let itemStorefrontNode = document.createTextNode(itemStorefront["storefront"])
+                            let itemStorefrontNode = document.createTextNode(itemInfo["Storefront"])
                             itemStorefront.appendChild(itemStorefrontNode)
                             itemStorefront.classList.add("storefront")
 
                             let itemImage = document.createElement("img")
-                            itemImage.src = itemInfo["image"]
+                            itemImage.src = itemInfo["Image"]
                             itemImage.classList.add("image")
 
                             itemInfoDiv.appendChild(itemTitle)
