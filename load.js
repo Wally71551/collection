@@ -35,8 +35,18 @@ function SetErrorDisplay() {
 
 //Creates the item display
 function CreateItem(itemInfo) {
-    let itemInfoDiv = document.createElement("div")
+    //Create list item (for base)
+    let itemInfoDiv = document.createElement("li")
     itemInfoDiv.classList.add("name-item");
+
+    //Input image
+    if (itemInfo.image != null) {
+        let itemImage = document.createElement("img");
+        itemImage.src = itemInfo.image;
+        itemImage.classList.add("image");
+
+        itemInfoDiv.appendChild(itemImage);
+    }
 
     let itemTitle = document.createElement("h3");
     let itemTitleNode = document.createTextNode(itemInfo.title);
@@ -64,14 +74,6 @@ function CreateItem(itemInfo) {
         itemStorefront.appendChild(itemStorefrontNode);
         itemStorefront.classList.add("storefront");
         itemInfoDiv.appendChild(itemStorefront);
-    }
-
-    if (itemInfo.image != null) {
-        let itemImage = document.createElement("img");
-        itemImage.src = itemInfo.image;
-        itemImage.classList.add("image");
-
-        itemInfoDiv.appendChild(itemImage);
     }
 
     collectionElement.appendChild(itemInfoDiv);
