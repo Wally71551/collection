@@ -39,25 +39,28 @@ function CreateItem(itemInfo) {
     itemInfoDiv.classList.add("name-item");
 
     //Input image
-    if (itemInfo.image != null) {
-        //Creates the wrapper for the image
-        let itemImageWrapper = document.createElement("div");
-        itemImageWrapper.classList.add("image-wrapper");
+    //Creates the wrapper for the image
+    let itemImageWrapper = document.createElement("div");
+    itemImageWrapper.classList.add("image-wrapper");
 
-        //Creates the image itself
-        let itemImage = document.createElement("img");
-        itemImage.src = itemInfo.image;
-
-        if (itemInfo.tallimage == 1) {
-            itemImage.classList.add("image-tall");
-        }
-        else {
-            itemImage.classList.add("image");
-        }
-
-        itemImageWrapper.appendChild(itemImage);
-        itemInfoDiv.appendChild(itemImageWrapper);
+    //Creates the image itself
+    let itemImage = document.createElement("img");
+    if (itemInfo.image == null) {
+        itemImage.src = "placeholder.jpg";
     }
+    else {
+        itemImage.src = itemInfo.image;
+    }
+
+    if (itemInfo.tallimage == 1) {
+        itemImage.classList.add("image-tall");
+    }
+    else {
+        itemImage.classList.add("image");
+    }
+
+    itemImageWrapper.appendChild(itemImage);
+    itemInfoDiv.appendChild(itemImageWrapper);
 
     let itemTitle = document.createElement("h3");
     let itemTitleNode = document.createTextNode(itemInfo.title);

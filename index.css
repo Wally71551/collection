@@ -69,7 +69,6 @@ footer {
     color: blue;
     display: block;
     padding: 10px;
-    text-transform: capitalize;
     text-align: center;
 }
 
@@ -128,6 +127,7 @@ footer {
     margin: 3px;
     background-color: slategrey;
     border-radius: 20px;
+    overflow: hidden;
 }
 
 #noNameFound {
