@@ -3,7 +3,6 @@ let loaderElement = document.getElementById("loader");
 let errorElement = document.getElementById("error");
 
 $.ajax({
-    // http may be used instead of https if required
     url: "https://sheetlabs.com/W751/Collection",
     crossDomain: true,
 })
@@ -42,16 +41,22 @@ function CreateItem(itemInfo) {
     //Input image
     if (itemInfo.image != null) {
         //Creates the wrapper for the image
-        //let itemWrapperDiv = document.createElement("div");
-        //itemWrapperDiv.classList.add("image-wrapper");
+        let itemImageWrapper = document.createElement("div");
+        itemImageWrapper.classList.add("image-wrapper");
 
         //Creates the image itself
         let itemImage = document.createElement("img");
         itemImage.src = itemInfo.image;
-        itemImage.classList.add("image");
 
-        //itemWrapperDiv.appendChild(itemImage);
-        itemInfoDiv.appendChild(itemImage);
+        if (itemInfo.tallimage == 1) {
+            itemImage.classList.add("image-tall");
+        }
+        else {
+            itemImage.classList.add("image");
+        }
+
+        itemImageWrapper.appendChild(itemImage);
+        itemInfoDiv.appendChild(itemImageWrapper);
     }
 
     let itemTitle = document.createElement("h3");
