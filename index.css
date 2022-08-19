@@ -67,8 +67,20 @@ footer {
 
 .title {
     color: blue;
-    display: block;
     padding: 10px;
+    text-align: center;
+    height: 46px;
+    display: inline-flex;
+    align-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-weight: bolder;
+}
+
+.subtitle {
+    color: black;
+    display: block;
+    margin: 0px;
     text-align: center;
 }
 
@@ -78,12 +90,12 @@ footer {
 }
 
 .platform {
-    display: block;
+    display: inline-block;
     text-align: center;
 }
 
 .storefront {
-    display: block;
+    display: inline-block;
     text-align: center;
 }
 
@@ -95,7 +107,6 @@ footer {
     top: 50%;
     transform: translateY(-50%);
     border-radius: 20px;
-    background-color: darkgrey;
 }
 
 .image-tall {
@@ -107,7 +118,6 @@ footer {
     top: 50%;
     transform: translateY(-50%);
     border-radius: 20px;
-    background-color: darkgrey;
 }
 
 .image-wrapper {
@@ -124,10 +134,34 @@ footer {
     width: 310px;
     height: 700px;
     align-content: center;
-    margin: 3px;
-    background-color: slategrey;
+    margin: 1.5px;
     border-radius: 20px;
     overflow: hidden;
+    background-color: slategrey;
+}
+
+.playing-item {
+    color: lawngreen;
+}
+
+.backlog-item {
+    color: blue;
+}
+
+.unplayed-item {
+    color: mediumaquamarine;
+}
+
+.replay-item {
+    color: orange;
+}
+
+.retired-item {
+    color: darkred;
+}
+
+.completed-item {
+    color: rebeccapurple;
 }
 
 #noNameFound {
