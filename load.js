@@ -41,10 +41,16 @@ function CreateItem(itemInfo) {
 
     //Input image
     if (itemInfo.image != null) {
+        //Creates the wrapper for the image
+        //let itemWrapperDiv = document.createElement("div");
+        //itemWrapperDiv.classList.add("image-wrapper");
+
+        //Creates the image itself
         let itemImage = document.createElement("img");
         itemImage.src = itemInfo.image;
         itemImage.classList.add("image");
 
+        //itemWrapperDiv.appendChild(itemImage);
         itemInfoDiv.appendChild(itemImage);
     }
 
