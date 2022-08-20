@@ -28,7 +28,7 @@ footer {
     margin-top: 50px;
     padding-top: 15px;
     width: 100%;
-    height: 100px;
+    height: 150px;
     color: white;
     background: #11998e; /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #38ef7d, #11998e); /* Chrome 10-25, Safari 5.1-6 */
@@ -68,6 +68,7 @@ footer {
 .title {
     color: blue;
     padding: 10px;
+    font-size: 1.5em;
     text-align: center;
     height: 46px;
     display: inline-flex;
@@ -85,8 +86,10 @@ footer {
 }
 
 .type {
-    display: block;
+    display: flex;
     text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .platform {
@@ -94,9 +97,26 @@ footer {
     text-align: center;
 }
 
-.storefront {
-    display: inline-block;
+.time {
+    display: flex;
     text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.gamerscore {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.icon-intext {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
 }
 
 .image {
@@ -132,7 +152,7 @@ footer {
     text-align: center;
     list-style: none;
     width: 310px;
-    height: 700px;
+    height: 1200px;
     align-content: center;
     margin: 1.5px;
     border-radius: 20px;
@@ -152,16 +172,86 @@ footer {
     color: mediumaquamarine;
 }
 
-.replay-item {
-    color: orange;
-}
-
 .retired-item {
     color: darkred;
 }
 
-.completed-item {
+.replay-item {
+    color: orange;
+}
+
+.beaten-item {
     color: rebeccapurple;
+}
+
+.completed-item {
+    color: gold;
+}
+
+.null-item {
+    color: black;
+}
+
+.progress-back {
+    width: auto;
+    height: 1em;
+    background-color: lightgrey;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: solid;
+    border-width: medium;
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: inherit;
+    background-color: green;
+    width: var(--progress);
+}
+
+.progress-text {
+    text-align: left;
+    margin-top: 3px;
+    display: block;
+    color: black;
+}
+
+.trophy-figure {
+    display: inline-block;
+    text-align: center;
+    height: 3em;
+    width: 2.0em;
+    margin: 0.25em;
+    margin-bottom: 0.75em;
+    overflow: hidden;
+}
+
+.trophy-icon {
+    display: block;
+    margin: 0 auto;
+    width: 2.0em;
+    height: 2.0em;
+}
+
+.trophy-text {
+    font-weight: bolder;
+}
+
+.platinum {
+    color: #75d6f9;
+}
+
+.gold {
+    color: #C2903E;
+}
+
+.silver {
+    color: #777777;
+}
+
+.bronze {
+    color: #a3522d;
 }
 
 #noNameFound {

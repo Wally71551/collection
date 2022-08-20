@@ -55,7 +55,7 @@ function CreateItem(itemInfo) {
         itemImage.src = itemInfo.image;
     }
 
-    if (itemInfo.tallimage == 1) {
+    if (itemInfo.tallimage) {
         itemImage.classList.add("image-tall");
     }
     else {
@@ -66,7 +66,7 @@ function CreateItem(itemInfo) {
     itemInfoDiv.appendChild(itemImageWrapper);
 
     //Checks to see if the item is DLC and adjusts how the name is displayed
-    if (itemInfo.type == "DLC") {
+    if (itemInfo.removefromtitle) {
         itemInfo.linkedtitles += " "
         itemInfo.title = itemInfo.title.replace(itemInfo.linkedtitles, "");
         console.log(itemInfo.title);
@@ -74,33 +74,42 @@ function CreateItem(itemInfo) {
         itemInfo.subtitle = itemInfo.linkedtitles;
     }
 
-    let itemTitle = document.createElement("h3");
+    let itemTitle = document.createElement("h1");
     let itemTitleNode = document.createTextNode(itemInfo.title);
     itemTitle.appendChild(itemTitleNode);
     itemTitle.classList.add("title");
     itemInfoDiv.appendChild(itemTitle);
 
-    //Decides the colour of the box
-    if (itemInfo.playing == "1") {
+    //Decides the colour of the title
+    if (itemInfo.playing) {
         itemTitle.classList.add("playing-item");
     }
-    else if (itemInfo.completed == "1") {
+    else if (itemInfo.completed) {
         itemTitle.classList.add("completed-item");
     }
-    else if (itemInfo.unplayed == "1") {
+    else if (itemInfo.beaten) {
+        itemTitle.classList.add("beaten-item");
+    }
+    else if (itemInfo.unplayed) {
         itemTitle.classList.add("unplayed-item");
     }
-    else if (itemInfo.replay == "1") {
+    else if (itemInfo.replay) {
         itemTitle.classList.add("replay-item");
     }
-    else if (itemInfo.retired == "1") {
-        itemTitle.classlist.add("retired-item");
+    else if (itemInfo.retired) {
+        itemTitle.classList.add("retired-item");
+    }
+    else if (itemInfo.null) {
+        itemTitle.classList.add("null-item");
     }
     else {
         itemTitle.classList.add("backlog-item");
     }
 
     if (itemInfo.subtitle != null) {
+        itemTitle.style.marginBottom = "0px";
+        itemTitle.style.paddingBottom = "0px";
+
         let itemSubtitle = document.createElement("p");
         let itemSubtitleNode = document.createTextNode(itemInfo.subtitle);
         itemSubtitle.appendChild(itemSubtitleNode);
@@ -108,26 +117,215 @@ function CreateItem(itemInfo) {
         itemInfoDiv.appendChild(itemSubtitle);
     }
 
-    let itemType = document.createElement("h4");
+    //Type text
+    let itemType = document.createElement("h3");
     let itemTypeNode = document.createTextNode(itemInfo.type)
-    itemType.appendChild(itemTypeNode);
     itemType.classList.add("type");
+    itemType.appendChild(itemTypeNode);
+
+    if (itemInfo.replay) {
+        let replayIcon = document.createElement("img");
+        replayIcon.src = "icons/replay.svg";
+        replayIcon.classList.add("icon-intext");
+        replayIcon.style.marginLeft = "0.25em";
+        itemType.appendChild(replayIcon);
+    }
+
     itemInfoDiv.appendChild(itemType);
 
+    //Sets up platform / storefront string
+    let itemPlatform = document.createElement("p");
+    let str = "";
+
     if (itemInfo.platform != null) {
-        let itemPlatform = document.createElement("p");
-        let itemPlatformNode = document.createTextNode(itemInfo.platform);
-        itemPlatform.appendChild(itemPlatformNode);
-        itemPlatform.classList.add("platform");
-        itemInfoDiv.appendChild(itemPlatform);
+        str += itemInfo.platform;
+
+        if (itemInfo.storefront != null)
+            str += " | ";
     }
 
     if (itemInfo.storefront != null) {
-        let itemStorefront = document.createElement("p");
-        let itemStorefrontNode = document.createTextNode(itemInfo.storefront);
-        itemStorefront.appendChild(itemStorefrontNode);
-        itemStorefront.classList.add("storefront");
-        itemInfoDiv.appendChild(itemStorefront);
+        str += itemInfo.storefront;
+    }
+
+    let itemPlatformNode = document.createTextNode(str);
+    itemPlatform.appendChild(itemPlatformNode);
+    itemPlatform.classList.add("platform");
+    itemInfoDiv.appendChild(itemPlatform);
+
+    //Creates the time display element
+    if (itemInfo.time != null) {
+        let itemTime = document.createElement("h2");
+
+        if (itemInfo.time.endsWith(":00")) {
+            itemInfo.time = itemInfo.time.slice(0, -3);
+        }
+
+        let itemTimeNode = document.createTextNode(itemInfo.time);
+        itemTime.classList.add("time");
+
+        let timeIcon = document.createElement("img");
+        timeIcon.src = "icons/time.svg";
+        timeIcon.classList.add("icon-intext");
+        timeIcon.style.marginRight = "0.25em";
+
+        itemTime.appendChild(timeIcon);
+        itemTime.appendChild(itemTimeNode);
+
+        itemInfoDiv.appendChild(itemTime);
+    }
+
+    //Checks for gamerscore
+    if (itemInfo.gamerscore != null) {
+        let itemGamerscore = document.createElement("h3");
+        itemGamerscoreNode = document.createTextNode(itemInfo.gamerscore + " / " + itemInfo.gamerscoremax);
+        itemGamerscore.classList.add("gamerscore");
+
+        let gamerscoreIcon = document.createElement("img")
+        gamerscoreIcon.src = "icons/gamerscore.svg";
+        gamerscoreIcon.classList.add("icon-intext");
+        gamerscoreIcon.style.marginRight = "0.25em";
+
+        itemGamerscore.appendChild(gamerscoreIcon);
+        itemGamerscore.appendChild(itemGamerscoreNode);
+
+        itemInfoDiv.appendChild(itemGamerscore);
+    }
+
+    //Checks for trophies
+    if (itemInfo.trophies != null) {
+        //Break stops trophies being in line with other text
+        itemInfoDiv.appendChild(document.createElement("br"));
+
+        //Splits the trophies into an individual array
+        let trophies = itemInfo.trophies.split(".");
+
+        //platinum icon generation
+        if (itemInfo.hasplatinum) {
+            console.log("has platinum");
+
+            let platinumFig = document.createElement("figure");
+            platinumFig.classList.add("trophy-figure");
+
+            let platinumIcon = document.createElement("img");
+
+            if (trophies[0] != "0")
+                platinumIcon.src = "icons/plat_filled.png";
+            else
+                platinumIcon.src = "icons/plat_outline.png";
+
+            platinumIcon.classList.add("trophy-icon");
+
+            platinumFig.appendChild(platinumIcon);
+            itemInfoDiv.appendChild(platinumFig);
+        }
+
+        //Gold generation
+        let goldFig = document.createElement("figure");
+        goldFig.classList.add("trophy-figure");
+
+        let goldIcon = document.createElement("img");
+        if (trophies[1] != "0")
+            goldIcon.src = "icons/gold_filled.png";
+        else
+            goldIcon.src = "icons/gold_outline.png";
+        goldIcon.classList.add("trophy-icon");
+
+        goldFig.appendChild(goldIcon);
+
+        let goldText = document.createElement("figcaption");
+        if (trophies[1] == "0")
+            trophies[1] = "";
+        let goldTextNode = document.createTextNode(trophies[1]);
+        goldText.classList.add("trophy-text");
+        goldText.classList.add("gold");
+        goldText.appendChild(goldTextNode);
+        goldFig.appendChild(goldText);
+        itemInfoDiv.appendChild(goldFig);
+
+        //Silver generation
+        let silverFig = document.createElement("figure");
+        silverFig.classList.add("trophy-figure");
+
+        let silverIcon = document.createElement("img");
+        if (trophies[2] != "0")
+            silverIcon.src = "icons/silver_filled.png";
+        else
+            silverIcon.src = "icons/silver_outline.png";
+        silverIcon.classList.add("trophy-icon");
+
+        silverFig.appendChild(silverIcon);
+
+        let silverText = document.createElement("figcaption");
+        if (trophies[2] == "0")
+            trophies[2] = "";
+        let silverTextNode = document.createTextNode(trophies[2]);
+        silverText.classList.add("trophy-text");
+        silverText.classList.add("silver");
+        silverText.appendChild(silverTextNode);
+        silverFig.appendChild(silverText);
+        itemInfoDiv.appendChild(silverFig);
+
+        //Bronze generation
+        let bronzeFig = document.createElement("figure");
+        bronzeFig.classList.add("trophy-figure");
+
+        let bronzeIcon = document.createElement("img");
+        if (trophies[3] != "0")
+            bronzeIcon.src = "icons/bronze_filled.png";
+        else
+            bronzeIcon.src = "icons/bronze_outline.png";
+        bronzeIcon.classList.add("trophy-icon");
+
+        bronzeFig.appendChild(bronzeIcon);
+
+        let bronzeText = document.createElement("figcaption");
+        if (trophies[3] == "0")
+            trophies[3] == "";
+        let bronzeTextNode = document.createTextNode(trophies[3]);
+        bronzeText.classList.add("trophy-text");
+        bronzeText.classList.add("bronze");
+        bronzeText.appendChild(bronzeTextNode);
+        bronzeFig.appendChild(bronzeText);
+        itemInfoDiv.appendChild(bronzeFig);
+
+        //Total generation
+        let trophyCount = document.createElement("p");
+        trophyCount.classList.add("trophy-figure");
+        trophyCount.classList.add("trophy-text");
+        trophyCount.style.height = "1em";
+        let trophyTextNode = document.createTextNode("/ " + trophies[4]);
+        trophyCount.appendChild(trophyTextNode);
+        itemInfoDiv.appendChild(trophyCount);
+    }
+
+    //Creates the progress bar
+    if (itemInfo.progress != null) {
+        let itemProgressBase = document.createElement("div");
+        itemProgressBase.classList.add("progress-back");
+
+        let itemProgressBar = document.createElement("div");
+        itemProgressBar.classList.add("progress-bar");
+        //Sets the percentage
+        itemProgressBar.style.setProperty('--progress', itemInfo.progress + "%");
+
+        //Changes the colour
+        if (itemInfo.progress >= 100)
+            itemProgressBar.style.backgroundColor = "gold";
+
+        itemProgressBase.appendChild(itemProgressBar);
+
+        //Adds the text underneath the progress bar
+        if (itemInfo.progressprefix != null) {
+            let itemProgressText = document.createElement("p");
+            itemProgressText.classList.add("progress-text");
+            itemProgressTextNode = document.createTextNode(itemInfo.progressprefix + ": " + itemInfo.progresscurrent + " / " + itemInfo.progressfull);
+
+            itemProgressText.appendChild(itemProgressTextNode);
+            itemProgressBase.appendChild(itemProgressText);
+        }
+
+        itemInfoDiv.appendChild(itemProgressBase);
     }
 
     collectionElement.appendChild(itemInfoDiv);
