@@ -109,6 +109,7 @@ function CreateItem(itemInfo) {
     if (itemInfo.subtitle != null) {
         itemTitle.style.marginBottom = "0px";
         itemTitle.style.paddingBottom = "0px";
+        itemTitle.style.overflow = "visible";
 
         let itemSubtitle = document.createElement("p");
         let itemSubtitleNode = document.createTextNode(itemInfo.subtitle);
@@ -200,6 +201,9 @@ function CreateItem(itemInfo) {
         //Splits the trophies into an individual array
         let trophies = itemInfo.trophies.split(".");
 
+        let trophyWrapper = document.createElement("div");
+        trophyWrapper.classList.add("trophy-wrapper");
+
         //platinum icon generation
         if (itemInfo.hasplatinum) {
             console.log("has platinum");
@@ -217,7 +221,7 @@ function CreateItem(itemInfo) {
             platinumIcon.classList.add("trophy-icon");
 
             platinumFig.appendChild(platinumIcon);
-            itemInfoDiv.appendChild(platinumFig);
+            trophyWrapper.appendChild(platinumFig);
         }
 
         //Gold generation
@@ -241,7 +245,7 @@ function CreateItem(itemInfo) {
         goldText.classList.add("gold");
         goldText.appendChild(goldTextNode);
         goldFig.appendChild(goldText);
-        itemInfoDiv.appendChild(goldFig);
+        trophyWrapper.appendChild(goldFig);
 
         //Silver generation
         let silverFig = document.createElement("figure");
@@ -264,7 +268,7 @@ function CreateItem(itemInfo) {
         silverText.classList.add("silver");
         silverText.appendChild(silverTextNode);
         silverFig.appendChild(silverText);
-        itemInfoDiv.appendChild(silverFig);
+        trophyWrapper.appendChild(silverFig);
 
         //Bronze generation
         let bronzeFig = document.createElement("figure");
@@ -287,16 +291,17 @@ function CreateItem(itemInfo) {
         bronzeText.classList.add("bronze");
         bronzeText.appendChild(bronzeTextNode);
         bronzeFig.appendChild(bronzeText);
-        itemInfoDiv.appendChild(bronzeFig);
+        trophyWrapper.appendChild(bronzeFig);
 
         //Total generation
         let trophyCount = document.createElement("p");
         trophyCount.classList.add("trophy-figure");
         trophyCount.classList.add("trophy-text");
-        trophyCount.style.height = "1em";
         let trophyTextNode = document.createTextNode("/ " + trophies[4]);
         trophyCount.appendChild(trophyTextNode);
-        itemInfoDiv.appendChild(trophyCount);
+        trophyWrapper.appendChild(trophyCount);
+
+        itemInfoDiv.appendChild(trophyWrapper);
     }
 
     //Creates the progress bar
