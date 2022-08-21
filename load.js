@@ -341,8 +341,10 @@ function CreateItem(itemInfo) {
         progressNoteHeader.classList.add("progress-note-text");
         progressNoteHeader.style.fontWeight = "bold";
         let str = "";
-        if (itemInfo.retired)
+        if (itemInfo.retired) {
             str = "Retired Notes:";
+            progressNoteHeader.classList.add("retired-item");
+        }
         else
             str = "Progress:";
 
