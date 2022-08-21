@@ -340,10 +340,19 @@ function CreateItem(itemInfo) {
         let progressNoteHeader = document.createElement("h4");
         progressNoteHeader.classList.add("progress-note-text");
         progressNoteHeader.style.fontWeight = "bold";
+
         let str = "";
         if (itemInfo.retired) {
             str = "Retired Notes:";
             progressNoteHeader.classList.add("retired-item");
+        }
+        else if (itemInfo.beaten) {
+            str = "Playthrough Notes:";
+            progressNoteHeader.classList.add("beaten-item");
+        }
+        else if (itemInfo.completed) {
+            str = "Playthrough Notes:";
+            progressNoteHeader.classList.add("completed-item");
         }
         else
             str = "Progress:";
