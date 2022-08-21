@@ -1,6 +1,7 @@
 //Handles loading the main collection page
 
 let collectionElement = document.getElementById("collection");
+let headerElement = document.getElementById("header");
 let loaderElement = document.getElementById("loader");
 let errorElement = document.getElementById("error");
 
@@ -20,6 +21,7 @@ $.ajax({
         });
 
         loaderElement.style.display = "none";
+        headerElement.style.display = "block";
         collectionElement.style.display = "block";
         errorElement.style.display = "none";
     })
@@ -31,6 +33,7 @@ $.ajax({
 //Shows an error message
 function SetErrorDisplay() {
     loaderElement.style.display = "none"
+    headerElement.style.display = "none"
     collectionElement.style.display = "none"
     errorElement.style.display = "block"
 }
@@ -354,8 +357,12 @@ function CreateItem(itemInfo) {
             str = "Playthrough Notes:";
             progressNoteHeader.classList.add("completed-item");
         }
-        else
+        else {
             str = "Progress:";
+
+            if (itemInfo.playing)
+                progressNoteHeader.classList.add("playing-item");
+        }
 
         let progressNoteHeaderNode = document.createTextNode(str)
         progressNoteHeader.appendChild(progressNoteHeaderNode);
