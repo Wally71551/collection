@@ -5,6 +5,18 @@ let headerElement = document.getElementById("header");
 let loaderElement = document.getElementById("loader");
 let errorElement = document.getElementById("error");
 
+//Values used to set up the header
+let playthroughCount = 0;
+let collectionCount = 0;
+
+let gameCount = 0;
+let movieCount = 0;
+let seriesCount = 0;
+
+let totalTrophyCount = [0, 0, 0, 0];
+let totalgamerScore = 0;
+let totalAchievements = 0;
+
 $.ajax({
     url: "https://sheetlabs.com/W751/Collection",
     crossDomain: true,
@@ -12,6 +24,7 @@ $.ajax({
     .done(function (data) {
         if (data.length == 0) {
             console.log("No results found");
+            SetErrorDisplay();
             return;
         }
         $.each(data, function (key, value) {
@@ -19,6 +32,8 @@ $.ajax({
 
             CreateItem(value);
         });
+
+        HeaderSetup();
 
         loaderElement.style.display = "none";
         headerElement.style.display = "block";
@@ -30,12 +45,16 @@ $.ajax({
         SetErrorDisplay();
     });
 
-//Shows an error message
-function SetErrorDisplay() {
-    loaderElement.style.display = "none"
-    headerElement.style.display = "none"
-    collectionElement.style.display = "none"
-    errorElement.style.display = "block"
+function HeaderSetup() {
+    let playthroughText = document.createElement("h1");
+    let playthroughTextNode = document.createTextNode("Playthroughs: " + playthroughCount);
+    playthroughText.appendChild(playthroughTextNode);
+    headerElement.appendChild(playthroughText);
+
+    let collectionText = document.createElement("h2");
+    let collectionTextNode = document.createTextNode("Collection: " + collectionCount);
+    collectionText.appendChild(collectionTextNode);
+    headerElement.appendChild(collectionText);
 }
 
 //Function creates an individual item display based on the spreadsheet row passed in
@@ -43,6 +62,10 @@ function CreateItem(itemInfo) {
     //Creates the base box
     let itemInfoDiv = document.createElement("li")
     itemInfoDiv.classList.add("name-item");
+
+    playthroughCount++;
+    if (itemInfo.uniqueitem)
+        collectionCount++;
 
     //Input image
     //Creates the wrapper for the image
@@ -379,4 +402,16 @@ function CreateItem(itemInfo) {
     }
 
     collectionElement.appendChild(itemInfoDiv);
+}
+
+function UpdateCollectionCounts(gameType) {
+
+}
+
+//Shows an error message
+function SetErrorDisplay() {
+    loaderElement.style.display = "none"
+    headerElement.style.display = "none"
+    collectionElement.style.display = "none"
+    errorElement.style.display = "block"
 }
