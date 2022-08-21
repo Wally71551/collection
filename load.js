@@ -314,6 +314,7 @@ function CreateItem(itemInfo) {
             itemProgressBar.style.backgroundColor = "gold";
 
         itemProgressBase.appendChild(itemProgressBar);
+        itemInfoDiv.appendChild(itemProgressBase);
 
         //Adds the text underneath the progress bar
         if (itemInfo.progressprefix != null) {
@@ -322,10 +323,36 @@ function CreateItem(itemInfo) {
             itemProgressTextNode = document.createTextNode(itemInfo.progressprefix + ": " + itemInfo.progresscurrent + " / " + itemInfo.progressfull);
 
             itemProgressText.appendChild(itemProgressTextNode);
-            itemProgressBase.appendChild(itemProgressText);
+            itemInfoDiv.appendChild(itemProgressText);
         }
+    }
 
-        itemInfoDiv.appendChild(itemProgressBase);
+    //Creates the progress note
+    if (itemInfo.progressnote != null) {
+        let progressNoteDiv = document.createElement("div");
+        progressNoteDiv.classList.add("progress-note");
+
+        let progressNoteHeader = document.createElement("h4");
+        progressNoteHeader.classList.add("progress-note-text");
+        progressNoteHeader.style.fontWeight = "bold";
+        let str = "";
+        if (itemInfo.retired)
+            str = "Retired Notes:";
+        else
+            str = "Progress:";
+
+        let progressNoteHeaderNode = document.createTextNode(str)
+        progressNoteHeader.appendChild(progressNoteHeaderNode);
+        progressNoteDiv.appendChild(progressNoteHeader);
+        progressNoteDiv.appendChild(document.createElement("br"));
+
+        let progressNote = document.createElement("p");
+        progressNote.classList.add("progress-note-text");
+        let progressNoteNode = document.createTextNode(itemInfo.progressnote);
+        progressNote.appendChild(progressNoteNode);
+        progressNoteDiv.appendChild(progressNote);
+
+        itemInfoDiv.appendChild(progressNoteDiv);
     }
 
     collectionElement.appendChild(itemInfoDiv);
