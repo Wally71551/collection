@@ -119,15 +119,58 @@ function HeaderSetup() {
     bronzeFig.appendChild(bronzeText);
     trophyWrapper.appendChild(bronzeFig);
     //Total generation
-    let trophyCount = document.createElement("p");
-    trophyCount.classList.add("trophy-figure");
-    trophyCount.classList.add("trophy-text");
-    let trophyTextNode = document.createTextNode((totalTrophies[0]+totalTrophies[1]+totalTrophies[2]+totalTrophies[3]));
-    trophyCount.appendChild(trophyTextNode);
-    trophyWrapper.appendChild(trophyCount);
+    let totalFig = document.createElement("figure");
+    totalFig.classList.add("trophy-figure");
+    let totalIcon = document.createElement("img");
+    totalIcon.src = "icons/alltrophies.png";
+    totalIcon.classList.add("trophy-icon");
+    totalFig.appendChild(totalIcon);
+    let totalText = document.createElement("figcaption");
+    let totalTextNode = document.createTextNode((totalTrophies[0]+totalTrophies[1]+totalTrophies[2]+totalTrophies[3]));
+    totalText.classList.add("trophy-text");
+    totalText.appendChild(totalTextNode);
+    totalFig.appendChild(totalText);
+    trophyWrapper.appendChild(totalFig);
     headerElement.appendChild(trophyWrapper);
 
     //Total gamerscore generation
+    let itemGamerscore = document.createElement("h3");
+    itemGamerscoreNode = document.createTextNode(totalGamerscore);
+    itemGamerscore.classList.add("gamerscore");
+    itemGamerscore.classList.add("header-flex-wrapper");
+    let gamerscoreIcon = document.createElement("img")
+    gamerscoreIcon.src = "icons/gamerscore.svg";
+    gamerscoreIcon.classList.add("icon-intext");
+    gamerscoreIcon.style.marginRight = "0.25em";
+    itemGamerscore.appendChild(gamerscoreIcon);
+    itemGamerscore.appendChild(itemGamerscoreNode);
+    headerElement.appendChild(itemGamerscore);
+
+    //Total achievements generation
+    let itemAchievements = document.createElement("h3");
+    itemAchievementsNode = document.createTextNode(totalAchievements);
+    itemAchievements.classList.add("gamerscore");
+    itemAchievements.classList.add("header-flex-wrapper");
+    let achievementsIcon = document.createElement("img");
+    achievementsIcon.src = "icons/achievement.svg";
+    achievementsIcon.classList.add("icon-intext");
+    achievementsIcon.style.marginRight = "0.25em";
+    itemAchievements.appendChild(achievementsIcon);
+    itemAchievements.appendChild(itemAchievementsNode);
+    headerElement.appendChild(itemAchievements);
+
+    //Total time generation
+    let totalTimeDisplay = document.createElement("h2");
+    totalTimeNode = document.createTextNode(totalTime[0] + ":" + totalTime[1].toLocaleString('en-US', { minimumIntegerDigits: 2 }) + ":" + totalTime[2].toLocaleString('en-US', { minimumIntegerDigits: 2 }));
+    totalTimeDisplay.classList.add("time");
+    totalTimeDisplay.classList.add("header-flex-wrapper");
+    let timeIcon = document.createElement("img");
+    timeIcon.src = "icons/time.svg";
+    timeIcon.classList.add("icon-intext");
+    timeIcon.style.marginRight = "0.25em";
+    totalTimeDisplay.appendChild(timeIcon);
+    totalTimeDisplay.appendChild(totalTimeNode);
+    headerElement.appendChild(totalTimeDisplay);
 }
 
 //Function creates an individual item display based on the spreadsheet row passed in
@@ -280,7 +323,9 @@ function CreateItem(itemInfo) {
 
     //Checks for gamerscore
     if (itemInfo.gamerscore != null) {
-        totalGamerscore += itemInfo.gamerscore;
+        if (itemInfo.uniqueitem) {
+            totalGamerscore += Number(itemInfo.gamerscore);
+        }
 
         let itemGamerscore = document.createElement("h3");
         itemGamerscoreNode = document.createTextNode(itemInfo.gamerscore + " / " + itemInfo.gamerscoremax);
@@ -305,8 +350,10 @@ function CreateItem(itemInfo) {
         //Splits the trophies into an individual array
         let trophies = itemInfo.trophies.split(".");
 
-        if(itemInfo.uniqueitem)
+        if (itemInfo.uniqueitem) {
             UpdateTrophyCount(trophies);
+            totalAchievements += itemInfo.progresscurrent;
+        }
 
         let trophyWrapper = document.createElement("div");
         trophyWrapper.classList.add("trophy-wrapper");
@@ -430,6 +477,11 @@ function CreateItem(itemInfo) {
 
         //Adds the text underneath the progress bar
         if (itemInfo.progressprefix != null) {
+            //Increments the achievement count
+            if (itemInfo.progressprefix == "Achievements" && itemInfo.uniqueitem) {
+                totalAchievements += Number(itemInfo.progresscurrent);
+            }
+
             let itemProgressText = document.createElement("p");
             itemProgressText.classList.add("progress-text");
             itemProgressTextNode = document.createTextNode(itemInfo.progressprefix + ": " + itemInfo.progresscurrent + " / " + itemInfo.progressfull);
@@ -519,9 +571,22 @@ function UpdateTrophyCount(trophyArray) {
 }
 
 function UpdateTotalTime(time) {
-    //Break the values up
-    //Add
-    //Check for overflow
+    //Updates the total time value
+    let timeValues = time.split(":");
+    totalTime[0] += Number(timeValues[0]);
+    totalTime[1] += Number(timeValues[1]);
+    if (timeValues[2] != null) {
+        totalTime[2] += Number(timeValues[2]);
+    }
+    //Checks for the values going above 60
+    if (totalTime[2] >= 60) {
+        totalTime[1]++;
+        totalTime[2] -= 60;
+    }
+    if (totalTime[1] >= 60) {
+        totalTime[0]++;
+        totalTime[1] -= 60;
+    }
 }
 
 //Shows an error message
