@@ -10,9 +10,11 @@ let playthroughCount = 0;
 let collectionCount = 0;
 
 let gameCount = 0;
+let dlcCount = 0;
 let filmCount = 0;
 let seriesCount = 0;
 let bookCount = 0;
+let soundtrackCount = 0;
 
 let totalTrophies = [0, 0, 0, 0];
 let totalGamerscore = 0;
@@ -134,7 +136,7 @@ function HeaderSetup() {
     headerElement.appendChild(trophyWrapper);
 
     //Total gamerscore generation
-    let itemGamerscore = document.createElement("h3");
+    let itemGamerscore = document.createElement("h2");
     itemGamerscoreNode = document.createTextNode(totalGamerscore);
     itemGamerscore.classList.add("gamerscore");
     itemGamerscore.classList.add("header-flex-wrapper");
@@ -147,7 +149,7 @@ function HeaderSetup() {
     headerElement.appendChild(itemGamerscore);
 
     //Total achievements generation
-    let itemAchievements = document.createElement("h3");
+    let itemAchievements = document.createElement("h2");
     itemAchievementsNode = document.createTextNode(totalAchievements);
     itemAchievements.classList.add("gamerscore");
     itemAchievements.classList.add("header-flex-wrapper");
@@ -265,6 +267,13 @@ function CreateItem(itemInfo) {
     let itemType = document.createElement("h3");
     let itemTypeNode = document.createTextNode(itemInfo.type)
     itemType.classList.add("type");
+
+    let typeIcon = document.createElement("img");
+    typeIcon.src = GetTypeIcon(itemInfo.type);
+    typeIcon.classList.add("icon-intext");
+    typeIcon.style.marginRight = "0.25em";
+
+    itemType.appendChild(typeIcon);
     itemType.appendChild(itemTypeNode);
 
     if (itemInfo.replay) {
@@ -540,11 +549,13 @@ function CreateItem(itemInfo) {
 function UpdateCollectionCounts(gameType) {
     switch (gameType) {
         case "Game":
-        case "DLC":
-        case "Game Update":
         case "Collection":
         default:
             gameCount++;
+            break;
+        case "DLC":
+        case "Game Update":
+            dlcCount++;
             break;
         case "Film":
         case "Film Boxset":
@@ -560,6 +571,35 @@ function UpdateCollectionCounts(gameType) {
         case "Book":
             bookCount++;
             break;
+        case "Soundtrack":
+            soundtrackCount++;
+            break;
+    }
+}
+
+function GetTypeIcon(gameType) {
+    switch (gameType) {
+        case "Game":
+        default:
+            return "icons/game.svg";
+        case "DLC":
+        case "Update":
+            return "icons/dlc.svg";
+        case "Film":
+            return "icons/film.svg";
+        case "Collection":
+        case "Film Boxset":
+            return "icons/collection.svg";
+        case "Series":
+        case "Show":
+            return "icons/series.svg";
+        case "Comic":
+        case "Manga":
+        case "Novel":
+        case "Book":
+            return "icons/book.svg";
+        case "Soundtrack":
+            return "icons/soundtrack.svg";
     }
 }
 
