@@ -10,12 +10,14 @@ let playthroughCount = 0;
 let collectionCount = 0;
 
 let gameCount = 0;
-let movieCount = 0;
+let filmCount = 0;
 let seriesCount = 0;
+let bookCount = 0;
 
-let totalTrophyCount = [0, 0, 0, 0];
-let totalgamerScore = 0;
+let totalTrophies = [0, 0, 0, 0];
+let totalGamerscore = 0;
 let totalAchievements = 0;
+let totalTime = [0, 0, 0];
 
 $.ajax({
     url: "https://sheetlabs.com/W751/Collection",
@@ -55,6 +57,77 @@ function HeaderSetup() {
     let collectionTextNode = document.createTextNode("Collection: " + collectionCount);
     collectionText.appendChild(collectionTextNode);
     headerElement.appendChild(collectionText);
+
+    //Total trophies
+    let trophyWrapper = document.createElement("div");
+    trophyWrapper.classList.add("trophy-wrapper");
+    trophyWrapper.classList.add("header-flex-wrapper");
+    //platinum icon
+    let platinumFig = document.createElement("figure");
+    platinumFig.classList.add("trophy-figure");
+    let platinumIcon = document.createElement("img");
+    platinumIcon.src = "icons/plat_filled.png";
+    platinumIcon.classList.add("trophy-icon");
+    platinumFig.appendChild(platinumIcon);
+    let platinumText = document.createElement("figcaption");
+    let platTextNode = document.createTextNode(totalTrophies[0]);
+    platinumText.classList.add("trophy-text");
+    platinumText.classList.add("platinum");
+    platinumText.appendChild(platTextNode);
+    platinumFig.appendChild(platinumText);
+    trophyWrapper.appendChild(platinumFig);
+    //Gold generation
+    let goldFig = document.createElement("figure");
+    goldFig.classList.add("trophy-figure");
+    let goldIcon = document.createElement("img");
+    goldIcon.src = "icons/gold_filled.png";
+    goldIcon.classList.add("trophy-icon");
+    goldFig.appendChild(goldIcon);
+    let goldText = document.createElement("figcaption");
+    let goldTextNode = document.createTextNode(totalTrophies[1]);
+    goldText.classList.add("trophy-text");
+    goldText.classList.add("gold");
+    goldText.appendChild(goldTextNode);
+    goldFig.appendChild(goldText);
+    trophyWrapper.appendChild(goldFig);
+    //Silver generation
+    let silverFig = document.createElement("figure");
+    silverFig.classList.add("trophy-figure");
+    let silverIcon = document.createElement("img");
+    silverIcon.src = "icons/silver_filled.png";
+    silverIcon.classList.add("trophy-icon");
+    silverFig.appendChild(silverIcon);
+    let silverText = document.createElement("figcaption");
+    let silverTextNode = document.createTextNode(totalTrophies[2]);
+    silverText.classList.add("trophy-text");
+    silverText.classList.add("silver");
+    silverText.appendChild(silverTextNode);
+    silverFig.appendChild(silverText);
+    trophyWrapper.appendChild(silverFig);
+    //Bronze generation
+    let bronzeFig = document.createElement("figure");
+    bronzeFig.classList.add("trophy-figure");
+    let bronzeIcon = document.createElement("img");
+    bronzeIcon.src = "icons/bronze_filled.png";
+    bronzeIcon.classList.add("trophy-icon");
+    bronzeFig.appendChild(bronzeIcon);
+    let bronzeText = document.createElement("figcaption");
+    let bronzeTextNode = document.createTextNode(totalTrophies[3]);
+    bronzeText.classList.add("trophy-text");
+    bronzeText.classList.add("bronze");
+    bronzeText.appendChild(bronzeTextNode);
+    bronzeFig.appendChild(bronzeText);
+    trophyWrapper.appendChild(bronzeFig);
+    //Total generation
+    let trophyCount = document.createElement("p");
+    trophyCount.classList.add("trophy-figure");
+    trophyCount.classList.add("trophy-text");
+    let trophyTextNode = document.createTextNode((totalTrophies[0]+totalTrophies[1]+totalTrophies[2]+totalTrophies[3]));
+    trophyCount.appendChild(trophyTextNode);
+    trophyWrapper.appendChild(trophyCount);
+    headerElement.appendChild(trophyWrapper);
+
+    //Total gamerscore generation
 }
 
 //Function creates an individual item display based on the spreadsheet row passed in
@@ -63,6 +136,7 @@ function CreateItem(itemInfo) {
     let itemInfoDiv = document.createElement("li")
     itemInfoDiv.classList.add("name-item");
 
+    //Updates header counts
     playthroughCount++;
     if (itemInfo.uniqueitem)
         collectionCount++;
@@ -182,6 +256,8 @@ function CreateItem(itemInfo) {
 
     //Creates the time display element
     if (itemInfo.time != null) {
+        UpdateTotalTime(itemInfo.time);
+
         let itemTime = document.createElement("h2");
 
         if (itemInfo.time.endsWith(":00")) {
@@ -204,6 +280,8 @@ function CreateItem(itemInfo) {
 
     //Checks for gamerscore
     if (itemInfo.gamerscore != null) {
+        totalGamerscore += itemInfo.gamerscore;
+
         let itemGamerscore = document.createElement("h3");
         itemGamerscoreNode = document.createTextNode(itemInfo.gamerscore + " / " + itemInfo.gamerscoremax);
         itemGamerscore.classList.add("gamerscore");
@@ -226,6 +304,9 @@ function CreateItem(itemInfo) {
 
         //Splits the trophies into an individual array
         let trophies = itemInfo.trophies.split(".");
+
+        if(itemInfo.uniqueitem)
+            UpdateTrophyCount(trophies);
 
         let trophyWrapper = document.createElement("div");
         trophyWrapper.classList.add("trophy-wrapper");
@@ -405,7 +486,42 @@ function CreateItem(itemInfo) {
 }
 
 function UpdateCollectionCounts(gameType) {
+    switch (gameType) {
+        case "Game":
+        case "DLC":
+        case "Game Update":
+        case "Collection":
+        default:
+            gameCount++;
+            break;
+        case "Film":
+        case "Film Boxset":
+            filmCount++;
+            break;
+        case "Series":
+        case "Show":
+            seriesCount++;
+            break;
+        case "Comic":
+        case "Manga":
+        case "Novel":
+        case "Book":
+            bookCount++;
+            break;
+    }
+}
 
+function UpdateTrophyCount(trophyArray) {
+    totalTrophies[0] = Number(totalTrophies[0]) + Number(trophyArray[0]);
+    totalTrophies[1] = Number(totalTrophies[1]) + Number(trophyArray[1]);
+    totalTrophies[2] = Number(totalTrophies[2]) + Number(trophyArray[2]);
+    totalTrophies[3] = Number(totalTrophies[3]) + Number(trophyArray[3]);
+}
+
+function UpdateTotalTime(time) {
+    //Break the values up
+    //Add
+    //Check for overflow
 }
 
 //Shows an error message
