@@ -14,7 +14,7 @@ let dlcCount = 0;
 let filmCount = 0;
 let seriesCount = 0;
 let bookCount = 0;
-let soundtrackCount = 0;
+let albumCount = 0;
 
 let totalTrophies = [0, 0, 0, 0];
 let totalGamerscore = 0;
@@ -50,16 +50,85 @@ $.ajax({
     });
 
 function HeaderSetup() {
-    let playthroughText = document.createElement("h1");
+    let collectionText = document.createElement("h1");
+    let collectionTextNode = document.createTextNode("Collection: " + collectionCount);
+    collectionText.style.marginTop = "0px";
+    collectionText.appendChild(collectionTextNode);
+    headerElement.appendChild(collectionText);
+
+    //Count display
+    let gameDisplay = document.createElement("h2");
+    gameCountNode = document.createTextNode(gameCount);
+    gameDisplay.classList.add("counter");
+    let gameIcon = document.createElement("img");
+    gameIcon.src = "icons/game.svg";
+    gameIcon.classList.add("icon-intext");
+    gameIcon.style.marginRight = "0.25em";
+    gameDisplay.appendChild(gameIcon);
+    gameDisplay.appendChild(gameCountNode);
+    headerElement.appendChild(gameDisplay);
+
+    let dlcDisplay = document.createElement("h2");
+    dlcCountNode = document.createTextNode(dlcCount);
+    dlcDisplay.classList.add("counter");
+    let dlcIcon = document.createElement("img");
+    dlcIcon.src = "icons/dlc.svg";
+    dlcIcon.classList.add("icon-intext");
+    dlcIcon.style.marginRight = "0.25em";
+    dlcDisplay.appendChild(dlcIcon);
+    dlcDisplay.appendChild(dlcCountNode);
+    headerElement.appendChild(dlcDisplay);
+
+    let filmDisplay = document.createElement("h2");
+    filmCountNode = document.createTextNode(filmCount);
+    filmDisplay.classList.add("counter");
+    let filmIcon = document.createElement("img");
+    filmIcon.src = "icons/film.svg";
+    filmIcon.classList.add("icon-intext");
+    filmIcon.style.marginRight = "0.25em";
+    filmDisplay.appendChild(filmIcon);
+    filmDisplay.appendChild(filmCountNode);
+    headerElement.appendChild(filmDisplay);
+
+    let seriesDisplay = document.createElement("h2");
+    seriesCountNode = document.createTextNode(seriesCount);
+    seriesDisplay.classList.add("counter");
+    let seriesIcon = document.createElement("img");
+    seriesIcon.src = "icons/series.svg";
+    seriesIcon.classList.add("icon-intext");
+    seriesIcon.style.marginRight = "0.25em";
+    seriesDisplay.appendChild(seriesIcon);
+    seriesDisplay.appendChild(seriesCountNode);
+    headerElement.appendChild(seriesDisplay);
+
+    let bookDisplay = document.createElement("h2");
+    bookCountNode = document.createTextNode(bookCount);
+    bookDisplay.classList.add("counter");
+    let bookIcon = document.createElement("img");
+    bookIcon.src = "icons/book.svg";
+    bookIcon.classList.add("icon-intext");
+    bookIcon.style.marginRight = "0.25em";
+    bookDisplay.appendChild(bookIcon);
+    bookDisplay.appendChild(bookCountNode);
+    headerElement.appendChild(bookDisplay);
+
+    let albumDisplay = document.createElement("h2");
+    albumCountNode = document.createTextNode(albumCount);
+    albumDisplay.classList.add("counter");
+    let albumIcon = document.createElement("img");
+    albumIcon.src = "icons/album.svg";
+    albumIcon.classList.add("icon-intext");
+    albumIcon.style.marginRight = "0.25em";
+    albumDisplay.appendChild(albumIcon);
+    albumDisplay.appendChild(albumCountNode);
+    headerElement.appendChild(albumDisplay);
+
+    let playthroughText = document.createElement("h2");
     let playthroughTextNode = document.createTextNode("Playthroughs: " + playthroughCount);
     playthroughText.appendChild(playthroughTextNode);
     headerElement.appendChild(playthroughText);
 
-    let collectionText = document.createElement("h2");
-    let collectionTextNode = document.createTextNode("Collection: " + collectionCount);
-    collectionText.appendChild(collectionTextNode);
-    headerElement.appendChild(collectionText);
-
+    //Achievement display
     //Total trophies
     let trophyWrapper = document.createElement("div");
     trophyWrapper.classList.add("trophy-wrapper");
@@ -178,13 +247,15 @@ function HeaderSetup() {
 //Function creates an individual item display based on the spreadsheet row passed in
 function CreateItem(itemInfo) {
     //Creates the base box
-    let itemInfoDiv = document.createElement("li")
+    let itemInfoDiv = document.createElement("li");
     itemInfoDiv.classList.add("name-item");
+
+    itemInfoDiv.setAttribute("name", itemInfo.rowid);
 
     //Updates header counts
     playthroughCount++;
     if (itemInfo.uniqueitem)
-        collectionCount++;
+        UpdateCollectionCounts(itemInfo.type);
 
     //Input image
     //Creates the wrapper for the image
@@ -547,6 +618,8 @@ function CreateItem(itemInfo) {
 }
 
 function UpdateCollectionCounts(gameType) {
+    collectionCount++;
+
     switch (gameType) {
         case "Game":
         case "Collection":
@@ -571,8 +644,9 @@ function UpdateCollectionCounts(gameType) {
         case "Book":
             bookCount++;
             break;
+        case "Album":
         case "Soundtrack":
-            soundtrackCount++;
+            albumCount++;
             break;
     }
 }
@@ -598,8 +672,9 @@ function GetTypeIcon(gameType) {
         case "Novel":
         case "Book":
             return "icons/book.svg";
+        case "Album":
         case "Soundtrack":
-            return "icons/soundtrack.svg";
+            return "icons/album.svg";
     }
 }
 

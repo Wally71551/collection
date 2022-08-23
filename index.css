@@ -146,6 +146,19 @@ footer {
     top: 77%;
 }
 
+.counter {
+    display: inline-flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    position: inherit;
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .icon-intext {
     width: 1em;
     height: 1em;
@@ -282,7 +295,7 @@ footer {
     display: inline-block;
     text-align: center;
     height: 3em;
-    width: 2em;
+    width: auto;
     margin: 0.25em;
     margin-bottom: 0px;
     align-self: flex-end;
@@ -302,7 +315,7 @@ footer {
     height: auto;
     align-self: flex-end;
     display: block;
-    width: 2em;
+    width: auto;
     margin-bottom: 0px;
     min-height: 1em;
 }
