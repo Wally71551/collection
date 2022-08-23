@@ -1,4 +1,5 @@
 //Handles loading the main collection page
+let baseAPIURL = "https://sheetlabs.com/W751/Collection"
 
 let collectionElement = document.getElementById("collection");
 let headerElement = document.getElementById("header");
@@ -21,8 +22,9 @@ let totalGamerscore = 0;
 let totalAchievements = 0;
 let totalTime = [0, 0, 0];
 
+//Initial load
 $.ajax({
-    url: "https://sheetlabs.com/W751/Collection",
+    url: baseAPIURL,
     crossDomain: true,
 })
     .done(function (data) {
@@ -710,4 +712,32 @@ function SetErrorDisplay() {
     headerElement.style.display = "none"
     collectionElement.style.display = "none"
     errorElement.style.display = "block"
+}
+
+function LoadedState(isLoading) {
+    if (isLoading) {
+        loaderElement.style.display = "block";
+        headerElement.style.display = "none";
+        collectionElement.style.display = "none";
+        errorElement.style.display = "none";
+    }
+    else {
+        loaderElement.style.display = "none";
+        headerElement.style.display = "block";
+        collectionElement.style.display = "block";
+        errorElement.style.display = "none";
+    }
+}
+
+//Search functions handle reloading the page when called by button press
+function SearchTitle(title) {
+
+}
+
+function SearchType(type) {
+
+}
+
+function ShowRowData(rowID) {
+
 }
