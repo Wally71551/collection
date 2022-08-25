@@ -351,6 +351,27 @@ footer {
     max-height: 3.5em;
 }
 
+.filter-button-wrapper {
+    height: auto;
+    width: auto;
+    display: block;
+}
+
+.filter-button {
+    height: 3em;
+    width: 6em;
+    display: inline-flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    margin-left: 0.25em;
+    margin-right: 0.25em;
+}
+
+.filter-button-used {
+    background-color: darkgrey;
+}
+
 #noNameFound {
     display: none;
     color: red;

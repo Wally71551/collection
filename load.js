@@ -1,8 +1,5 @@
-//Handles loading the main collection page
-let baseAPIURL = "https://sheetlabs.com/W751/Collection"
-
 let collectionElement = document.getElementById("collection");
-let headerElement = document.getElementById("header");
+let headerElement = document.getElementById("header-main");
 let loaderElement = document.getElementById("loader");
 let errorElement = document.getElementById("error");
 
@@ -22,34 +19,61 @@ let totalGamerscore = 0;
 let totalAchievements = 0;
 let totalTime = [0, 0, 0];
 
+//Search variable setup
+let baseAPIURL = "https://sheetlabs.com/W751/Collection"
+let searchURL = baseAPIURL;
+
+let filterCategory = "";
+let searchFilter = "";
+let searchType = "";
+
+Load();
+
 //Initial load
-$.ajax({
-    url: baseAPIURL,
-    crossDomain: true,
-})
-    .done(function (data) {
-        if (data.length == 0) {
-            console.log("No results found");
-            SetErrorDisplay();
-            return;
-        }
-        $.each(data, function (key, value) {
-            console.log(value.title);
+function Load() {
+    //Checks the search URL parameters to create the final URL
+    BuildURL();
 
-            CreateItem(value);
-        });
-
-        HeaderSetup();
-
-        loaderElement.style.display = "none";
-        headerElement.style.display = "block";
-        collectionElement.style.display = "block";
-        errorElement.style.display = "none";
+    //Gets the url and searches the array
+    $.ajax({
+        url: searchURL,
+        crossDomain: true,
     })
-    .fail(function () {
-        console.log("Failed");
-        SetErrorDisplay();
-    });
+        .done(function (data) {
+            if (data.length == 0) {
+                console.log("No results found");
+                SetErrorDisplay();
+                return;
+            }
+
+            ResetVariables();
+
+            $.each(data, function (key, value) {
+                console.log(value.title);
+                CreateItem(value);
+            });
+
+            HeaderSetup();
+            HeaderButtonSetup();
+
+            loaderElement.style.display = "none";
+            headerElement.style.display = "block";
+            collectionElement.style.display = "block";
+            errorElement.style.display = "none";
+        })
+        .fail(function () {
+            console.log("Failed");
+            SetErrorDisplay();
+        });
+}
+
+function BuildURL() {
+    searchURL = baseAPIURL;
+
+    if (filterCategory != "") {
+        searchURL = baseAPIURL + "?" + filterCategory + "=1";
+    }
+}
 
 function HeaderSetup() {
     let collectionText = document.createElement("h1");
@@ -59,71 +83,83 @@ function HeaderSetup() {
     headerElement.appendChild(collectionText);
 
     //Count display
-    let gameDisplay = document.createElement("h2");
-    gameCountNode = document.createTextNode(gameCount);
-    gameDisplay.classList.add("counter");
-    let gameIcon = document.createElement("img");
-    gameIcon.src = "icons/game.svg";
-    gameIcon.classList.add("icon-intext");
-    gameIcon.style.marginRight = "0.25em";
-    gameDisplay.appendChild(gameIcon);
-    gameDisplay.appendChild(gameCountNode);
-    headerElement.appendChild(gameDisplay);
+    if (gameCount > 0) {
+        let gameDisplay = document.createElement("h2");
+        gameCountNode = document.createTextNode(gameCount);
+        gameDisplay.classList.add("counter");
+        let gameIcon = document.createElement("img");
+        gameIcon.src = "icons/game.svg";
+        gameIcon.classList.add("icon-intext");
+        gameIcon.style.marginRight = "0.25em";
+        gameDisplay.appendChild(gameIcon);
+        gameDisplay.appendChild(gameCountNode);
+        headerElement.appendChild(gameDisplay);
+    }
 
-    let dlcDisplay = document.createElement("h2");
-    dlcCountNode = document.createTextNode(dlcCount);
-    dlcDisplay.classList.add("counter");
-    let dlcIcon = document.createElement("img");
-    dlcIcon.src = "icons/dlc.svg";
-    dlcIcon.classList.add("icon-intext");
-    dlcIcon.style.marginRight = "0.25em";
-    dlcDisplay.appendChild(dlcIcon);
-    dlcDisplay.appendChild(dlcCountNode);
-    headerElement.appendChild(dlcDisplay);
+    if (dlcCount > 0) {
+        let dlcDisplay = document.createElement("h2");
+        dlcCountNode = document.createTextNode(dlcCount);
+        dlcDisplay.classList.add("counter");
+        let dlcIcon = document.createElement("img");
+        dlcIcon.src = "icons/dlc.svg";
+        dlcIcon.classList.add("icon-intext");
+        dlcIcon.style.marginRight = "0.25em";
+        dlcDisplay.appendChild(dlcIcon);
+        dlcDisplay.appendChild(dlcCountNode);
+        headerElement.appendChild(dlcDisplay);
+    }
 
-    let filmDisplay = document.createElement("h2");
-    filmCountNode = document.createTextNode(filmCount);
-    filmDisplay.classList.add("counter");
-    let filmIcon = document.createElement("img");
-    filmIcon.src = "icons/film.svg";
-    filmIcon.classList.add("icon-intext");
-    filmIcon.style.marginRight = "0.25em";
-    filmDisplay.appendChild(filmIcon);
-    filmDisplay.appendChild(filmCountNode);
-    headerElement.appendChild(filmDisplay);
+    if (filmCount > 0) {
+        let filmDisplay = document.createElement("h2");
+        filmCountNode = document.createTextNode(filmCount);
+        filmDisplay.classList.add("counter");
+        let filmIcon = document.createElement("img");
+        filmIcon.src = "icons/film.svg";
+        filmIcon.classList.add("icon-intext");
+        filmIcon.style.marginRight = "0.25em";
+        filmDisplay.appendChild(filmIcon);
+        filmDisplay.appendChild(filmCountNode);
+        headerElement.appendChild(filmDisplay);
+    }
 
-    let seriesDisplay = document.createElement("h2");
-    seriesCountNode = document.createTextNode(seriesCount);
-    seriesDisplay.classList.add("counter");
-    let seriesIcon = document.createElement("img");
-    seriesIcon.src = "icons/series.svg";
-    seriesIcon.classList.add("icon-intext");
-    seriesIcon.style.marginRight = "0.25em";
-    seriesDisplay.appendChild(seriesIcon);
-    seriesDisplay.appendChild(seriesCountNode);
-    headerElement.appendChild(seriesDisplay);
+    if (seriesCount > 0) {
+        let seriesDisplay = document.createElement("h2");
+        seriesCountNode = document.createTextNode(seriesCount);
+        seriesDisplay.classList.add("counter");
+        let seriesIcon = document.createElement("img");
+        seriesIcon.src = "icons/series.svg";
+        seriesIcon.classList.add("icon-intext");
+        seriesIcon.style.marginRight = "0.25em";
+        seriesDisplay.appendChild(seriesIcon);
+        seriesDisplay.appendChild(seriesCountNode);
+        headerElement.appendChild(seriesDisplay);
+    }
 
-    let bookDisplay = document.createElement("h2");
-    bookCountNode = document.createTextNode(bookCount);
-    bookDisplay.classList.add("counter");
-    let bookIcon = document.createElement("img");
-    bookIcon.src = "icons/book.svg";
-    bookIcon.classList.add("icon-intext");
-    bookIcon.style.marginRight = "0.25em";
-    bookDisplay.appendChild(bookIcon);
-    bookDisplay.appendChild(bookCountNode);
-    headerElement.appendChild(bookDisplay);
+    if (bookCount > 0) {
+        let bookDisplay = document.createElement("h2");
+        bookCountNode = document.createTextNode(bookCount);
+        bookDisplay.classList.add("counter");
+        let bookIcon = document.createElement("img");
+        bookIcon.src = "icons/book.svg";
+        bookIcon.classList.add("icon-intext");
+        bookIcon.style.marginRight = "0.25em";
+        bookDisplay.appendChild(bookIcon);
+        bookDisplay.appendChild(bookCountNode);
+        headerElement.appendChild(bookDisplay);
+    }
 
-    let albumDisplay = document.createElement("h2");
-    albumCountNode = document.createTextNode(albumCount);
-    albumDisplay.classList.add("counter");
-    let albumIcon = document.createElement("img");
-    albumIcon.src = "icons/album.svg";
-    albumIcon.classList.add("icon-intext");
-    albumIcon.style.marginRight = "0.25em";
-    albumDisplay.appendChild(albumIcon);
-    albumDisplay.appendChild(albumCountNode);
-    headerElement.appendChild(albumDisplay);
+    if (albumCount > 0) {
+        let albumDisplay = document.createElement("h2");
+        albumCountNode = document.createTextNode(albumCount);
+        albumDisplay.classList.add("counter");
+        let albumIcon = document.createElement("img");
+        albumIcon.src = "icons/album.svg";
+        albumIcon.classList.add("icon-intext");
+        albumIcon.style.marginRight = "0.25em";
+        albumDisplay.appendChild(albumIcon);
+        albumDisplay.appendChild(albumCountNode);
+        headerElement.appendChild(albumDisplay);
+    }
 
     let playthroughText = document.createElement("h2");
     let playthroughTextNode = document.createTextNode("Playthroughs: " + playthroughCount);
@@ -132,118 +168,179 @@ function HeaderSetup() {
 
     //Achievement display
     //Total trophies
-    let trophyWrapper = document.createElement("div");
-    trophyWrapper.classList.add("trophy-wrapper");
-    trophyWrapper.classList.add("header-flex-wrapper");
-    //platinum icon
-    let platinumFig = document.createElement("figure");
-    platinumFig.classList.add("trophy-figure");
-    let platinumIcon = document.createElement("img");
-    platinumIcon.src = "icons/plat_filled.png";
-    platinumIcon.classList.add("trophy-icon");
-    platinumFig.appendChild(platinumIcon);
-    let platinumText = document.createElement("figcaption");
-    let platTextNode = document.createTextNode(totalTrophies[0]);
-    platinumText.classList.add("trophy-text");
-    platinumText.classList.add("platinum");
-    platinumText.appendChild(platTextNode);
-    platinumFig.appendChild(platinumText);
-    trophyWrapper.appendChild(platinumFig);
-    //Gold generation
-    let goldFig = document.createElement("figure");
-    goldFig.classList.add("trophy-figure");
-    let goldIcon = document.createElement("img");
-    goldIcon.src = "icons/gold_filled.png";
-    goldIcon.classList.add("trophy-icon");
-    goldFig.appendChild(goldIcon);
-    let goldText = document.createElement("figcaption");
-    let goldTextNode = document.createTextNode(totalTrophies[1]);
-    goldText.classList.add("trophy-text");
-    goldText.classList.add("gold");
-    goldText.appendChild(goldTextNode);
-    goldFig.appendChild(goldText);
-    trophyWrapper.appendChild(goldFig);
-    //Silver generation
-    let silverFig = document.createElement("figure");
-    silverFig.classList.add("trophy-figure");
-    let silverIcon = document.createElement("img");
-    silverIcon.src = "icons/silver_filled.png";
-    silverIcon.classList.add("trophy-icon");
-    silverFig.appendChild(silverIcon);
-    let silverText = document.createElement("figcaption");
-    let silverTextNode = document.createTextNode(totalTrophies[2]);
-    silverText.classList.add("trophy-text");
-    silverText.classList.add("silver");
-    silverText.appendChild(silverTextNode);
-    silverFig.appendChild(silverText);
-    trophyWrapper.appendChild(silverFig);
-    //Bronze generation
-    let bronzeFig = document.createElement("figure");
-    bronzeFig.classList.add("trophy-figure");
-    let bronzeIcon = document.createElement("img");
-    bronzeIcon.src = "icons/bronze_filled.png";
-    bronzeIcon.classList.add("trophy-icon");
-    bronzeFig.appendChild(bronzeIcon);
-    let bronzeText = document.createElement("figcaption");
-    let bronzeTextNode = document.createTextNode(totalTrophies[3]);
-    bronzeText.classList.add("trophy-text");
-    bronzeText.classList.add("bronze");
-    bronzeText.appendChild(bronzeTextNode);
-    bronzeFig.appendChild(bronzeText);
-    trophyWrapper.appendChild(bronzeFig);
-    //Total generation
-    let totalFig = document.createElement("figure");
-    totalFig.classList.add("trophy-figure");
-    let totalIcon = document.createElement("img");
-    totalIcon.src = "icons/alltrophies.png";
-    totalIcon.classList.add("trophy-icon");
-    totalFig.appendChild(totalIcon);
-    let totalText = document.createElement("figcaption");
-    let totalTextNode = document.createTextNode((totalTrophies[0]+totalTrophies[1]+totalTrophies[2]+totalTrophies[3]));
-    totalText.classList.add("trophy-text");
-    totalText.appendChild(totalTextNode);
-    totalFig.appendChild(totalText);
-    trophyWrapper.appendChild(totalFig);
-    headerElement.appendChild(trophyWrapper);
-
+    if (totalTrophies[0] + totalTrophies[1] + totalTrophies[2] + totalTrophies[3] > 0) {
+        let trophyWrapper = document.createElement("div");
+        trophyWrapper.classList.add("trophy-wrapper");
+        trophyWrapper.classList.add("header-flex-wrapper");
+        //platinum icon
+        let platinumFig = document.createElement("figure");
+        platinumFig.classList.add("trophy-figure");
+        let platinumIcon = document.createElement("img");
+        platinumIcon.classList.add("trophy-icon");
+        platinumFig.appendChild(platinumIcon);
+        if (totalTrophies[0] > 0) {
+            platinumIcon.src = "icons/plat_filled.png";
+            let platinumText = document.createElement("figcaption");
+            let platTextNode = document.createTextNode(totalTrophies[0]);
+            platinumText.classList.add("trophy-text");
+            platinumText.classList.add("platinum");
+            platinumText.appendChild(platTextNode);
+            platinumFig.appendChild(platinumText);
+        }
+        else {
+            platinumIcon.src = "icons/plat_outline.png";
+        }
+        trophyWrapper.appendChild(platinumFig);
+        //Gold generation
+        let goldFig = document.createElement("figure");
+        goldFig.classList.add("trophy-figure");
+        let goldIcon = document.createElement("img");
+        goldIcon.classList.add("trophy-icon");
+        goldFig.appendChild(goldIcon);
+        if (totalTrophies[1] > 0) {
+            goldIcon.src = "icons/gold_filled.png";
+            let goldText = document.createElement("figcaption");
+            let goldTextNode = document.createTextNode(totalTrophies[1]);
+            goldText.classList.add("trophy-text");
+            goldText.classList.add("gold");
+            goldText.appendChild(goldTextNode);
+            goldFig.appendChild(goldText);
+        }
+        else {
+            goldIcon.src = "icons/gold_outline.png";
+        }
+        trophyWrapper.appendChild(goldFig);
+        //Silver generation
+        let silverFig = document.createElement("figure");
+        silverFig.classList.add("trophy-figure");
+        let silverIcon = document.createElement("img");
+        silverIcon.classList.add("trophy-icon");
+        silverFig.appendChild(silverIcon);
+        if (totalTrophies[2] > 0) {
+            silverIcon.src = "icons/silver_filled.png";
+            let silverText = document.createElement("figcaption");
+            let silverTextNode = document.createTextNode(totalTrophies[2]);
+            silverText.classList.add("trophy-text");
+            silverText.classList.add("silver");
+            silverText.appendChild(silverTextNode);
+            silverFig.appendChild(silverText);
+        }
+        else {
+            silverIcon.src = "icons/silver_outline.png";
+        }
+        trophyWrapper.appendChild(silverFig);
+        //Bronze generation
+        let bronzeFig = document.createElement("figure");
+        bronzeFig.classList.add("trophy-figure");
+        let bronzeIcon = document.createElement("img");
+        bronzeIcon.classList.add("trophy-icon");
+        bronzeFig.appendChild(bronzeIcon);
+        if (totalTrophies[3] > 0) {
+            bronzeIcon.src = "icons/bronze_filled.png";
+            let bronzeText = document.createElement("figcaption");
+            let bronzeTextNode = document.createTextNode(totalTrophies[3]);
+            bronzeText.classList.add("trophy-text");
+            bronzeText.classList.add("bronze");
+            bronzeText.appendChild(bronzeTextNode);
+            bronzeFig.appendChild(bronzeText);
+        }
+        else {
+            bronzeIcon.src = "icons/bronze_outline.png";
+        }
+        trophyWrapper.appendChild(bronzeFig);
+        //Total generation (only gets here if more than 1 trophy)
+        let totalFig = document.createElement("figure");
+        totalFig.classList.add("trophy-figure");
+        let totalIcon = document.createElement("img");
+        totalIcon.src = "icons/alltrophies.png";
+        totalIcon.classList.add("trophy-icon");
+        totalFig.appendChild(totalIcon);
+        let totalText = document.createElement("figcaption");
+        let totalTextNode = document.createTextNode((totalTrophies[0] + totalTrophies[1] + totalTrophies[2] + totalTrophies[3]));
+        totalText.classList.add("trophy-text");
+        totalText.appendChild(totalTextNode);
+        totalFig.appendChild(totalText);
+        trophyWrapper.appendChild(totalFig);
+        headerElement.appendChild(trophyWrapper);
+    }
+    
     //Total gamerscore generation
-    let itemGamerscore = document.createElement("h2");
-    itemGamerscoreNode = document.createTextNode(totalGamerscore);
-    itemGamerscore.classList.add("gamerscore");
-    itemGamerscore.classList.add("header-flex-wrapper");
-    let gamerscoreIcon = document.createElement("img")
-    gamerscoreIcon.src = "icons/gamerscore.svg";
-    gamerscoreIcon.classList.add("icon-intext");
-    gamerscoreIcon.style.marginRight = "0.25em";
-    itemGamerscore.appendChild(gamerscoreIcon);
-    itemGamerscore.appendChild(itemGamerscoreNode);
-    headerElement.appendChild(itemGamerscore);
+    if (totalGamerscore > 0) {
+        let itemGamerscore = document.createElement("h2");
+        itemGamerscoreNode = document.createTextNode(totalGamerscore);
+        itemGamerscore.classList.add("gamerscore");
+        itemGamerscore.classList.add("header-flex-wrapper");
+        let gamerscoreIcon = document.createElement("img")
+        gamerscoreIcon.src = "icons/gamerscore.svg";
+        gamerscoreIcon.classList.add("icon-intext");
+        gamerscoreIcon.style.marginRight = "0.25em";
+        itemGamerscore.appendChild(gamerscoreIcon);
+        itemGamerscore.appendChild(itemGamerscoreNode);
+        headerElement.appendChild(itemGamerscore);
+    }
 
     //Total achievements generation
-    let itemAchievements = document.createElement("h2");
-    itemAchievementsNode = document.createTextNode(totalAchievements);
-    itemAchievements.classList.add("gamerscore");
-    itemAchievements.classList.add("header-flex-wrapper");
-    let achievementsIcon = document.createElement("img");
-    achievementsIcon.src = "icons/achievement.svg";
-    achievementsIcon.classList.add("icon-intext");
-    achievementsIcon.style.marginRight = "0.25em";
-    itemAchievements.appendChild(achievementsIcon);
-    itemAchievements.appendChild(itemAchievementsNode);
-    headerElement.appendChild(itemAchievements);
+    if (totalAchievements > 0) {
+        let itemAchievements = document.createElement("h2");
+        itemAchievementsNode = document.createTextNode(totalAchievements);
+        itemAchievements.classList.add("gamerscore");
+        itemAchievements.classList.add("header-flex-wrapper");
+        let achievementsIcon = document.createElement("img");
+        achievementsIcon.src = "icons/achievement.svg";
+        achievementsIcon.classList.add("icon-intext");
+        achievementsIcon.style.marginRight = "0.25em";
+        itemAchievements.appendChild(achievementsIcon);
+        itemAchievements.appendChild(itemAchievementsNode);
+        headerElement.appendChild(itemAchievements);
+    }
 
     //Total time generation
-    let totalTimeDisplay = document.createElement("h2");
-    totalTimeNode = document.createTextNode(totalTime[0] + ":" + totalTime[1].toLocaleString('en-US', { minimumIntegerDigits: 2 }) + ":" + totalTime[2].toLocaleString('en-US', { minimumIntegerDigits: 2 }));
-    totalTimeDisplay.classList.add("time");
-    totalTimeDisplay.classList.add("header-flex-wrapper");
-    let timeIcon = document.createElement("img");
-    timeIcon.src = "icons/time.svg";
-    timeIcon.classList.add("icon-intext");
-    timeIcon.style.marginRight = "0.25em";
-    totalTimeDisplay.appendChild(timeIcon);
-    totalTimeDisplay.appendChild(totalTimeNode);
-    headerElement.appendChild(totalTimeDisplay);
+    if (totalTime[0] + totalTime[1] + totalTime[2] > 0) {
+        let totalTimeDisplay = document.createElement("h2");
+        totalTimeNode = document.createTextNode(totalTime[0] + ":" + totalTime[1].toLocaleString('en-US', { minimumIntegerDigits: 2 }) + ":" + totalTime[2].toLocaleString('en-US', { minimumIntegerDigits: 2 }));
+        totalTimeDisplay.classList.add("time");
+        totalTimeDisplay.classList.add("header-flex-wrapper");
+        let timeIcon = document.createElement("img");
+        timeIcon.src = "icons/time.svg";
+        timeIcon.classList.add("icon-intext");
+        timeIcon.style.marginRight = "0.25em";
+        totalTimeDisplay.appendChild(timeIcon);
+        totalTimeDisplay.appendChild(totalTimeNode);
+        headerElement.appendChild(totalTimeDisplay);
+    }
+}
+
+//Creates the buttons for the header
+function HeaderButtonSetup() {
+    //Creates the wrapper for the buttons
+    headerElement.appendChild(document.createElement("br"));
+    headerElement.appendChild(document.createElement("br"));
+
+    let buttonWrapper = document.createElement("div");
+    buttonWrapper.classList.add("filter-button-wrapper");
+
+    let categories = ["Playing", "Backlog", "Unplayed", "Replay", "Retired", "Beaten", "Completed", "Null"];
+
+    //Creates each of the buttons
+    $.each(categories, function (key, value) {
+        let newButton = document.createElement("button");
+        newButton.classList.add("filter-button");
+        newButton.setAttribute("name", value.toLowerCase());
+        newButton.addEventListener("click", SearchCategory, false);
+
+        if (filterCategory == value.toLowerCase()) {
+            newButton.classList.add("filter-button-used");
+        }
+
+        let buttonText = document.createElement("p");
+        let buttonTextNode = document.createTextNode(value);
+        buttonText.appendChild(buttonTextNode);
+        newButton.appendChild(buttonText);
+        buttonWrapper.appendChild(newButton);
+    });
+
+    //Adds the button wrapper to the elements
+    headerElement.appendChild(buttonWrapper);
 }
 
 //Function creates an individual item display based on the spreadsheet row passed in
@@ -667,9 +764,9 @@ function GetTypeIcon(gameType) {
         case "Film Boxset":
             return "icons/collection.svg";
         case "Series":
-        case "Show":
             return "icons/series.svg";
         case "Comic":
+        case "Comic Collection":
         case "Manga":
         case "Novel":
         case "Book":
@@ -729,6 +826,26 @@ function LoadedState(isLoading) {
     }
 }
 
+function ClearInfo() {
+    headerElement.replaceChildren();
+    collectionElement.replaceChildren();
+}
+
+function ResetVariables() {
+    playthroughCount = 0;
+    collectionCount = 0;
+    gameCount = 0;
+    dlcCount = 0;
+    filmCount = 0;
+    seriesCount = 0;
+    bookCount = 0;
+    albumCount = 0;
+    totalTrophies = [0, 0, 0, 0];
+    totalGamerscore = 0;
+    totalAchievements = 0;
+    totalTime = [0, 0, 0];
+}
+
 //Search functions handle reloading the page when called by button press
 function SearchTitle(title) {
 
@@ -738,6 +855,46 @@ function SearchType(type) {
 
 }
 
-function ShowRowData(rowID) {
+function SearchCategory(buttonID) {
+    if (filterCategory == buttonID) {
+        filterCategory = "";
+    }
+    else {
+        filterCategory = buttonID;
+    }
+
+    LoadedState(true);
+    ClearInfo();
+    Load();
+}
+
+//Sorts the data by different variables
+function SortData(sortType) {
+    switch (sortType) {
+        case "Last Updated":
+        default:
+            break;
+        case "Alphabetical":
+            break;
+        case "Alphabetical Z-A":
+            break;
+        case "Date Added":
+            break;
+        case "Completion Date":
+            break;
+        case "Progress":
+            break;
+        case "Review Score":
+            break;
+    }
+}
+
+//Finds the row data to use as a popup
+function FindRowData() {
+
+}
+
+//Populates the information into the pop-up element and then displays it
+function CreatePopUp() {
 
 }
