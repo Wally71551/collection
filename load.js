@@ -54,7 +54,6 @@ function Load() {
             });
 
             HeaderSetup();
-            HeaderButtonSetup();
 
             loaderElement.style.display = "none";
             headerElement.style.display = "block";
@@ -78,7 +77,7 @@ function BuildURL() {
 function HeaderSetup() {
     let collectionText = document.createElement("h1");
     let collectionTextNode = document.createTextNode("Collection: " + collectionCount);
-    collectionText.style.marginTop = "0px";
+    //collectionText.style.marginTop = "0px";
     collectionText.appendChild(collectionTextNode);
     headerElement.appendChild(collectionText);
 
@@ -310,39 +309,6 @@ function HeaderSetup() {
     }
 }
 
-//Creates the buttons for the header
-function HeaderButtonSetup() {
-    //Creates the wrapper for the buttons
-    headerElement.appendChild(document.createElement("br"));
-    headerElement.appendChild(document.createElement("br"));
-
-    let buttonWrapper = document.createElement("div");
-    buttonWrapper.classList.add("filter-button-wrapper");
-
-    let categories = ["Playing", "Backlog", "Unplayed", "Replay", "Retired", "Beaten", "Completed", "Null"];
-
-    //Creates each of the buttons
-    $.each(categories, function (key, value) {
-        let newButton = document.createElement("button");
-        newButton.classList.add("filter-button");
-        newButton.setAttribute("name", value.toLowerCase());
-        newButton.addEventListener("click", SearchCategory, false);
-
-        if (filterCategory == value.toLowerCase()) {
-            newButton.classList.add("filter-button-used");
-        }
-
-        let buttonText = document.createElement("p");
-        let buttonTextNode = document.createTextNode(value);
-        buttonText.appendChild(buttonTextNode);
-        newButton.appendChild(buttonText);
-        buttonWrapper.appendChild(newButton);
-    });
-
-    //Adds the button wrapper to the elements
-    headerElement.appendChild(buttonWrapper);
-}
-
 //Function creates an individual item display based on the spreadsheet row passed in
 function CreateItem(itemInfo) {
     //Creates the base box
@@ -384,8 +350,7 @@ function CreateItem(itemInfo) {
     if (itemInfo.removefromtitle) {
         itemInfo.linkedtitles += " "
         itemInfo.title = itemInfo.title.replace(itemInfo.linkedtitles, "");
-        console.log(itemInfo.title);
-
+        //console.log(itemInfo.title);
         itemInfo.subtitle = itemInfo.linkedtitles;
     }
 
@@ -855,12 +820,14 @@ function SearchType(type) {
 
 }
 
-function SearchCategory(buttonID) {
-    if (filterCategory == buttonID) {
+function SearchCategory(button) {
+    if (filterCategory == button.id) {
         filterCategory = "";
+        button.classList.remove("filter-button-used");
     }
     else {
-        filterCategory = buttonID;
+        filterCategory = button.id;
+        button.classList.add("filter-button-used");
     }
 
     LoadedState(true);
