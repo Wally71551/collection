@@ -24,8 +24,10 @@ let baseAPIURL = "https://sheetlabs.com/W751/Collection"
 let searchURL = baseAPIURL;
 
 let filterCategory = "";
-let searchFilter = "";
+let filterType = "";
 let searchType = "";
+let searchValue = "";
+let orderType = "";
 
 Load();
 
@@ -66,11 +68,26 @@ function Load() {
         });
 }
 
+//Creates the search parameter for the URL
 function BuildURL() {
     searchURL = baseAPIURL;
 
-    if (filterCategory != "") {
-        searchURL = baseAPIURL + "?" + filterCategory + "=1";
+    if (filterCategory != "" || filterType != "") {
+        searchURL += "?";
+        let firstElement = true;
+
+        if (filterCategory != "") {
+            searchURL += (filterCategory + "=1");
+            firstElement = false;
+        }
+
+        if (filterType != "") {
+            if (!firstElement) {
+                searchURL += "&";
+            }
+            searchURL += ("internaltype=" + filterType);
+            firstElement = false;
+        }
     }
 }
 
@@ -816,8 +833,22 @@ function SearchTitle(title) {
 
 }
 
-function SearchType(type) {
+function SearchType(button) {
+    if (filterType == button.id) {
+        filterType = "";
+        button.classList.remove("filter-button-used");
+    }
+    else {
+        if (filterType != "") {
+            document.getElementById(filterType).classList.remove("filter-button-used");
+        }
+        filterType = button.id;
+        button.classList.add("filter-button-used");
+    }
 
+    LoadedState(true);
+    ClearInfo();
+    Load();
 }
 
 function SearchCategory(button) {
@@ -826,6 +857,9 @@ function SearchCategory(button) {
         button.classList.remove("filter-button-used");
     }
     else {
+        if (filterCategory != "") {
+            document.getElementById(filterCategory).classList.remove("filter-button-used");
+        }
         filterCategory = button.id;
         button.classList.add("filter-button-used");
     }

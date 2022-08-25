@@ -13,7 +13,8 @@
             <div id="loader">
             </div>
             <div id="header-top">
-                <div class="filter-button-wrapper" id="filterButtonWrapper">
+                <!-- Buttons for filtering the category -->
+                <div class="filter-button-wrapper" id="categoryFilterWrapper">
                     <button class="filter-button" id="playing" onclick="SearchCategory(this)">
                         <p>Playing</p>
                     </button>
@@ -37,6 +38,24 @@
                     </button>
                     <button class="filter-button" id="null" onclick="SearchCategory(this)">
                         <p>Null</p>
+                    </button>
+                </div>
+                <!-- Buttons for filtering the type -->
+                <div class="filter-button-wrapper" id="typeFilterWrapper">
+                    <button class="filter-button" id="Game" onclick="SearchType(this)">
+                        <p>Game</p>
+                    </button>
+                    <button class="filter-button" id="Film" onclick="SearchType(this)">
+                        <p>Film</p>
+                    </button>
+                    <button class="filter-button" id="Series" onclick="SearchType(this)">
+                        <p>Series</p>
+                    </button>
+                    <button class="filter-button" id="Book" onclick="SearchType(this)">
+                        <p>Book</p>
+                    </button>
+                    <button class="filter-button" id="Album" onclick="SearchType(this)">
+                        <p>Album</p>
                     </button>
                 </div>
             </div>
