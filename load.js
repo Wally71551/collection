@@ -54,17 +54,20 @@ function Load() {
 
             ResetVariables();
 
+            let isListView = document.getElementById("listView").checked;
+
             $.each(data, function (key, value) {
-                console.log(value.title);
-                CreateItem(value);
+                //console.log(value.title);
+
+                if (isListView)
+                    CreateListItem(value);
+                else
+                    CreateItem(value);
             });
 
             HeaderSetup();
 
-            loaderElement.style.display = "none";
-            headerElement.style.display = "block";
-            collectionElement.style.display = "block";
-            errorElement.style.display = "none";
+            LoadedState(false);
         })
         .fail(function () {
             console.log("Failed");
@@ -727,6 +730,10 @@ function CreateItem(itemInfo) {
     collectionElement.appendChild(itemInfoDiv);
 }
 
+function CreateListItem(itemInfo) {
+
+}
+
 function UpdateCollectionCounts(gameType) {
     collectionCount++;
 
@@ -822,6 +829,11 @@ function SetErrorDisplay() {
     headerElement.style.display = "none"
     collectionElement.style.display = "none"
     errorElement.style.display = "block"
+}
+
+function NoItemDisplay() {
+    document.getElementById("errorMessage").innerHTML = "No items match the parameters.";
+    SetErrorDisplay();
 }
 
 function LoadedState(isLoading) {
