@@ -58,6 +58,30 @@
                         <p>Album</p>
                     </button>
                 </div>
+
+                <!-- Search Bar -->
+                <input id="searchbar" type="text" placeholder="Search..." />
+
+                <select name="searchtype" id="searchtype">
+                    <option value="title">Title</option>
+                    <option value="platform">Platform</option>
+                    <option value="storefront">Storefront</option>
+                    <option value="subtitle">Subtitle</option>
+                </select>
+
+                <!-- Sort Order -->
+                <select name="sort" id="sort">
+                    <option value="_orderby=lastupdated&_order=desc">Last Updated</option>
+                    <option value="_orderby=title&_order=asc">Alphabetical</option>
+                    <option value="_orderby=title&_order=desc">Alphabetical (Z-A)</option>
+                    <option value="_orderby=addeddate&_order=desc">Added Date</option>
+                    <option value="_orderby=completiondate&_order=desc">Completion Date</option>
+                    <option value="_orderby=progress&_order=desc">Progress</option>
+                </select>
+
+                <button class="filter-button" id="RefreshButton" onclick="Load()">
+                    <p>Refresh</p>
+                </button>
             </div>
             <div id="header-main">
             </div>

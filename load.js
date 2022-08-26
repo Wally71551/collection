@@ -33,6 +33,10 @@ Load();
 
 //Initial load
 function Load() {
+    //Resets all the variables before loading
+    LoadedState(true);
+    ClearInfo();
+
     //Checks the search URL parameters to create the final URL
     BuildURL();
 
@@ -89,34 +93,20 @@ function BuildURL() {
         }
     }
 
+    if (document.getElementById("searchbar").value != "") {
+        if (!firstElement) {
+            searchURL += "&";
+        }
+
+        searchURL += document.getElementById("searchtype").value + "=" + document.getElementById("searchbar").value + "*";
+        firstElement = false;
+    }
+
     //Sets the order type
     if (!firstElement) {
         searchURL += "&";
     }
-    if (orderType == "") {
-        searchURL += "_orderby=lastupdated&_order=desc";
-    }
-    else {
-        searchURL += orderType;
-    }
-}
-
-function GetOrderString(orderType) {
-    switch (orderType){
-        case "Alphabetical":
-            return "_orderby=title&_order=asc";
-        case "Alphabetical (Z-A)":
-            return "_orderby=title&_order=desc";
-        case "Added Date":
-            return "_orderby=dateadded&_order=desc";
-        case "Date Completed":
-            return "_orderby=completiondate&_order=desc";
-        case "Progress":
-            return "_orderby=progress&_order=desc";
-        case "Last Updated":
-        default:
-            return "_orderby=lastupdated&_order=desc";
-    }
+    searchURL += document.getElementById("sort").value;
 }
 
 function HeaderSetup() {
@@ -876,8 +866,6 @@ function SearchType(button) {
         button.classList.add("filter-button-used");
     }
 
-    LoadedState(true);
-    ClearInfo();
     Load();
 }
 
@@ -894,8 +882,6 @@ function SearchCategory(button) {
         button.classList.add("filter-button-used");
     }
 
-    LoadedState(true);
-    ClearInfo();
     Load();
 }
 
