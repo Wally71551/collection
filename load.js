@@ -93,6 +93,15 @@ function BuildURL() {
         }
     }
 
+    if (document.getElementById("onlyCollection").checked) {
+        if (!firstElement) {
+            searchURL += "&";
+        }
+
+        searchURL += "uniqueitem=1";
+        firstElement = false;
+    }
+
     if (document.getElementById("searchbar").value != "") {
         if (!firstElement) {
             searchURL += "&";
@@ -115,6 +124,13 @@ function HeaderSetup() {
     //collectionText.style.marginTop = "0px";
     collectionText.appendChild(collectionTextNode);
     headerElement.appendChild(collectionText);
+
+    if (playthroughCount != collectionCount) {
+        let playthroughText = document.createElement("h2");
+        let playthroughTextNode = document.createTextNode("Playthroughs: " + playthroughCount);
+        playthroughText.appendChild(playthroughTextNode);
+        headerElement.appendChild(playthroughText);
+    }
 
     //Count display
     if (gameCount > 0) {
@@ -194,11 +210,6 @@ function HeaderSetup() {
         albumDisplay.appendChild(albumCountNode);
         headerElement.appendChild(albumDisplay);
     }
-
-    let playthroughText = document.createElement("h2");
-    let playthroughTextNode = document.createTextNode("Playthroughs: " + playthroughCount);
-    playthroughText.appendChild(playthroughTextNode);
-    headerElement.appendChild(playthroughText);
 
     //Achievement display
     //Total trophies
