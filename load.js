@@ -71,11 +71,10 @@ function Load() {
 //Creates the search parameter for the URL
 function BuildURL() {
     searchURL = baseAPIURL;
+    let firstElement = true;
+    searchURL += "?";
 
     if (filterCategory != "" || filterType != "") {
-        searchURL += "?";
-        let firstElement = true;
-
         if (filterCategory != "") {
             searchURL += (filterCategory + "=1");
             firstElement = false;
@@ -88,6 +87,35 @@ function BuildURL() {
             searchURL += ("internaltype=" + filterType);
             firstElement = false;
         }
+    }
+
+    //Sets the order type
+    if (!firstElement) {
+        searchURL += "&";
+    }
+    if (orderType == "") {
+        searchURL += "_orderby=lastupdated&_order=desc";
+    }
+    else {
+        searchURL += orderType;
+    }
+}
+
+function GetOrderString(orderType) {
+    switch (orderType){
+        case "Alphabetical":
+            return "_orderby=title&_order=asc";
+        case "Alphabetical (Z-A)":
+            return "_orderby=title&_order=desc";
+        case "Added Date":
+            return "_orderby=dateadded&_order=desc";
+        case "Date Completed":
+            return "_orderby=completiondate&_order=desc";
+        case "Progress":
+            return "_orderby=progress&_order=desc";
+        case "Last Updated":
+        default:
+            return "_orderby=lastupdated&_order=desc";
     }
 }
 
@@ -709,6 +737,7 @@ function UpdateCollectionCounts(gameType) {
             break;
         case "DLC":
         case "Game Update":
+        case "Demo":
             dlcCount++;
             break;
         case "Film":
@@ -739,6 +768,7 @@ function GetTypeIcon(gameType) {
             return "icons/game.svg";
         case "DLC":
         case "Update":
+        case "Demo":
             return "icons/dlc.svg";
         case "Film":
             return "icons/film.svg";
