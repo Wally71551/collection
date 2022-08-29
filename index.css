@@ -193,7 +193,7 @@ footer {
     margin-top: 4px;
 }
 
-.name-item {
+.box-item {
     display: inline-block;
     text-align: center;
     list-style: none;
@@ -201,6 +201,18 @@ footer {
     height: 900px;
     align-content: center;
     margin: 1.5px;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #555555;
+    position: relative;
+}
+
+.list-item{
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: auto;
+    height: 1.5em;
     border-radius: 20px;
     overflow: hidden;
     background-color: #555555;
@@ -364,6 +376,7 @@ footer {
     align-items: center;
     align-content: center;
     justify-content: center;
+    margin-top: 0.25em;
     margin-left: 0.25em;
     margin-right: 0.25em;
 }

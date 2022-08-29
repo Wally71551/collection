@@ -13,6 +13,7 @@ let filmCount = 0;
 let seriesCount = 0;
 let bookCount = 0;
 let albumCount = 0;
+let collectibleCount = 0;
 
 let totalTrophies = [0, 0, 0, 0];
 let totalGamerscore = 0;
@@ -29,6 +30,8 @@ let searchType = "";
 let searchValue = "";
 let orderType = "";
 
+let showCollectibles = false;
+
 Load();
 
 //Initial load
@@ -40,6 +43,9 @@ function Load() {
     //Checks the search URL parameters to create the final URL
     BuildURL();
 
+    //Checks to see if collectibles need to be shown
+    showCollectibles = document.getElementById("showCollectibles").checked;
+
     //Gets the url and searches the array
     $.ajax({
         url: searchURL,
@@ -47,8 +53,7 @@ function Load() {
     })
         .done(function (data) {
             if (data.length == 0) {
-                console.log("No results found");
-                SetErrorDisplay();
+                NoItemDisplay();
                 return;
             }
 
@@ -56,14 +61,26 @@ function Load() {
 
             let isListView = document.getElementById("listView").checked;
 
-            $.each(data, function (key, value) {
-                //console.log(value.title);
+            if (isListView) {
+                $.each(data, function (key, value) {
+                    if (!showCollectibles && value.internaltype == "Collectible")
+                        return true;
 
-                if (isListView)
                     CreateListItem(value);
-                else
+                });
+            }
+            else {
+                $.each(data, function (key, value) {
+                    if (!showCollectibles && value.internaltype == "Collectible")
+                        return true;
+
                     CreateItem(value);
-            });
+                });
+            }
+
+            if (playthroughCount == 0) {
+                NoItemDisplay();
+            }
 
             HeaderSetup();
 
@@ -122,13 +139,15 @@ function BuildURL() {
 }
 
 function HeaderSetup() {
-    let collectionText = document.createElement("h1");
-    let collectionTextNode = document.createTextNode("Collection: " + collectionCount);
-    //collectionText.style.marginTop = "0px";
-    collectionText.appendChild(collectionTextNode);
-    headerElement.appendChild(collectionText);
+    if (filterCategory != "replay") {
+        let collectionText = document.createElement("h1");
+        let collectionTextNode = document.createTextNode("Collection: " + collectionCount);
+        //collectionText.style.marginTop = "0px";
+        collectionText.appendChild(collectionTextNode);
+        headerElement.appendChild(collectionText);
+    }
 
-    if (playthroughCount != collectionCount) {
+    if (playthroughCount != collectionCount && playthroughCount != 0) {
         let playthroughText = document.createElement("h2");
         let playthroughTextNode = document.createTextNode("Playthroughs: " + playthroughCount);
         playthroughText.appendChild(playthroughTextNode);
@@ -213,6 +232,21 @@ function HeaderSetup() {
         albumDisplay.appendChild(albumCountNode);
         headerElement.appendChild(albumDisplay);
     }
+
+    if (collectibleCount > 0) {
+        let collectibleDisplay = document.createElement("h2");
+        collectibleCountNode = document.createTextNode(collectibleCount);
+        collectibleDisplay.classList.add("counter");
+        let collectibleIcon = document.createElement("img");
+        collectibleIcon.src = "icons/cube.svg";
+        collectibleIcon.classList.add("icon-intext");
+        collectibleIcon.style.marginRight = "0.25em";
+        collectibleDisplay.appendChild(collectibleIcon);
+        collectibleDisplay.appendChild(collectibleCountNode);
+        headerElement.appendChild(collectibleDisplay);
+    }
+
+    headerElement.appendChild(document.createElement("br"));
 
     //Achievement display
     //Total trophies
@@ -362,12 +396,13 @@ function HeaderSetup() {
 function CreateItem(itemInfo) {
     //Creates the base box
     let itemInfoDiv = document.createElement("li");
-    itemInfoDiv.classList.add("name-item");
+    itemInfoDiv.classList.add("box-item");
 
     itemInfoDiv.setAttribute("name", itemInfo.rowid);
 
     //Updates header counts
-    playthroughCount++;
+    if(!itemInfo.null)
+        playthroughCount++;
     if (itemInfo.uniqueitem)
         UpdateCollectionCounts(itemInfo.type);
 
@@ -731,7 +766,93 @@ function CreateItem(itemInfo) {
 }
 
 function CreateListItem(itemInfo) {
+    //Creates the base box
+    let itemInfoDiv = document.createElement("li");
+    itemInfoDiv.classList.add("list-item");
+    itemInfoDiv.setAttribute("name", itemInfo.rowid);
 
+    //Updates header counts
+    if (!itemInfo.null)
+        playthroughCount++;
+    if (itemInfo.uniqueitem && !itemInfo.null)
+        UpdateCollectionCounts(itemInfo.type);
+
+    //Checks to see if the item is DLC and adjusts how the name is displayed
+    if (itemInfo.removefromtitle) {
+        itemInfo.linkedtitles += " "
+        itemInfo.title = itemInfo.title.replace(itemInfo.linkedtitles, "");
+        //console.log(itemInfo.title);
+        itemInfo.subtitle = itemInfo.linkedtitles;
+    }
+
+    let itemTitle = document.createElement("h1");
+    let itemTitleNode = document.createTextNode(itemInfo.title);
+    itemTitle.appendChild(itemTitleNode);
+    itemTitle.classList.add("title");
+    itemInfoDiv.appendChild(itemTitle);
+
+    //Decides the colour of the title
+    if (itemInfo.playing) {
+        itemTitle.classList.add("playing-item");
+    }
+    else if (itemInfo.completed) {
+        itemTitle.classList.add("completed-item");
+    }
+    else if (itemInfo.beaten) {
+        itemTitle.classList.add("beaten-item");
+    }
+    else if (itemInfo.unplayed) {
+        itemTitle.classList.add("unplayed-item");
+    }
+    else if (itemInfo.replay) {
+        itemTitle.classList.add("replay-item");
+    }
+    else if (itemInfo.retired) {
+        itemTitle.classList.add("retired-item");
+    }
+    else if (itemInfo.null) {
+        itemTitle.classList.add("null-item");
+    }
+    else {
+        itemTitle.classList.add("backlog-item");
+    }
+
+    if (itemInfo.subtitle != null) {
+        itemTitle.style.marginBottom = "0px";
+        itemTitle.style.paddingBottom = "0px";
+        itemTitle.style.overflow = "visible";
+
+        let itemSubtitle = document.createElement("p");
+        let itemSubtitleNode = document.createTextNode(itemInfo.subtitle);
+        itemSubtitle.appendChild(itemSubtitleNode);
+        itemSubtitle.classList.add("subtitle");
+        itemInfoDiv.appendChild(itemSubtitle);
+    }
+
+    //Type text
+    let itemType = document.createElement("h3");
+    let itemTypeNode = document.createTextNode(itemInfo.type)
+    itemType.classList.add("type");
+
+    let typeIcon = document.createElement("img");
+    typeIcon.src = GetTypeIcon(itemInfo.type);
+    typeIcon.classList.add("icon-intext");
+    typeIcon.style.marginRight = "0.25em";
+
+    itemType.appendChild(typeIcon);
+    itemType.appendChild(itemTypeNode);
+
+    if (itemInfo.replay) {
+        let replayIcon = document.createElement("img");
+        replayIcon.src = "icons/replay.svg";
+        replayIcon.classList.add("icon-intext");
+        replayIcon.style.marginLeft = "0.25em";
+        itemType.appendChild(replayIcon);
+    }
+
+    itemInfoDiv.appendChild(itemType);
+
+    collectionElement.appendChild(itemInfoDiv);
 }
 
 function UpdateCollectionCounts(gameType) {
@@ -766,6 +887,11 @@ function UpdateCollectionCounts(gameType) {
         case "Soundtrack":
             albumCount++;
             break;
+        case "amiibo":
+        case "Skylanders Figure":
+        case "Pokémon Rumble U NFC Figure":
+            collectibleCount++;
+            break;
     }
 }
 
@@ -794,6 +920,10 @@ function GetTypeIcon(gameType) {
         case "Album":
         case "Soundtrack":
             return "icons/album.svg";
+        case "amiibo":
+        case "Skylanders Figure":
+        case "Pokémon Rumble U NFC Figure":
+            return "icons/cube.svg";
     }
 }
 
@@ -906,6 +1036,10 @@ function SearchCategory(button) {
     }
 
     Load();
+}
+
+function ToggleShowCollectibles() {
+    showCollectibles = !showCollectibles;
 }
 
 //Sorts the data by different variables
