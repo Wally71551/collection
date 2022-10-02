@@ -4,6 +4,7 @@ body {
     font-family: 'Roboto', sans-serif;
     text-align: center;
     margin: 0;
+    overflow: overlay;
 }
 
 #display {
@@ -19,25 +20,29 @@ body {
     background: linear-gradient(to right, #F09819, #FF512F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-    #hero > h1 {
-        margin-top: 0;
-    }
+#hero > h1 {
+    margin-top: 0;
+}
 
 footer {
     text-align: center;
     padding-top: 15px;
     width: 100%;
-    height: 150px;
+    height: fit-content;
     color: white;
     background: #11998e; /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #38ef7d, #11998e); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-#header {
+#header-top {
+    background-color: #222222;
+}
+
+#header-main {
     display: none;
-    padding-top: 2em;
-    padding-bottom: 2em;
+    width: 100%;
+    background-color: #222222;
 }
 
 #collection {
@@ -82,7 +87,7 @@ footer {
     display: inline-flex;
     align-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow: visible;
     font-weight: bolder;
 }
 
@@ -212,11 +217,52 @@ footer {
     margin-left: 10px;
     margin-right: 10px;
     width: auto;
-    height: 1.5em;
+    height: 4em;
     border-radius: 20px;
     overflow: hidden;
     background-color: #555555;
     position: relative;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list-info-wrapper {
+    width: fit-content;
+    height: auto;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-title {
+    overflow: visible;
+    text-align: left;
+}
+
+.list-type {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.list-time {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.6em;
+    margin-bottom: 0.6em;
+    padding-right: 10px;
+}
+
+.list-replay {
+    margin-right: 0.25em;
+    font-size: 1.17em;
 }
 
 .playing-item {
@@ -236,7 +282,7 @@ footer {
 }
 
 .replay-item {
-    color: orange;
+    color: #f3f3f3;
 }
 
 .beaten-item {
@@ -255,7 +301,7 @@ footer {
     width: 284px;
     height: 1em;
     background-color: lightgrey;
-    border-radius: 20px;
+    border-radius: 9px;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 0.4em;
@@ -267,7 +313,7 @@ footer {
 
 .progress-bar {
     height: 100%;
-    border-radius: inherit;
+    border-radius: 5px;
     background-color: green;
     width: var(--progress);
 }
@@ -356,11 +402,35 @@ footer {
     top: 89%;
 }
 
+.progress-note::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 5px;
+    opacity: 0;
+}
+
 .progress-note-text {
     display: inline-block;
     margin: 0em;
-    overflow: hidden;
     max-height: 3.5em;
+}
+
+.scrollable-text{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.scrollable-text:hover{
+    overflow-y: auto;
+}
+
+.scrollable-text::-webkit-scrollbar {
+    width: 0.25em;
+}
+
+.scrollable-text::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 5px;
+    opacity: 0.5;
 }
 
 .filter-button-wrapper {
@@ -379,13 +449,154 @@ footer {
     margin-top: 0.25em;
     margin-left: 0.25em;
     margin-right: 0.25em;
+    border-color: transparent;
+    border-radius: 5px;
+    background-color: #757575;
 }
 
 .filter-button-used {
-    background-color: darkgrey;
+    background-color: #303030;
+    border-color: black;
+}
+
+.checkbox-label {
+    font-size: large;
+    font-weight: bold;
+    margin-right: 0.1em;
+}
+
+.checkbox-div{
+    display: inline-flex;
+    width: auto;
+    height: auto;
+    padding: 0.25em;
 }
 
 #noNameFound {
     display: none;
     color: red;
+}
+
+body::-webkit-scrollbar {
+    width: 1em;
+    background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: grey;
+    border: 0.25em solid transparent;
+    border-top: 0.1em solid transparent;
+    border-bottom: 0.1em solid transparent;
+    background-clip: content-box;
+    opacity: 0.5;
+}
+
+body::-webkit-scrollbar-track-piece {
+    background: transparent;
+}
+
+.collection-bar-back {
+    width: 80%;
+    height: 1.25em;
+    background-color: lightgrey;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid;
+    border-width: medium;
+    display: flex;
+}
+
+.collection-bar-element {
+    display: inline-flex;
+    justify-content: center;
+    height: 100%;
+    width: var(--amount);
+}
+
+.collection-bar-element .popuptext {
+    visibility: hidden;
+    width: auto;
+    background-color: black;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 3;
+    padding: 5px;
+    margin-top: -2.5em;
+}
+
+.collection-bar-element:hover .popuptext {
+    visibility: visible;
+}
+
+
+.collection-bar-element:hover .popuptext {
+    visibility: visible;
+}
+
+.collection-bar-element .popuptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.playing-bar {
+    background-color: lawngreen;
+}
+
+.backlog-bar {
+    background-color: blue;
+}
+
+.unplayed-bar {
+    background-color: mediumaquamarine;
+}
+
+.retired-bar {
+    background-color: darkred;
+}
+
+.beaten-bar {
+    background-color: #6904cd;
+}
+
+.completed-bar {
+    background-color: gold;
+}
+
+.null-bar {
+    background-color: black;
+}
+
+.center-screen {
+    width: 80%;
+    height: 80%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    top: 10%;
+    left: 10%;
+    border-radius: 20px;
+    background-color: black;
+    z-index: 10;
+}
+
+.detailed-close {
+    position: absolute;
+    width: 5%;
+    height: 5%;
+    left: 96.25%;
+    top: -1.25%;
+    border-radius: 5px;
+    background-color: white;
+    z-index: 11;
 }
