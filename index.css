@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', 'coda-symbol', sans-serif;
     text-align: center;
     margin: 0;
     overflow: overlay;
@@ -78,7 +78,30 @@ footer {
     }
 }
 
-.title {
+@font-face {
+    font-family: 'coda-symbol';
+    src: url("fonts/codaSymbol.ttf") format('truetype');
+    unicode-range: U+1D10C;
+}
+
+.title-div {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 112px;
+    margin: 2px;
+}
+
+.title-div-break {
+    height: 3px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.title-old {
     color: blue;
     padding: 10px;
     font-size: 1.5em;
@@ -91,7 +114,15 @@ footer {
     font-weight: bolder;
 }
 
-.subtitle {
+.title {
+    color: blue;
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: bolder;
+    margin: 0px;
+}
+
+.subtitle-old {
     color: black;
     display: block;
     margin-left: 5px;
@@ -99,6 +130,13 @@ footer {
     margin-top: 4px;
     margin-bottom: 0px;
     text-align: center;
+}
+
+.subtitle {
+    color: black;
+    display: block;
+    text-align: center;
+    margin: 0px;
 }
 
 .type {
@@ -586,16 +624,27 @@ body::-webkit-scrollbar-track-piece {
     top: 10%;
     left: 10%;
     border-radius: 20px;
-    background-color: black;
+    background-color: #606060;
     z-index: 10;
+}
+
+.popup-background {
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    position: fixed;
+    display: flex;
+    z-index: 9;
+    background-color:rgba(60, 60, 60, 0.79);
 }
 
 .detailed-close {
     position: absolute;
-    width: 5%;
-    height: 5%;
-    left: 96.25%;
-    top: -1.25%;
+    width: 32px;
+    height: 32px;
+    right: -12px;
+    top: -12px;
     border-radius: 5px;
     background-color: white;
     z-index: 11;

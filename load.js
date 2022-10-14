@@ -4,6 +4,7 @@ let loaderElement = document.getElementById("loader");
 let errorElement = document.getElementById("error");
 
 var popupElement;
+var popupBackground;
 let popupOpen = false;
 
 //Values used to set up the header
@@ -518,30 +519,34 @@ function CreateItem(itemInfo) {
     UpdateTypeCount(itemInfo);
 
     //Image setup
-    let imageWrapper = CreateImage(itemInfo.image, itemInfo.tallImage);
+    let imageWrapper = CreateImage(itemInfo.image, itemInfo.tallimage);
     itemInfoDiv.appendChild(imageWrapper);
 
     //Checks to see if the item is DLC and adjusts how the name is displayed
     if (itemInfo.removefromtitle) {
-        itemInfo.linkedtitles += " "
+        itemInfo.linkedtitles += " ";
         itemInfo.title = itemInfo.title.replace(itemInfo.linkedtitles, "");
         //console.log(itemInfo.title);
         itemInfo.subtitle = itemInfo.linkedtitles;
     }
 
+    let itemTitleDiv = document.createElement("div");
+    itemTitleDiv.classList.add("title-div");
+
     //Creates title
     let itemTypes = [itemInfo.playing, itemInfo.backlog, itemInfo.completed, itemInfo.beaten, itemInfo.unplayed, itemInfo.retired, itemInfo.replay, itemInfo.null]
     let itemTitle = CreateTitle(itemInfo.title, itemInfo.rowid, itemTypes);
-    itemInfoDiv.appendChild(itemTitle);
+    itemTitleDiv.appendChild(itemTitle);
 
     //Checks to see if the style of the title needs to change
     if (itemInfo.subtitle != null) {
-        itemTitle.style.marginBottom = "0px";
-        itemTitle.style.paddingBottom = "0px";
-        itemTitle.style.overflow = "visible";
-
-        itemInfoDiv.appendChild(CreateSubtitle(itemInfo.subtitle));
+        let titleBreak = document.createElement("div");
+        titleBreak.classList.add("title-div-break");
+        itemTitleDiv.appendChild(titleBreak);
+        itemTitleDiv.appendChild(CreateSubtitle(itemInfo.subtitle));
     }
+
+    itemInfoDiv.appendChild(itemTitleDiv);
 
     //Creates type and platform / storefront text
     itemInfoDiv.appendChild(CreateTypeText(itemInfo.type, itemInfo.region, itemInfo.replay));
@@ -1288,17 +1293,25 @@ function StartCreatePopUp(rowID) {
 function CreatePopUp(itemInfo) {
     console.log(itemInfo.title);
 
+    //Creates the base popup element
     popupElement = document.createElement("div");
     popupElement.classList.add("center-screen");
 
-    deleteButton = document.createElement("div");
+    popupBackground = document.createElement("div");
+    popupBackground.classList.add("popup-background");
+
+    //Creates the delete button
+    let deleteButton = document.createElement("div");
     deleteButton.classList.add("detailed-close");
     deleteButton.onclick = function () { ClosePopUp() };
     popupElement.appendChild(deleteButton);
 
+    collectionElement.appendChild(popupBackground);
     collectionElement.appendChild(popupElement);
 }
 
 function ClosePopUp() {
     popupElement.remove();
+    popupBackground.remove();
+    popupOpen = false;
 }
