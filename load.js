@@ -1025,11 +1025,13 @@ function UpdateCollectionCounts(gameType) {
             filmCount++;
             break;
         case "Series":
+        case "Animated Shorts":
         case "Web Series":
             seriesCount++;
             break;
         case "Comic":
         case "Comic Omnibus":
+        case "Comic Collection":
         case "Manga":
         case "Novel":
         case "Book":
@@ -1070,10 +1072,12 @@ function GetTypeIcon(itemType) {
         case "Film Boxset":
             return "icons/collection.svg";
         case "Series":
+        case "Animated Shorts":
         case "Web Series":
             return "icons/series.svg";
         case "Comic":
         case "Comic Omnibus":
+        case "Comic Collection":
         case "Manga":
         case "Novel":
         case "Book":
