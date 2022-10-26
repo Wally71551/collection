@@ -1030,6 +1030,7 @@ function UpdateCollectionCounts(gameType) {
             seriesCount++;
             break;
         case "Comic":
+        case "Comic One-Shot":
         case "Comic Omnibus":
         case "Comic Collection":
         case "Manga":
@@ -1076,6 +1077,7 @@ function GetTypeIcon(itemType) {
         case "Web Series":
             return "icons/series.svg";
         case "Comic":
+        case "Comic One-Shot":
         case "Comic Omnibus":
         case "Comic Collection":
         case "Manga":
@@ -1086,14 +1088,15 @@ function GetTypeIcon(itemType) {
         case "Soundtrack":
             return "icons/album.svg";
         case "amiibo":
-        case "amiibo Card":
         case "amiibo Double Pack":
         case "Skylanders Figure":
         case "Pokémon Rumble U NFC Figure":
         case "Funko POP!":
         case "Figure":
-        case "Minecraft Dungeons Arcade Card":
             return "icons/cube.svg";
+        case "Minecraft Dungeons Arcade Card":
+        case "amiibo Card":
+            return "icons/card.svg";
     }
 }
 
