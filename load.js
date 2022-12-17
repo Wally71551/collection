@@ -25,6 +25,7 @@ let collectibleCount = 0;
 let totalTrophies = [0, 0, 0, 0];
 let totalGamerscore = 0;
 let totalAchievements = 0;
+let totalPerfectGames = 0;
 let totalTime = [0, 0, 0];
 
 //Search variable setup
@@ -453,9 +454,27 @@ function HeaderSetup() {
         totalText.appendChild(totalTextNode);
         totalFig.appendChild(totalText);
         trophyWrapper.appendChild(totalFig);
+
+        //PS level generation
+        let trophyXP = (300 * totalTrophies[0]) + (90 * totalTrophies[1]) + (30 * totalTrophies[2]) + (15 * totalTrophies[3]);
+        let trophyLevel = CalculateTrophyLevel(trophyXP);
+        trophyLevel = Math.min(trophyLevel, 1000); //Clamp to max level
+
+        let PSNLevelFig = document.createElement("figure");
+        PSNLevelFig.classList.add("trophy-figure");
+        let PSNLevelIcon = document.createElement("img");
+        PSNLevelIcon.src = GetPSNLevelIcon(trophyLevel);
+        PSNLevelIcon.classList.add("trophy-icon");
+        PSNLevelFig.appendChild(PSNLevelIcon);
+        let PSNLevelText = document.createElement("figcaption");
+        let PSNLevelTextNode = document.createTextNode(Math.trunc(trophyLevel) + " | " + ((trophyLevel % 1).toFixed(3) * 100) + "%");
+        PSNLevelText.classList.add("trophy-text");
+        PSNLevelText.appendChild(PSNLevelTextNode);
+        PSNLevelFig.appendChild(PSNLevelText);
+        trophyWrapper.appendChild(PSNLevelFig);
         headerElement.appendChild(trophyWrapper);
     }
-    
+
     //Total gamerscore generation
     if (totalGamerscore > 0) {
         let itemGamerscore = document.createElement("h2");
@@ -559,7 +578,7 @@ function CreateItem(itemInfo) {
 
     //Checks for gamerscore
     if (itemInfo.gamerscore != null) {
-        if (itemInfo.uniqueitem) {
+        if (!itemInfo.removeachievements) {
             totalGamerscore += Number(itemInfo.gamerscore);
         }
         itemInfoDiv.appendChild(CreateGamerscoreIcon(itemInfo.gamerscore, itemInfo.gamerscoremax));
@@ -572,7 +591,7 @@ function CreateItem(itemInfo) {
 
         let trophies = itemInfo.trophies.split(".");
 
-        if (itemInfo.uniqueitem) {
+        if (!itemInfo.removeachievements) {
             UpdateTrophyCount(trophies);
             totalAchievements += itemInfo.progresscurrent;
         }
@@ -587,7 +606,7 @@ function CreateItem(itemInfo) {
         //Adds the text underneath the progress bar
         if (itemInfo.progressprefix != null) {
             //Increments the achievement count
-            if (itemInfo.progressprefix == "Achievements" && itemInfo.uniqueitem) {
+            if (itemInfo.progressprefix == "Achievements" && !itemInfo.removeachievements) {
                 totalAchievements += Number(itemInfo.progresscurrent);
             }
 
@@ -1011,12 +1030,15 @@ function UpdateCollectionCounts(gameType) {
         case "Arcade Game":
         case "Collection":
         case "Application":
+        case "Modpack":
         default:
             gameCount++;
             break;
         case "DLC":
+        case "DLC Bundle":
         case "Game Update":
         case "Demo":
+        case "Skin Pack":
             dlcCount++;
             break;
         case "Film":
@@ -1062,12 +1084,15 @@ function GetTypeIcon(itemType) {
     switch (itemType) {
         case "Game":
         case "Arcade Game":
+        case "Modpack":
         default:
             return "icons/game.svg";
         case "DLC":
-        case "Update":
+        case "DLC Bundle":
+        case "Game Update":
         case "Demo":
         case "Application":
+        case "Skin Pack":
             return "icons/dlc.svg";
         case "Film":
         case "Short Film":
@@ -1209,6 +1234,86 @@ function UpdateTypeCount(itemInfo) {
         typeCounts[2] = typeCounts[2] + 1;
     else
         typeCounts[1] = typeCounts[1] + 1;
+}
+
+function CalculateTrophyLevel(trophyXP) {
+    let workingXP = trophyXP;
+    let trophyLevel = 1;
+    let i = 0;
+
+    while (workingXP > 0) {
+        if (i == 0) {
+            if (workingXP - GetTrophyThreshold(i) * 99 > 0) {
+                workingXP -= GetTrophyThreshold(i) * 99;
+                trophyLevel += 99;
+            }
+            else {
+                trophyLevel += workingXP / GetTrophyThreshold(i);
+                return trophyLevel;
+            }
+        }
+        else {
+            if (workingXP - GetTrophyThreshold(i) * 100 > 0) {
+                workingXP -= GetTrophyThreshold(i) * 100;
+                trophyLevel += 100;
+            }
+            else {
+                trophyLevel += workingXP / GetTrophyThreshold(i);
+                return trophyLevel;
+            }
+        }
+
+        i++;
+    }
+}
+
+function GetTrophyThreshold(loopInteger) {
+    switch (loopInteger) {
+        case 0:
+            return 60;
+        case 1:
+            return 90;
+        default:
+            if ((loopInteger - 1) * 450 == 0) {
+                return 1;
+            }
+            else {
+                return (loopInteger - 1) * 450;
+            }
+    }
+}
+
+function GetPSNLevelIcon(PSNLevel) {
+    if (PSNLevel >= 1000) {
+        return "icons/PSN10.png";
+    }
+    else if (PSNLevel >= 800) {
+        return "icons/PSN9.png";
+    }
+    else if (PSNLevel >= 700) {
+        return "icons/PSN8.png";
+    }
+    else if (PSNLevel >= 600) {
+        return "icons/PSN7.png";
+    }
+    else if (PSNLevel >= 500) {
+        return "icons/PSN6.png";
+    }
+    else if (PSNLevel >= 400) {
+        return "icons/PSN5.png";
+    }
+    else if (PSNLevel >= 300) {
+        return "icons/PSN4.png";
+    }
+    else if (PSNLevel >= 200) {
+        return "icons/PSN3.png";
+    }
+    else if (PSNLevel >= 100) {
+        return "icons/PSN2.png";
+    }
+    else {
+        return "icons/PSN1.png";
+    }
 }
 
 //Search functions handle reloading the page when called by button press

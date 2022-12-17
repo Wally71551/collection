@@ -186,7 +186,8 @@ footer {
     margin-bottom: 0.5em;
     position: absolute;
     width: 100%;
-    top: 77%;
+    top: 76%;
+    font-size: 1.5em;
 }
 
 .counter {
