@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <title>Wally71551 Collection</title>
+        <link rel="stylesheet" href="index.css"/>
+    </head>
+    <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <div id="hero">
+            <h1>Wally71551's Collection</h1>
+            <h2>Under Construction | Functionality Testing</h2>
+        </div>
+        <div id="display">
+            <div id="loader">
+            </div>
+            <div id="header-top">
+                <!-- Buttons for filtering the category -->
+                <div class="filter-button-wrapper" id="categoryFilterWrapper">
+                    <button class="filter-button" id="playing" onclick="SearchCategory(this)">
+                        <p>Playing</p>
+                    </button>
+                    <button class="filter-button" id="backlog" onclick="SearchCategory(this)">
+                        <p>Backlog</p>
+                    </button>
+                    <button class="filter-button" id="unplayed" onclick="SearchCategory(this)">
+                        <p>Unplayed</p>
+                    </button>
+                    <button class="filter-button" id="replay" onclick="SearchCategory(this)">
+                        <p>Replay</p>
+                    </button>
+                    <button class="filter-button" id="retired" onclick="SearchCategory(this)">
+                        <p>Retired</p>
+                    </button>
+                    <button class="filter-button" id="beaten" onclick="SearchCategory(this)">
+                        <p>Beaten</p>
+                    </button>
+                    <button class="filter-button" id="completed" onclick="SearchCategory(this)">
+                        <p>Completed</p>
+                    </button>
+                    <button class="filter-button" id="null" onclick="SearchCategory(this)">
+                        <p>Null</p>
+                    </button>
+                </div>
+                <!-- Buttons for filtering the type -->
+                <div class="filter-button-wrapper" id="typeFilterWrapper">
+                    <button class="filter-button" id="Game" onclick="SearchType(this)">
+                        <p>Game</p>
+                    </button>
+                    <button class="filter-button" id="Film" onclick="SearchType(this)">
+                        <p>Film</p>
+                    </button>
+                    <button class="filter-button" id="Series" onclick="SearchType(this)">
+                        <p>Series</p>
+                    </button>
+                    <button class="filter-button" id="Book" onclick="SearchType(this)">
+                        <p>Book</p>
+                    </button>
+                    <button class="filter-button" id="Album" onclick="SearchType(this)">
+                        <p>Album</p>
+                    </button>
+                    <button class="filter-button" id="Collectible" onclick="SearchType(this)">
+                        <p>Collectible</p>
+                    </button>
+                </div>
+
+                <!-- Search Bar -->
+                <input id="searchbar" type="text" placeholder="Search..." />
+
+                <select name="searchtype" id="searchtype">
+                    <option value="title">Title</option>
+                    <option value="platform">Platform</option>
+                    <option value="storefront">Storefront</option>
+                    <option value="subtitle">Subtitle</option>
+                    <option value="series">Series</option>
+                </select>
+
+                <!-- Sort Order -->
+                <select name="sort" id="sort">
+                    <option value="_orderby=lastupdated&_order=desc">Last Updated</option>
+                    <option value="">Alphabetical</option>
+                    <option value="_orderby=title&_order=desc">Alphabetical (Z-A)</option>
+                    <option value="_orderby=addeddate&_order=desc">Added Date</option>
+                    <option value="_orderby=completiondate&_order=desc">Completion Date</option>
+                    <option value="_orderby=progress&_order=desc">Progress</option>
+                </select>
+
+                <button class="filter-button" id="RefreshButton" onclick="Load()">
+                    <p>Refresh</p>
+                </button>
+                <br />
+                <!-- Checkboxes -->
+                <div class="checkbox-div">
+                    <label for="listView" class="checkbox-label">List View</label>
+                    <input id="listView" type="checkbox" />
+                </div>
+                <div class="checkbox-div">
+                    <label for="onlyCollection" class="checkbox-label">Show Collection Items Only</label>
+                    <input id="onlyCollection" type="checkbox" />
+                </div>
+                <div class="checkbox-div">
+                    <label for="showCollectibles" class="checkbox-label">Show Collectibles</label>
+                    <input id="showCollectibles" type="checkbox" checked />
+                </div>
+            </div>
+            <div id="header-main">
+            </div>
+            <div id="collection">
+            </div>
+            <div id="error">
+                <h1 id="errorMessage">Failed to get data. Please refresh.</h1>
+            </div>
+        </div>
+        <footer>
+            <h3>Built by Wally71551</h3>
+            <h4>Powered by Sheetlabs</h4>
+            <h4>UIcons by <a href="https://www.flaticon.com/uicons">Flaticon</a></h4>
+            <h4 style="margin-bottom:0px; padding-bottom:1.33em;">Some artwork from <a href="https://www.steamgriddb.com/">SteamGridDB</a> and <a href="https://www.themoviedb.org">TMDB</a></h4>
+        </footer>
+        <script src="load.js"></script>
+    </body>
+</html>
