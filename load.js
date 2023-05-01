@@ -1067,7 +1067,7 @@ function UpdateCollectionCounts(gameType) {
             break;
         case "Film":
         case "Short Film":
-        case "Film Boxset":
+        case "Film Box Set":
         case "Film Collection":
         case "Animated Short":
             filmCount++;
@@ -1084,6 +1084,7 @@ function UpdateCollectionCounts(gameType) {
         case "Comic One-Shot":
         case "Comic Omnibus":
         case "Comic Collection":
+        case "Graphic Novel":
         case "Manga":
         case "Novel":
         case "Book":
@@ -1097,6 +1098,7 @@ function UpdateCollectionCounts(gameType) {
         case "amiibo":
         case "amiibo Card":
         case "amiibo Double Pack":
+        case "amiibo 4-Pack":
         case "Skylanders Figure":
         case "Pokémon Rumble U NFC Figure":
         case "Funko POP!":
@@ -1131,7 +1133,7 @@ function GetTypeIcon(itemType) {
         case "Animated Short":
             return "icons/film.svg";
         case "Collection":
-        case "Film Boxset":
+        case "Film Box Set":
         case "Film Collection":
             return "icons/collection.svg";
         case "Series":
@@ -1145,6 +1147,7 @@ function GetTypeIcon(itemType) {
         case "Comic One-Shot":
         case "Comic Omnibus":
         case "Comic Collection":
+        case "Graphic Novel":
         case "Manga":
         case "Novel":
         case "Book":
@@ -1155,6 +1158,7 @@ function GetTypeIcon(itemType) {
             return "icons/album.svg";
         case "amiibo":
         case "amiibo Double Pack":
+        case "amiibo 4-Pack":
         case "Skylanders Figure":
         case "Pokémon Rumble U NFC Figure":
         case "Funko POP!":
