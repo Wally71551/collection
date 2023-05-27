@@ -1088,6 +1088,7 @@ function UpdateCollectionCounts(gameType) {
         case "Manga":
         case "Manga Comic":
         case "Novel":
+        case "Light Novel":
         case "Book":
         case "Web Comic":
             bookCount++;
@@ -1153,6 +1154,7 @@ function GetTypeIcon(itemType) {
         case "Manga":
         case "Manga Comic":
         case "Novel":
+        case "Light Novel":
         case "Book":
         case "Web Comic":
             return "icons/book.svg";
