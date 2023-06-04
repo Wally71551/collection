@@ -1095,6 +1095,7 @@ function UpdateCollectionCounts(gameType) {
             break;
         case "Album":
         case "Soundtrack":
+        case "Concert":
             albumCount++;
             break;
         case "amiibo":
@@ -1109,8 +1110,9 @@ function UpdateCollectionCounts(gameType) {
         case "Goodie Pack":
         case "Collectible":
         case "Pre-Order Bonus":
+        case "Poster":
             collectibleCount++;
-            break;
+            break;  
     }
 }
 
@@ -1160,6 +1162,7 @@ function GetTypeIcon(itemType) {
             return "icons/book.svg";
         case "Album":
         case "Soundtrack":
+        case "Concert":
             return "icons/album.svg";
         case "amiibo":
         case "amiibo Double Pack":
@@ -1172,6 +1175,7 @@ function GetTypeIcon(itemType) {
             return "icons/cube.svg";
         case "Minecraft Dungeons Arcade Card":
         case "amiibo Card":
+        case "Poster":
             return "icons/card.svg";
     }
 }
