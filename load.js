@@ -1085,6 +1085,7 @@ function UpdateCollectionCounts(gameType) {
         case "Comic Omnibus":
         case "Comic Collection":
         case "Graphic Novel":
+        case "Graphic Novel Collection":
         case "Manga":
         case "Manga Comic":
         case "Novel":
@@ -1111,6 +1112,7 @@ function UpdateCollectionCounts(gameType) {
         case "Collectible":
         case "Pre-Order Bonus":
         case "Poster":
+        case "Tamagotchi":
             collectibleCount++;
             break;  
     }
@@ -1153,6 +1155,7 @@ function GetTypeIcon(itemType) {
         case "Comic Omnibus":
         case "Comic Collection":
         case "Graphic Novel":
+        case "Graphic Novel Collection":
         case "Manga":
         case "Manga Comic":
         case "Novel":
@@ -1171,6 +1174,7 @@ function GetTypeIcon(itemType) {
         case "Pokémon Rumble U NFC Figure":
         case "Funko POP!":
         case "Figure":
+        case "Tamagotchi":
         default:
             return "icons/cube.svg";
         case "Minecraft Dungeons Arcade Card":
