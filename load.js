@@ -579,7 +579,16 @@ function CreateItem(itemInfo) {
         let titleBreak = document.createElement("div");
         titleBreak.classList.add("title-div-break");
         itemTitleDiv.appendChild(titleBreak);
-        itemTitleDiv.appendChild(CreateSubtitle(itemInfo.subtitle));
+
+        let subtitleItem = CreateSubtitle(itemInfo.subtitle);
+        itemTitleDiv.appendChild(subtitleItem);
+
+        if (itemInfo.title.length > 40 && itemInfo.subtitle.length > 35) {
+            subtitleItem.style.fontSize = "0.75em";
+        }
+    }
+    else {
+        return;
     }
 
     itemInfoDiv.appendChild(itemTitleDiv);
@@ -1078,6 +1087,7 @@ function UpdateCollectionCounts(gameType) {
         case "Web Series":
         case "Anime":
         case "Short Series":
+        case "Series Box Set":
             seriesCount++;
             break;
         case "Comic":
@@ -1142,6 +1152,7 @@ function GetTypeIcon(itemType) {
         case "Collection":
         case "Film Box Set":
         case "Film Collection":
+        case "Series Box Set":
             return "icons/collection.svg";
         case "Series":
         case "Animated Series":
