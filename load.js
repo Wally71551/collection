@@ -587,9 +587,6 @@ function CreateItem(itemInfo) {
             subtitleItem.style.fontSize = "0.75em";
         }
     }
-    else {
-        return;
-    }
 
     itemInfoDiv.appendChild(itemTitleDiv);
 
