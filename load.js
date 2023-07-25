@@ -1066,6 +1066,7 @@ function UpdateCollectionCounts(gameType) {
             break;
         case "DLC":
         case "DLC Bundle":
+        case "Season Pass":
         case "Game Update":
         case "Demo":
         case "Skin Pack":
@@ -1076,6 +1077,8 @@ function UpdateCollectionCounts(gameType) {
         case "Film Box Set":
         case "Film Collection":
         case "Animated Short":
+        case "Special Episode":
+        case "OVA":
             filmCount++;
             break;
         case "Series":
@@ -1120,6 +1123,11 @@ function UpdateCollectionCounts(gameType) {
         case "Pre-Order Bonus":
         case "Poster":
         case "Tamagotchi":
+        case "Trading Card Game":
+        case "Trading Card Game Set":
+        case "Pokémon TCG Card":
+        case "Pokémon TCG Deck":
+        case "Oversized Pokémon TCG Card":
             collectibleCount++;
             break;  
     }
@@ -1141,10 +1149,13 @@ function GetTypeIcon(itemType) {
         case "Update":
         case "Add-On":
         case "Expansion":
+        case "Season Pass":
             return "icons/dlc.svg";
         case "Film":
         case "Short Film":
         case "Animated Short":
+        case "Special Episode":
+        case "OVA":
             return "icons/film.svg";
         case "Collection":
         case "Film Box Set":
@@ -1188,6 +1199,11 @@ function GetTypeIcon(itemType) {
         case "Minecraft Dungeons Arcade Card":
         case "amiibo Card":
         case "Poster":
+        case "Trading Card Game":
+        case "Trading Card Game Set":
+        case "Pokémon TCG Card":
+        case "Pokémon TCG Deck":
+        case "Oversized Pokémon TCG Card":
             return "icons/card.svg";
     }
 }
