@@ -583,7 +583,7 @@ function CreateItem(itemInfo) {
         let subtitleItem = CreateSubtitle(itemInfo.subtitle);
         itemTitleDiv.appendChild(subtitleItem);
 
-        if (itemInfo.title.length > 40 && itemInfo.subtitle.length > 35) {
+        if (itemInfo.title.length > 50 && itemInfo.subtitle.length > 45) {
             subtitleItem.style.fontSize = "0.75em";
         }
     }
