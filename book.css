@@ -1,0 +1,65 @@
+.book-item {
+    display: flex;
+    margin: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #555555;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    list-style-type: none;
+    flex-direction: column;
+}
+
+.book-title {
+    text-align: left;
+    width: 100%;
+}
+
+.book-list-div {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.single-book-div-wrapper {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.single-book-figure {
+    display: inline-block;
+    text-align: center;
+    height: 4.5em;
+    width: auto;
+    margin: 0.25em;
+    align-self: flex-end;
+    overflow: hidden;
+    min-height: 51px;
+}
+
+.single-book-icon {
+    display: block;
+    margin: 0 auto;
+    width: 3.0em;
+    height: 3.0em;
+}
+
+.single-book-text {
+    font-size: 1.2em;
+    font-weight: bolder;
+    height: auto;
+    align-self: flex-end;
+    display: block;
+    width: auto;
+    margin-bottom: 0px;
+    min-height: 1em;
+}
