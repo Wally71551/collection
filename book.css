@@ -18,6 +18,7 @@
 .book-title {
     text-align: left;
     width: 100%;
+    font-size: 2.5em;
 }
 
 .book-list-div {
@@ -38,19 +39,18 @@
 .single-book-figure {
     display: inline-block;
     text-align: center;
-    height: 4.5em;
+    height: 5.5em;
     width: auto;
     margin: 0.25em;
     align-self: flex-end;
     overflow: hidden;
-    min-height: 51px;
 }
 
 .single-book-icon {
     display: block;
     margin: 0 auto;
-    width: 3.0em;
-    height: 3.0em;
+    width: 4.0em;
+    height: 4.0em;
 }
 
 .book-list-div-long {
@@ -58,7 +58,7 @@
 }
 
 .single-book-text {
-    font-size: 1.2em;
+    font-size: 1.5em;
     font-weight: bolder;
     height: auto;
     align-self: flex-end;
