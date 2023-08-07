@@ -109,17 +109,32 @@ function CreateElement(value) {
 
     let bookListDiv = document.createElement("div");
     bookListDiv.classList.add("book-list-div");
+
+    //Search titles to see what style needs to be set
+    let namedTitles = false;
+    for (let i = 0; i < finalList.length; i++) {
+        if (finalList[i].name.length > 4) {
+            namedTitles = true;
+            bookListDiv.classList.add("book-list-div-long");
+            break;
+        }
+    }
+
     //Set style
     for (let i = 0; i < finalList.length; i++)
     {
-        //Create individual list element
         let singleBookDiv = document.createElement("li");
-        singleBookDiv.classList.add("single-book-div-wrapper");
-        let singleBook = document.createElement("figure");
-        singleBook.classList.add("single-book-figure");
+
+        if (!namedTitles) {
+            singleBookDiv.classList.add("single-book-div-wrapper");
+        }
+        else {
+            singleBookDiv.classList.add("single-book-div-wrapper-long");
+        }
+
         let singleBookIcon = document.createElement("img");
         singleBookIcon.classList.add("single-book-icon");
-        singleBook.appendChild(singleBookIcon);
+        
 
         if (finalList[i].state == State.Have) {
             singleBookIcon.src = "icons/book_filled.png";
@@ -131,13 +146,36 @@ function CreateElement(value) {
             singleBookIcon.src = "icons/book_empty.png";
         }
 
-        let singleBookTitle = document.createElement("figcaption");
-        singleBookTitle.classList.add("single-book-text");
-        let singleBookTitleNode = document.createTextNode(finalList[i].name);
-        singleBookTitle.appendChild(singleBookTitleNode);
-        singleBook.appendChild(singleBookTitle);
-        singleBookDiv.appendChild(singleBook);
-        bookListDiv.appendChild(singleBookDiv);
+        //Create individual list element (normal)
+        if (!namedTitles) {
+            let singleBook = document.createElement("figure");
+            singleBook.classList.add("single-book-figure");
+
+            let singleBookTitle = document.createElement("figcaption");
+            singleBookTitle.classList.add("single-book-text");
+            let singleBookTitleNode = document.createTextNode(finalList[i].name);
+            singleBookTitle.appendChild(singleBookTitleNode);
+
+            singleBook.appendChild(singleBookIcon);
+            singleBook.appendChild(singleBookTitle);
+            singleBookDiv.appendChild(singleBook);
+            bookListDiv.appendChild(singleBookDiv);
+        }
+        //Create individual list element (long book titles)
+        else {
+            let singleBook = document.createElement("div");
+            singleBook.classList.add("single-book-long-div");
+
+            let singleBookTitle = document.createElement("p");
+            singleBookTitle.classList.add("single-book-text");
+            let singleBookTitleNode = document.createTextNode(finalList[i].name);
+            singleBookTitle.appendChild(singleBookTitleNode);
+
+            singleBook.appendChild(singleBookIcon);
+            singleBook.appendChild(singleBookTitle);
+            singleBookDiv.appendChild(singleBook);
+            bookListDiv.appendChild(singleBookDiv);
+        }
     }
 
     itemInfo.appendChild(seriesTitle);

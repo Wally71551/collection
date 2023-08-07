@@ -53,6 +53,10 @@
     height: 3.0em;
 }
 
+.book-list-div-long {
+    align-items: flex-start;
+}
+
 .single-book-text {
     font-size: 1.2em;
     font-weight: bolder;
@@ -60,6 +64,11 @@
     align-self: flex-end;
     display: block;
     width: auto;
-    margin-bottom: 0px;
+    margin: 0px;
     min-height: 1em;
+}
+
+.single-book-div-wrapper-long {
+    display: block;
+    width: 25%;
 }
