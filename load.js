@@ -1102,6 +1102,8 @@ function UpdateCollectionCounts(gameType) {
         case "Light Novel":
         case "Book":
         case "Web Comic":
+        case "Audiobook":
+        case "Audio Drama":
             bookCount++;
             break;
         case "Album":
@@ -1185,6 +1187,8 @@ function GetTypeIcon(itemType) {
         case "Album":
         case "Soundtrack":
         case "Concert":
+        case "Audiobook":
+        case "Audio Drama":
             return "icons/album.svg";
         case "amiibo":
         case "amiibo Double Pack":
