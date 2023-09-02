@@ -580,11 +580,23 @@ function CreateItem(itemInfo) {
         titleBreak.classList.add("title-div-break");
         itemTitleDiv.appendChild(titleBreak);
 
-        let subtitleItem = CreateSubtitle(itemInfo.subtitle);
-        itemTitleDiv.appendChild(subtitleItem);
+        //Checks to see whether subtitle needs to be split into 2
+        if (itemInfo.subtitle.indexOf(" || ") > -1) {
+            let subtitles = itemInfo.subtitle.split(" || ");
+            if (subtitles != null && subtitles.length > 1) {
+                let subtitleItem1 = CreateSubtitle(subtitles[0]);
+                itemTitleDiv.appendChild(subtitleItem1);
+                let subtitleItem2 = CreateSubtitle(subtitles[1]);
+                itemTitleDiv.appendChild(subtitleItem2);
+            }
+        }
+        else {
+            let subtitleItem = CreateSubtitle(itemInfo.subtitle);
+            itemTitleDiv.appendChild(subtitleItem);
 
-        if (itemInfo.title.length > 40 && itemInfo.subtitle.length > 45) {
-            subtitleItem.style.fontSize = "0.75em";
+            if (itemInfo.title.length > 40 && itemInfo.subtitle.length > 45) {
+                subtitleItem.style.fontSize = "0.75em";
+            }
         }
     }
 
@@ -1109,6 +1121,9 @@ function UpdateCollectionCounts(gameType) {
         case "Album":
         case "Soundtrack":
         case "Concert":
+        case "Track":
+        case "Single":
+        case "2-Disc CD Collection":
             albumCount++;
             break;
         case "amiibo":
@@ -1185,10 +1200,13 @@ function GetTypeIcon(itemType) {
         case "Web Comic":
             return "icons/book.svg";
         case "Album":
+        case "Single":
         case "Soundtrack":
         case "Concert":
         case "Audiobook":
         case "Audio Drama":
+        case "Track":
+        case "2-Disc CD Collection":
             return "icons/album.svg";
         case "amiibo":
         case "amiibo Double Pack":
