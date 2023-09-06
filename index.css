@@ -251,6 +251,16 @@ footer {
     position: relative;
 }
 
+.box-collection-item {
+    position: absolute;
+    bottom: -2em;
+    right: -2em;
+    width: 4em;
+    height: 4em;
+    -webkit-transform: rotate(45deg);
+    background: gold;
+}
+
 .list-item{
     display: flex;
     margin-left: 10px;

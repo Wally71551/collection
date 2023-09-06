@@ -549,8 +549,12 @@ function CreateItem(itemInfo) {
     totalItems++;
     if(!itemInfo.null)
         playthroughCount++;
-    if (itemInfo.uniqueitem)
+    if (itemInfo.uniqueitem) {
         UpdateCollectionCounts(itemInfo.type);
+        collectionItemDisplay = document.createElement("div");
+        collectionItemDisplay.classList.add("box-collection-item");
+        itemInfoDiv.appendChild(collectionItemDisplay);
+    }
 
     UpdateTypeCount(itemInfo);
 
