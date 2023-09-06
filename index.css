@@ -620,6 +620,10 @@ body::-webkit-scrollbar-track-piece {
     background-color: gold;
 }
 
+.replay-bar {
+    background-color: #f3f3f3;
+}
+
 .null-bar {
     background-color: black;
 }

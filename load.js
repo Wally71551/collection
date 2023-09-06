@@ -545,6 +545,8 @@ function CreateItem(itemInfo) {
     itemInfoDiv.classList.add("box-item");
     itemInfoDiv.setAttribute("name", itemInfo.rowid);
 
+    let collectionItemDisplay = null;
+
     //Updates header counts
     totalItems++;
     if(!itemInfo.null)
@@ -577,6 +579,33 @@ function CreateItem(itemInfo) {
     let itemTypes = [itemInfo.playing, itemInfo.backlog, itemInfo.completed, itemInfo.beaten, itemInfo.unplayed, itemInfo.retired, itemInfo.replay, itemInfo.null]
     let itemTitle = CreateTitle(itemInfo.title, itemInfo.rowid, itemTypes);
     itemTitleDiv.appendChild(itemTitle);
+
+    if (collectionItemDisplay != null) {
+        if (itemTypes[0]) {
+            collectionItemDisplay.classList.add("playing-bar");
+        }
+        else if (itemTypes[2]) {
+            collectionItemDisplay.classList.add("completed-bar");
+        }
+        else if (itemTypes[3]) {
+            collectionItemDisplay.classList.add("beaten-bar");
+        }
+        else if (itemTypes[4]) {
+            collectionItemDisplay.classList.add("unplayed-bar");
+        }
+        else if (itemTypes[5]) {
+            collectionItemDisplay.classList.add("retired-bar");
+        }
+        else if (itemTypes[6]) {
+            collectionItemDisplay.classList.add("replay-bar");
+        }
+        else if (itemTypes[7]) {
+            collectionItemDisplay.classList.add("null-bar");
+        }
+        else {
+            collectionItemDisplay.classList.add("backlog-bar");
+        }
+    }
 
     //Checks to see if the style of the title needs to change
     if (itemInfo.subtitle != null) {
