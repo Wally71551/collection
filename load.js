@@ -1176,8 +1176,10 @@ function UpdateCollectionCounts(gameType) {
         case "Trading Card Game":
         case "Trading Card Game Set":
         case "Pokémon TCG Card":
+        case "Pokémon TCG Expansion":
+        case "Pokémon TCG Collection":
         case "Pokémon TCG Deck":
-        case "Oversized Pokémon TCG Card":
+        case "Jumbo Pokémon TCG Card":
             collectibleCount++;
             break;  
     }
@@ -1257,8 +1259,10 @@ function GetTypeIcon(itemType) {
         case "Trading Card Game":
         case "Trading Card Game Set":
         case "Pokémon TCG Card":
+        case "Pokémon TCG Expansion":
+        case "Pokémon TCG Collection":
         case "Pokémon TCG Deck":
-        case "Oversized Pokémon TCG Card":
+        case "Jumbo Pokémon TCG Card":
             return "icons/card.svg";
     }
 }
