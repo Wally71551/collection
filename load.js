@@ -1143,6 +1143,7 @@ function UpdateCollectionCounts(gameType) {
         case "Graphic Novel Collection":
         case "Manga":
         case "Manga Comic":
+        case "Manga Collection":
         case "Novel":
         case "Light Novel":
         case "Book":
@@ -1229,6 +1230,7 @@ function GetTypeIcon(itemType) {
         case "Graphic Novel Collection":
         case "Manga":
         case "Manga Comic":
+        case "Manga Collection":
         case "Novel":
         case "Light Novel":
         case "Book":
