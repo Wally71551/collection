@@ -1139,6 +1139,7 @@ function UpdateCollectionCounts(gameType) {
         case "Comic One-Shot":
         case "Comic Omnibus":
         case "Comic Collection":
+        case "Comic Series":
         case "Graphic Novel":
         case "Graphic Novel Collection":
         case "Manga":
@@ -1225,6 +1226,7 @@ function GetTypeIcon(itemType) {
         case "Comic":
         case "Comic One-Shot":
         case "Comic Omnibus":
+        case "Comic Series":
         case "Comic Collection":
         case "Graphic Novel":
         case "Graphic Novel Collection":
