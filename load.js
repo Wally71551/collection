@@ -1113,6 +1113,7 @@ function UpdateCollectionCounts(gameType) {
         case "DLC Bundle":
         case "Season Pass":
         case "Game Update":
+        case "Texture Pack":
         case "Demo":
         case "Skin Pack":
             dlcCount++;
@@ -1204,6 +1205,7 @@ function GetTypeIcon(itemType) {
         case "Add-On":
         case "Expansion":
         case "Season Pass":
+        case "Texture Pack":
             return "icons/dlc.svg";
         case "Film":
         case "Short Film":
