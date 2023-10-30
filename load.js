@@ -1134,6 +1134,7 @@ function UpdateCollectionCounts(gameType) {
         case "Anime":
         case "Short Series":
         case "Series Box Set":
+        case "Serial":
             seriesCount++;
             break;
         case "Comic":
@@ -1224,6 +1225,7 @@ function GetTypeIcon(itemType) {
         case "Web Series":
         case "Anime":
         case "Short Series":
+        case "Serial":
             return "icons/series.svg";
         case "Comic":
         case "Comic One-Shot":
