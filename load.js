@@ -1134,6 +1134,7 @@ function UpdateCollectionCounts(gameType) {
         case "Anime":
         case "Short Series":
         case "Series Box Set":
+        case "Series Collection":
         case "Serial":
             seriesCount++;
             break;
@@ -1144,6 +1145,7 @@ function UpdateCollectionCounts(gameType) {
         case "Comic Series":
         case "Graphic Novel":
         case "Graphic Novel Collection":
+        case "Graphic Novel Omnibus":
         case "Manga":
         case "Manga Comic":
         case "Manga Collection":
@@ -1170,6 +1172,7 @@ function UpdateCollectionCounts(gameType) {
         case "Skylanders Figure":
         case "Pokémon Rumble U NFC Figure":
         case "Funko POP!":
+        case "Funko POP! Bobble-Head":
         case "Figure":
         case "Minecraft Dungeons Arcade Card":
         case "Goodie Pack":
@@ -1184,6 +1187,11 @@ function UpdateCollectionCounts(gameType) {
         case "Pokémon TCG Collection":
         case "Pokémon TCG Deck":
         case "Jumbo Pokémon TCG Card":
+        case "Pin":
+        case "Diorama":
+        case "LEGO Set":
+        case "LEGO Polybag Set":
+        case "HOT WHEELS Car":
             collectibleCount++;
             break;  
     }
@@ -1218,6 +1226,7 @@ function GetTypeIcon(itemType) {
         case "Film Box Set":
         case "Film Collection":
         case "Series Box Set":
+        case "Series Collection":
             return "icons/collection.svg";
         case "Series":
         case "Animated Series":
@@ -1234,6 +1243,7 @@ function GetTypeIcon(itemType) {
         case "Comic Collection":
         case "Graphic Novel":
         case "Graphic Novel Collection":
+        case "Graphic Novel Omnibus":
         case "Manga":
         case "Manga Comic":
         case "Manga Collection":
@@ -1257,8 +1267,12 @@ function GetTypeIcon(itemType) {
         case "Skylanders Figure":
         case "Pokémon Rumble U NFC Figure":
         case "Funko POP!":
+        case "Funko POP! Bobble-Head":
         case "Figure":
         case "Tamagotchi":
+        case "Diorama":
+        case "LEGO Set":
+        case "LEGO Polybag Set":
         default:
             return "icons/cube.svg";
         case "Minecraft Dungeons Arcade Card":
@@ -1272,6 +1286,10 @@ function GetTypeIcon(itemType) {
         case "Pokémon TCG Deck":
         case "Jumbo Pokémon TCG Card":
             return "icons/card.svg";
+        case "Pin":
+            return "icons/circle.svg";
+        case "HOT WHEELS Car":
+            return "icons/car-side.svg";
     }
 }
 
