@@ -844,7 +844,7 @@ function CreateTitle(title, rowid, types) {
     let itemTitle = document.createElement("h1");
     let itemTitleNode = document.createTextNode(title);
     itemTitle.appendChild(itemTitleNode);
-    //itemTitle.onclick = function () { StartCreatePopUp(rowid) };
+    itemTitle.onclick = function () { StartCreatePopUp(rowid) };
     itemTitle.classList.add("title");
 
     //Decides what colour the title needs to be
@@ -1106,6 +1106,7 @@ function UpdateCollectionCounts(gameType) {
         case "Collection":
         case "Application":
         case "Modpack":
+        case "Bundle":
         default:
             gameCount++;
             break;
@@ -1125,6 +1126,7 @@ function UpdateCollectionCounts(gameType) {
         case "Animated Short":
         case "Special Episode":
         case "OVA":
+        case "Serial Reconstruction":
             filmCount++;
             break;
         case "Series":
@@ -1155,6 +1157,7 @@ function UpdateCollectionCounts(gameType) {
         case "Web Comic":
         case "Audiobook":
         case "Audio Drama":
+        case "Artbook":
             bookCount++;
             break;
         case "Album":
@@ -1192,6 +1195,7 @@ function UpdateCollectionCounts(gameType) {
         case "LEGO Set":
         case "LEGO Polybag Set":
         case "HOT WHEELS Car":
+        case "Steelbook":
             collectibleCount++;
             break;  
     }
@@ -1221,12 +1225,14 @@ function GetTypeIcon(itemType) {
         case "Animated Short":
         case "Special Episode":
         case "OVA":
+        case "Serial Reconstruction":
             return "icons/film.svg";
         case "Collection":
         case "Film Box Set":
         case "Film Collection":
         case "Series Box Set":
         case "Series Collection":
+        case "Bundle":
             return "icons/collection.svg";
         case "Series":
         case "Animated Series":
@@ -1251,6 +1257,7 @@ function GetTypeIcon(itemType) {
         case "Light Novel":
         case "Book":
         case "Web Comic":
+        case "Artboook":
             return "icons/book.svg";
         case "Album":
         case "Single":
@@ -1285,6 +1292,7 @@ function GetTypeIcon(itemType) {
         case "Pokémon TCG Collection":
         case "Pokémon TCG Deck":
         case "Jumbo Pokémon TCG Card":
+        case "Steelbook":
             return "icons/card.svg";
         case "Pin":
             return "icons/circle.svg";
@@ -1586,6 +1594,20 @@ function CreatePopUp(itemInfo) {
     deleteButton.classList.add("detailed-close");
     deleteButton.onclick = function () { ClosePopUp() };
     popupElement.appendChild(deleteButton);
+
+    //Creates image display
+
+    //Creates the title element
+
+    //Creates subtitle elements (if needed)
+
+    //Creates category
+
+    //Creates type / platform elements
+
+    //Creates type elements
+
+    //Creates time elements
 
     collectionElement.appendChild(popupBackground);
     collectionElement.appendChild(popupElement);
