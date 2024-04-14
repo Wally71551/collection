@@ -1107,6 +1107,7 @@ function UpdateCollectionCounts(gameType) {
         case "Application":
         case "Modpack":
         case "Bundle":
+        case "Pinball Machine":
         default:
             gameCount++;
             break;
@@ -1183,6 +1184,8 @@ function UpdateCollectionCounts(gameType) {
         case "Pre-Order Bonus":
         case "Poster":
         case "Tamagotchi":
+        case "Trading Card":
+        case "Collectible Card":
         case "Trading Card Game":
         case "Trading Card Game Set":
         case "Pokémon TCG Card":
@@ -1285,6 +1288,8 @@ function GetTypeIcon(itemType) {
         case "Minecraft Dungeons Arcade Card":
         case "amiibo Card":
         case "Poster":
+        case "Trading Card":
+        case "Collectible Card":
         case "Trading Card Game":
         case "Trading Card Game Set":
         case "Pokémon TCG Card":
@@ -1295,6 +1300,7 @@ function GetTypeIcon(itemType) {
         case "Steelbook":
             return "icons/card.svg";
         case "Pin":
+        case "Pinball Machine":
             return "icons/circle.svg";
         case "HOT WHEELS Car":
             return "icons/car-side.svg";
@@ -1305,8 +1311,16 @@ function GetRegionIcon(region) {
     switch (region) {
         case "NTSC":
             return "icons/NTSC.jpg";
+        case "US":
+            return "icons/US.jpg";
+        case "ITL":
+            return "icons/ITL.jpg";
+        case "CZ":
+            return "icons/CZ.jpg";
         case "JP":
             return "icons/JP.jpg";
+        case "KR":
+            return "icons/KR.jpg";
         default:
             return null;
     }
