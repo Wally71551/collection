@@ -1106,6 +1106,7 @@ function UpdateCollectionCounts(gameType) {
         case "Collection":
         case "Application":
         case "Modpack":
+        case "Mod":
         case "Bundle":
         case "Pinball Machine":
         default:
@@ -1222,6 +1223,7 @@ function GetTypeIcon(itemType) {
         case "Expansion":
         case "Season Pass":
         case "Texture Pack":
+        case "Mod":
             return "icons/dlc.svg";
         case "Film":
         case "Short Film":
