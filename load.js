@@ -1228,6 +1228,7 @@ function UpdateCollectionCounts(gameType) {
         case "Pokémon TCG Expansion":
         case "Pokémon TCG Collection":
         case "Pokémon TCG Deck":
+        case "Pokémon TCG Portfolio":
         case "Jumbo Pokémon TCG Card":
         case "Pin":
         case "Diorama":
@@ -1338,6 +1339,7 @@ function GetTypeIcon(itemType) {
         case "Pokémon TCG Expansion":
         case "Pokémon TCG Collection":
         case "Pokémon TCG Deck":
+        case "Pokémon TCG Portfolio":
         case "Jumbo Pokémon TCG Card":
         case "Steelbook":
             return "icons/card.svg";
