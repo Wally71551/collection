@@ -20,6 +20,8 @@ let filmCount = 0;
 let seriesCount = 0;
 let bookCount = 0;
 let albumCount = 0;
+let consoleCount = 0;
+let peripheralCount = 0;
 let collectibleCount = 0;
 
 let totalTrophies = [0, 0, 0, 0];
@@ -343,6 +345,32 @@ function HeaderSetup() {
         albumDisplay.appendChild(albumIcon);
         albumDisplay.appendChild(albumCountNode);
         headerElement.appendChild(albumDisplay);
+    }
+
+    if (consoleCount > 0) {
+        let consoleDisplay = document.createElement("h2");
+        consoleCountNode = document.createTextNode(consoleCount);
+        consoleDisplay.classList.add("counter");
+        let consoleIcon = document.createElement("img");
+        consoleIcon.src = "icons/console.svg";
+        consoleIcon.classList.add("icon-intext");
+        consoleIcon.style.marginRight = "0.25em";
+        consoleDisplay.appendChild(consoleIcon);
+        consoleDisplay.appendChild(consoleCountNode);
+        headerElement.appendChild(consoleDisplay);
+    }
+
+    if (peripheralCount > 0) {
+        let peripheralDisplay = document.createElement("h2");
+        peripheralCountNode = document.createTextNode(peripheralCount);
+        peripheralDisplay.classList.add("counter");
+        let peripheralIcon = document.createElement("img");
+        peripheralIcon.src = "icons/peripheral.svg";
+        peripheralIcon.classList.add("icon-intext");
+        peripheralIcon.style.marginRight = "0.25em";
+        peripheralDisplay.appendChild(peripheralIcon);
+        peripheralDisplay.appendChild(peripheralCountNode);
+        headerElement.appendChild(peripheralDisplay);
     }
 
     if (collectibleCount > 0) {
@@ -1170,6 +1198,13 @@ function UpdateCollectionCounts(gameType) {
         case "2-Disc CD Collection":
             albumCount++;
             break;
+        case "Console":
+            consoleCount++;
+            break;
+        case "Peripheral":
+        case "Controller":
+            peripheralCount++;
+            break;
         case "amiibo":
         case "amiibo Card":
         case "amiibo Double Pack":
@@ -1210,6 +1245,7 @@ function GetTypeIcon(itemType) {
         case "Game":
         case "Arcade Game":
         case "Modpack":
+        case "Controller":
             return "icons/game.svg";
         case "DLC":
         case "DLC Bundle":
@@ -1273,6 +1309,10 @@ function GetTypeIcon(itemType) {
         case "Track":
         case "2-Disc CD Collection":
             return "icons/album.svg";
+        case "Console":
+            return "icons/console.svg";
+        case "Peripheral":
+            return "icons/peripheral.svg";
         case "amiibo":
         case "amiibo Double Pack":
         case "amiibo 4-Pack":
@@ -1398,6 +1438,8 @@ function ResetVariables() {
     seriesCount = 0;
     bookCount = 0;
     albumCount = 0;
+    consoleCount = 0;
+    peripheralCount = 0;
     collectibleCount = 0;
     totalTrophies = [0, 0, 0, 0];
     totalGamerscore = 0;
