@@ -699,7 +699,7 @@ function CreateItem(itemInfo) {
     }
 
     //Creates the progress bar
-    if (itemInfo.progress != null) {
+    if (itemInfo.progresscurrent != null && itemInfo.progressfull != null) {
         itemInfoDiv.appendChild(CreateProgressBar(itemInfo.progress));
 
         //Adds the text underneath the progress bar
