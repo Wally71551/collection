@@ -721,6 +721,16 @@ function CreateItem(itemInfo) {
             itemInfoDiv.appendChild(itemProgressText);
         }
     }
+    else if (itemInfo.progressprefix == "Percentage Completion") {
+        itemInfoDiv.appendChild(CreateProgressBar(itemInfo.progress));
+
+        let itemProgressText = document.createElement("p");
+        itemProgressText.classList.add("progress-text");
+        itemProgressTextNode = document.createTextNode(itemInfo.progress + "% Completion");
+
+        itemProgressText.appendChild(itemProgressTextNode);
+        itemInfoDiv.appendChild(itemProgressText);
+    }
 
     //Creates the progress note
     if (itemInfo.progressnote != null) {
@@ -1231,11 +1241,15 @@ function UpdateCollectionCounts(gameType) {
         case "Pokémon TCG Portfolio":
         case "Jumbo Pokémon TCG Card":
         case "Pin":
+        case "Pin Set":
+        case "Medal":
         case "Diorama":
         case "LEGO Set":
         case "LEGO Polybag Set":
         case "HOT WHEELS Car":
+        case "Toy Car":
         case "Steelbook":
+        case "Coaster Set":
             collectibleCount++;
             break;  
     }
@@ -1299,7 +1313,7 @@ function GetTypeIcon(itemType) {
         case "Light Novel":
         case "Book":
         case "Web Comic":
-        case "Artboook":
+        case "Artbook":
             return "icons/book.svg";
         case "Album":
         case "Single":
@@ -1344,10 +1358,19 @@ function GetTypeIcon(itemType) {
         case "Steelbook":
             return "icons/card.svg";
         case "Pin":
+        case "Pin Set":
         case "Pinball Machine":
+        case "Coaster Set":
+        case "Medal":
             return "icons/circle.svg";
         case "HOT WHEELS Car":
+        case "Toy Car":
             return "icons/car-side.svg";
+        case "T-Shirt":
+            return "icons/tshirt.svg";
+        case "Theme Park Attraction":
+        case "Rollercoaster":
+            return "icons/rollercoaster.svg";
     }
 }
 
@@ -1365,6 +1388,8 @@ function GetRegionIcon(region) {
             return "icons/JP.jpg";
         case "KR":
             return "icons/KR.jpg";
+        case "FR":
+            return "icons/FR.jpg";
         default:
             return null;
     }
@@ -1655,7 +1680,13 @@ function CreatePopUp(itemInfo) {
     deleteButton.onclick = function () { ClosePopUp() };
     popupElement.appendChild(deleteButton);
 
-    //Creates image display
+    //Sets up the image display
+    let imageWrapper = document.createElement("div");
+    imageWrapper.classList.add("detailed-image-wrapper");
+    popupElement.appendChild(imageWrapper);
+    imageWrapper.appendChild(CreatePopUpImage(itemInfo.image, itemInfo.tallimage));
+
+    //Sets up the opposite side of the object
 
     //Creates the title element
 
@@ -1677,4 +1708,24 @@ function ClosePopUp() {
     popupElement.remove();
     popupBackground.remove();
     popupOpen = false;
+}
+
+function CreatePopUpImage(imageLink, isTallImage) {
+    //Creates the image itself
+    let itemImage = document.createElement("img");
+    if (imageLink == null) {
+        itemImage.src = "placeholder.jpg";
+    }
+    else {
+        itemImage.src = imageLink;
+    }
+
+    if (isTallImage) {
+        itemImage.classList.add("detailed-image-tall");
+    }
+    else {
+        itemImage.classList.add("detailed-image");
+    }
+
+    return itemImage;
 }

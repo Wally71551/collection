@@ -637,8 +637,9 @@ body::-webkit-scrollbar-track-piece {
     height: 80%;
     position: fixed;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    align-content: center;
     text-align: center;
     top: 10%;
     left: 10%;
@@ -667,4 +668,31 @@ body::-webkit-scrollbar-track-piece {
     border-radius: 5px;
     background-color: white;
     z-index: 11;
+}
+
+.detailed-image-wrapper {
+    display: inline-block;
+    height: 90%;
+    margin-left: 5%;
+}
+
+.detailed-image {
+    object-fit: contain;
+    width: 100%;
+    max-height: 100%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 20px;
+}
+
+.detailed-image-tall {
+    object-fit: contain;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 20px;
 }
