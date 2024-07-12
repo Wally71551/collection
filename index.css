@@ -736,3 +736,21 @@ body::-webkit-scrollbar-track-piece {
 .right-xp-div {
     justify-content: flex-start;
 }
+.trophy-xp-icon {
+    width: 1.75em;
+    height: 1.75em;
+    margin-right: 0.25em;
+    display: inline-block;
+}
+.trophy-xp-div {
+    display: flex;
+    flex-direction: column;
+}
+.trophy-xp-text, .trophy-xp-line {
+    margin: 0px;
+}
+.trophy-xp-line {
+    font-weight: bold;
+    font-size: 2.5em;
+    line-height: 0.2em;
+}

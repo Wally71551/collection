@@ -655,7 +655,7 @@ function CreateItem(itemInfo) {
             let subtitleItem = CreateSubtitle(itemInfo.subtitle);
             itemTitleDiv.appendChild(subtitleItem);
 
-            if (itemInfo.title.length > 40 && itemInfo.subtitle.length > 45) {
+            if (itemInfo.title.length > 40 && itemInfo.subtitle.length > 40) {
                 subtitleItem.style.fontSize = "0.75em";
             }
         }
@@ -673,18 +673,6 @@ function CreateItem(itemInfo) {
     }
 
     //Checks for gamerscore
-    if (itemInfo.xp != null) {
-        itemInfoDiv.appendChild(CreateXPIcon(itemInfo.xp, itemInfo.xpmax, itemInfo.xptype));
-
-        //Adds to the correct counters
-        if (!itemInfo.removexp) {
-            switch (itemInfo.xptype) {
-                case ('XBOX'):
-                    totalGamerscore += Number(itemInfo.xp);
-            }
-        }
-    }
-
     //Checks for trophies
     if (itemInfo.trophies != null) {
         //Break stops trophies being in line with other text
@@ -696,11 +684,68 @@ function CreateItem(itemInfo) {
             UpdateTrophyCount(trophies);
             totalAchievements += itemInfo.progresscurrent;
             if (itemInfo.progress != null && itemInfo.progress >= 100) {
-                    allAchievements++;
+                allAchievements++;
             }
         }
 
-        itemInfoDiv.appendChild(CreateTrophyDisplay(trophies));
+        if (itemInfo.xp == null) {
+            itemInfoDiv.appendChild(CreateTrophyDisplay(trophies));
+        }
+        else {
+            //Sets up the main trophy wrapper
+            let mainWrapper = CreateTrophyDisplay(trophies);
+
+            //Add xp icon
+            let xpIcon = document.createElement("img")
+            xpIcon.src = GetXPIcon(itemInfo.xptype);
+            xpIcon.classList.add("trophy-xp-icon");
+            mainWrapper.appendChild(xpIcon);
+
+            //Adds actual xp values
+            let suffix = '';
+            if (itemInfo.xptype == 'GPLAY' || itemInfo.xptype == 'EPIC') {
+                suffix = ' XP';
+            }
+
+            //generates the top down value in top down
+            let itemXPDiv = document.createElement("div");
+            itemXPDiv.classList.add("trophy-xp-div");
+            let itemTop = document.createElement("p");
+            itemTop.innerText = itemInfo.xp;
+            itemTop.classList.add("trophy-xp-text");
+            itemXPDiv.appendChild(itemTop);
+            let itemLine = document.createElement("p");
+            itemLine.innerText = '—'
+            itemLine.classList.add("trophy-xp-line");
+            itemXPDiv.appendChild(itemLine);
+            let itemBottom = document.createElement("p");
+            itemBottom.innerText = itemInfo.xpmax + suffix;
+            itemBottom.classList.add("trophy-xp-text");
+            itemXPDiv.appendChild(itemBottom);
+            mainWrapper.appendChild(itemXPDiv);
+
+            itemInfoDiv.appendChild(mainWrapper);
+
+            //Adds to the correct counters
+            if (!itemInfo.removexp) {
+                switch (itemInfo.xptype) {
+                    case ('XBOX'):
+                        totalGamerscore += Number(itemInfo.xp);
+                }
+            }
+        }
+    }
+    //else if used as xp section for PS games has already been handled
+    else if (itemInfo.xp != null) {
+        itemInfoDiv.appendChild(CreateXPIcon(itemInfo.xp, itemInfo.xpmax, itemInfo.xptype));
+
+        //Adds to the correct counters
+        if (!itemInfo.removexp) {
+            switch (itemInfo.xptype) {
+                case ('XBOX'):
+                    totalGamerscore += Number(itemInfo.xp);
+            }
+        }
     }
 
     //Creates the progress bar
@@ -1034,7 +1079,7 @@ function CreateXPIcon(xp, xpMax, type) {
 
     //Adds suffixes here
     let suffix = ''
-    if (type == 'GPLAY' || type == 'EPIC') {
+    if (mainType == 'GPLAY' || mainType == 'EPIC') {
         suffix = " XP";
     }
 
@@ -1059,8 +1104,14 @@ function CreateXPIcon(xp, xpMax, type) {
         divider.classList.add("center-char-xp");
         divider.classList.add("xp-divider");
 
+
         const [_type, _xp, _xpMax] = secondaryType.split('/');
-        itemXPNode = document.createTextNode(_xp + " / " + _xpMax);
+
+        if (_type == 'GPLAY' || _type == 'EPIC') {
+            suffix = " XP";
+        }
+
+        itemXPNode = document.createTextNode(_xp + " / " + _xpMax + suffix);
         xpIcon = document.createElement("img");
         xpIcon.src = GetXPIcon(_type);
         xpIcon.classList.add("icon-intext");
