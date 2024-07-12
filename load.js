@@ -673,11 +673,15 @@ function CreateItem(itemInfo) {
     }
 
     //Checks for gamerscore
-    if (itemInfo.gamerscore != null) {
-        if (!itemInfo.removeachievements) {
-            totalGamerscore += Number(itemInfo.gamerscore);
+    if (itemInfo.xp != null) {
+        switch (itemInfo.xptype) {
+            case ('XBOX'):
+            default:
+                if (!itemInfo.removexp) {
+                    totalGamerscore += Number(itemInfo.xp);
+                }
+                itemInfoDiv.appendChild(CreateGamerscoreIcon(itemInfo.xp, itemInfo.xpmax));
         }
-        itemInfoDiv.appendChild(CreateGamerscoreIcon(itemInfo.gamerscore, itemInfo.gamerscoremax));
     }
 
     //Checks for trophies
