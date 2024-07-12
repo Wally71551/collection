@@ -707,14 +707,32 @@ body::-webkit-scrollbar-track-piece {
 .left-text, .right-text {
     flex: 1;
 }
-.left-text {
+.left-text, .left-xp-div {
     text-align: right;
 }
-.right-text {
+.right-text, .right-xp-div {
     text-align: left;
+}
+.center-char, .center-char-xp {
+    margin-left: 1%;
+    margin-right: 1%;
+    font-size: 1.375em;
+    margin-bottom: 0.5%;
 }
 .center-char {
     flex: 0;
-    margin-left: 1%;
-    margin-right: 1%;
+}
+.center-char-xp {
+    margin-top: 0%;
+}
+.left-xp-div, .right-xp-div {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+.left-xp-div {
+    justify-content: flex-end;
+}
+.right-xp-div {
+    justify-content: flex-start;
 }

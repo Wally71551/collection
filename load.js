@@ -1046,16 +1046,18 @@ function CreateXPIcon(xp, xpMax, type) {
     xpIcon.classList.add("icon-intext");
     xpIcon.style.marginRight = "0.25em";
 
-    itemXP.appendChild(xpIcon);
-    itemXP.appendChild(itemXPNode);
-
     //Checks to make sure the secondary type exists and then adds the extra info
     if (secondaryType != '') {
+        let xpLeft = document.createElement("div");
+        xpLeft.classList.add("left-xp-div");
+        xpLeft.appendChild(xpIcon);
+        xpLeft.appendChild(itemXPNode);
+
         //Adds divider text
         let divider = document.createElement("p");
         divider.innerHTML = '<strong>|</strong>';
+        divider.classList.add("center-char-xp");
         divider.classList.add("xp-divider");
-        itemXP.appendChild(divider);
 
         const [_type, _xp, _xpMax] = secondaryType.split('/');
         itemXPNode = document.createTextNode(_xp + " / " + _xpMax);
@@ -1064,6 +1066,16 @@ function CreateXPIcon(xp, xpMax, type) {
         xpIcon.classList.add("icon-intext");
         xpIcon.style.marginRight = "0.25em";
 
+        let xpRight = document.createElement("div");
+        xpRight.classList.add("right-xp-div");
+        xpRight.appendChild(xpIcon);
+        xpRight.appendChild(itemXPNode);
+
+        itemXP.appendChild(xpLeft);
+        itemXP.appendChild(divider);
+        itemXP.appendChild(xpRight);
+    }
+    else {
         itemXP.appendChild(xpIcon);
         itemXP.appendChild(itemXPNode);
     }
