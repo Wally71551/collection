@@ -674,13 +674,14 @@ function CreateItem(itemInfo) {
 
     //Checks for gamerscore
     if (itemInfo.xp != null) {
-        switch (itemInfo.xptype) {
-            case ('XBOX'):
-            default:
-                if (!itemInfo.removexp) {
+        itemInfoDiv.appendChild(CreateXPIcon(itemInfo.xp, itemInfo.xpmax, itemInfo.xptype));
+
+        //Adds to the correct counters
+        if (!itemInfo.removexp) {
+            switch (itemInfo.xptype) {
+                case ('XBOX'):
                     totalGamerscore += Number(itemInfo.xp);
-                }
-                itemInfoDiv.appendChild(CreateGamerscoreIcon(itemInfo.xp, itemInfo.xpmax));
+            }
         }
     }
 
@@ -1018,21 +1019,25 @@ function CreateTimeDisplay(time) {
     return itemTime;
 }
 
-function CreateGamerscoreIcon(gamerscore, gamerscoreMax) {
+function CreateXPIcon(xp, xpMax, type) {
     //Creates gamerscore display
-    let itemGamerscore = document.createElement("h3");
-    itemGamerscoreNode = document.createTextNode(gamerscore + " / " + gamerscoreMax);
-    itemGamerscore.classList.add("gamerscore");
+    let itemXP = document.createElement("h3");
+    let itemXPNode = document.createTextNode(xp + " / " + xpMax);
+    itemXP.classList.add("xp");
 
-    let gamerscoreIcon = document.createElement("img")
-    gamerscoreIcon.src = "icons/gamerscore.svg";
-    gamerscoreIcon.classList.add("icon-intext");
-    gamerscoreIcon.style.marginRight = "0.25em";
+    let xpIcon = document.createElement("img")
+    switch (type) {
+        case 'XBOX':
+        default:
+            xpIcon.src = "icons/gamerscore.svg";
+    }
+    xpIcon.classList.add("icon-intext");
+    xpIcon.style.marginRight = "0.25em";
 
-    itemGamerscore.appendChild(gamerscoreIcon);
-    itemGamerscore.appendChild(itemGamerscoreNode);
+    itemXP.appendChild(xpIcon);
+    itemXP.appendChild(itemXPNode);
 
-    return itemGamerscore;
+    return itemXP;
 }
 
 function CreateTrophyDisplay(trophies) {
