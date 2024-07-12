@@ -1032,7 +1032,13 @@ function CreateXPIcon(xp, xpMax, type) {
         secondaryType = secondary;
     }
 
-    let itemXPNode = document.createTextNode(xp + " / " + xpMax);
+    //Adds suffixes here
+    let suffix = ''
+    if (type == 'GPLAY' || type == 'EPIC') {
+        suffix = " XP";
+    }
+
+    let itemXPNode = document.createTextNode(xp + " / " + xpMax + suffix);
 
     let xpIcon = document.createElement("img")
     xpIcon.src = GetXPIcon(mainType);
