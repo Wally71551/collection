@@ -707,22 +707,30 @@ function CreateItem(itemInfo) {
                 suffix = ' XP';
             }
 
-            //generates the top down value in top down
-            let itemXPDiv = document.createElement("div");
-            itemXPDiv.classList.add("trophy-xp-div");
-            let itemTop = document.createElement("p");
-            itemTop.innerText = itemInfo.xp;
-            itemTop.classList.add("trophy-xp-text");
-            itemXPDiv.appendChild(itemTop);
-            let itemLine = document.createElement("p");
-            itemLine.innerText = '—'
-            itemLine.classList.add("trophy-xp-line");
-            itemXPDiv.appendChild(itemLine);
-            let itemBottom = document.createElement("p");
-            itemBottom.innerText = itemInfo.xpmax + suffix;
-            itemBottom.classList.add("trophy-xp-text");
-            itemXPDiv.appendChild(itemBottom);
-            mainWrapper.appendChild(itemXPDiv);
+            //generates the values in vertical form
+            if (itemInfo.xpmax != null) {
+                let itemXPDiv = document.createElement("div");
+                itemXPDiv.classList.add("trophy-xp-div");
+                let itemTop = document.createElement("p");
+                itemTop.innerText = itemInfo.xp;
+                itemTop.classList.add("trophy-xp-text");
+                itemXPDiv.appendChild(itemTop);
+                let itemLine = document.createElement("p");
+                itemLine.innerText = '—'
+                itemLine.classList.add("trophy-xp-line");
+                itemXPDiv.appendChild(itemLine);
+                let itemBottom = document.createElement("p");
+                itemBottom.innerText = itemInfo.xpmax + suffix;
+                itemBottom.classList.add("trophy-xp-text");
+                itemXPDiv.appendChild(itemBottom);
+                mainWrapper.appendChild(itemXPDiv);
+            }
+            else {
+                let itemXP = document.createElement("p");
+                itemXP.classList.add("trophy-xp-line");
+                itemXP.innerText = itemInfo.xp + suffix;
+                mainWrapper.appendChild(itemXP);
+            }
 
             itemInfoDiv.appendChild(mainWrapper);
 
@@ -1083,7 +1091,13 @@ function CreateXPIcon(xp, xpMax, type) {
         suffix = " XP";
     }
 
-    let itemXPNode = document.createTextNode(xp + " / " + xpMax + suffix);
+    let itemXPNode = ''
+    if (xpMax != null) {
+        itemXPNode = document.createTextNode(xp + " / " + xpMax + suffix);
+    }
+    else {
+        itemXPNode = document.createTextNode(xp + suffix);
+    }
 
     let xpIcon = document.createElement("img")
     xpIcon.src = GetXPIcon(mainType);
@@ -1111,7 +1125,12 @@ function CreateXPIcon(xp, xpMax, type) {
             suffix = " XP";
         }
 
-        itemXPNode = document.createTextNode(_xp + " / " + _xpMax + suffix);
+        if (_xpMax != null) {
+            itemXPNode = document.createTextNode(_xp + " / " + _xpMax + suffix);
+        }
+        else {
+            itemXPNode = document.createTextNode(_xp + suffix);
+        }
         xpIcon = document.createElement("img");
         xpIcon.src = GetXPIcon(_type);
         xpIcon.classList.add("icon-intext");
