@@ -984,7 +984,7 @@ function CreatePlatformText(platform, storefront, internalType) {
     //Centers the text dynamically if needed
     if (itemPlatform.innerText.includes('|') && shouldSplit) {
         const [leftText, rightText] = itemPlatform.innerText.split('|');
-        itemPlatform.innerHTML = `<span class="left-text">${leftText.trim()}</span></br><span class="center-char"> | </span></br><span class="right-text">${rightText.trim()}</span>`;
+        itemPlatform.innerHTML = `<span class="left-text">${leftText.trim()}</span><span class="center-char"><strong>|</strong></span><span class="right-text">${rightText.trim()}</span>`;
     }
 
     itemPlatform.classList.add("platform");
