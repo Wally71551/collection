@@ -1022,22 +1022,65 @@ function CreateTimeDisplay(time) {
 function CreateXPIcon(xp, xpMax, type) {
     //Creates gamerscore display
     let itemXP = document.createElement("h3");
-    let itemXPNode = document.createTextNode(xp + " / " + xpMax);
     itemXP.classList.add("xp");
 
-    let xpIcon = document.createElement("img")
-    switch (type) {
-        case 'XBOX':
-        default:
-            xpIcon.src = "icons/gamerscore.svg";
+    let mainType = type;
+    let secondaryType = ''
+    if (type.includes('|')) {
+        const [main, secondary] = type.split('|');
+        mainType = main;
+        secondaryType = secondary;
     }
+
+    let itemXPNode = document.createTextNode(xp + " / " + xpMax);
+
+    let xpIcon = document.createElement("img")
+    xpIcon.src = GetXPIcon(mainType);
+
     xpIcon.classList.add("icon-intext");
     xpIcon.style.marginRight = "0.25em";
 
     itemXP.appendChild(xpIcon);
     itemXP.appendChild(itemXPNode);
 
+    //Checks to make sure the secondary type exists and then adds the extra info
+    if (secondaryType != '') {
+        //Adds divider text
+        let divider = document.createElement("p");
+        divider.innerHTML = '<strong>|</strong>';
+        divider.classList.add("xp-divider");
+        itemXP.appendChild(divider);
+
+        const [_type, _xp, _xpMax] = secondaryType.split('/');
+        itemXPNode = document.createTextNode(_xp + " / " + _xpMax);
+        xpIcon = document.createElement("img");
+        xpIcon.src = GetXPIcon(_type);
+        xpIcon.classList.add("icon-intext");
+        xpIcon.style.marginRight = "0.25em";
+
+        itemXP.appendChild(xpIcon);
+        itemXP.appendChild(itemXPNode);
+    }
+
     return itemXP;
+}
+
+function GetXPIcon(type) {
+    switch (type) {
+        case 'XBOX':
+        default:
+            return "icons/gamerscore.svg";
+        case 'EPIC':
+            return "icons/epic.svg";
+        case 'UBI':
+            return "icons/ubi.svg";
+        case 'UBI_C':
+            return "icons/bullseye.svg";
+        case 'GPLAY':
+            return "icons/gplay.svg";
+        case 'EA':
+            return "icons/ea.svg";
+    }
 }
 
 function CreateTrophyDisplay(trophies) {
