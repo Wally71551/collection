@@ -696,3 +696,21 @@ body::-webkit-scrollbar-track-piece {
     transform: translateY(-50%);
     border-radius: 20px;
 }
+
+.left-text, .right-text, .center-char {
+    display: inline-block;
+}
+.left-text, .right-text {
+    flex: 1;
+}
+.left-text {
+    text-align: right;
+}
+.right-text {
+    text-align: left;
+}
+.center-char {
+    flex: 0;
+    margin-left: 1%;
+    margin-right: 1%;
+}

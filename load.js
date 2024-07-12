@@ -861,7 +861,7 @@ function CreateImage(imageLink, isTallImage) {
     //Creates the image itself
     let itemImage = document.createElement("img");
     if (imageLink == null) {
-        itemImage.src = "placeholder.jpg";
+        itemImage.src = "img/placeholder.jpg";
     }
     else {
         itemImage.src = imageLink;
@@ -976,6 +976,13 @@ function CreatePlatformText(platform, storefront, internalType) {
 
     let itemPlatformNode = document.createTextNode(str);
     itemPlatform.appendChild(itemPlatformNode);
+
+    //Centers the text dynamically if needed
+    if (itemPlatform.innerText.includes('|')) {
+        const [leftText, rightText] = itemPlatform.innerText.split('|');
+        itemPlatform.innerHTML = `<span class="left-text">${leftText.trim()}</span></br><span class="center-char"> | </span></br><span class="right-text">${rightText.trim()}</span>`;
+    }
+
     itemPlatform.classList.add("platform");
     return itemPlatform;
 }
@@ -1714,7 +1721,7 @@ function CreatePopUpImage(imageLink, isTallImage) {
     //Creates the image itself
     let itemImage = document.createElement("img");
     if (imageLink == null) {
-        itemImage.src = "placeholder.jpg";
+        itemImage.src = "img/placeholder.jpg";
     }
     else {
         itemImage.src = imageLink;
