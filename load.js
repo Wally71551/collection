@@ -963,13 +963,17 @@ function CreatePlatformText(platform, storefront, internalType) {
     let itemPlatform = document.createElement("p");
     let str = "";
 
+    let shouldSplit = false;
+
     if (platform != null) {
         str += platform;
     }
 
     if (storefront != null && !(internalType == "Collectible" && storefront == "Physical")) {
-        if (platform != null)
+        if (platform != null) {
             str += " | ";
+            shouldSplit = true;
+        }
 
         str += storefront;
     }
@@ -978,7 +982,7 @@ function CreatePlatformText(platform, storefront, internalType) {
     itemPlatform.appendChild(itemPlatformNode);
 
     //Centers the text dynamically if needed
-    if (itemPlatform.innerText.includes('|')) {
+    if (itemPlatform.innerText.includes('|') && shouldSplit) {
         const [leftText, rightText] = itemPlatform.innerText.split('|');
         itemPlatform.innerHTML = `<span class="left-text">${leftText.trim()}</span></br><span class="center-char"> | </span></br><span class="right-text">${rightText.trim()}</span>`;
     }
