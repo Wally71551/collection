@@ -753,3 +753,20 @@ body::-webkit-scrollbar-track-piece {
     font-size: 2.5em;
     line-height: 0.2em;
 }
+
+.show-all-button {
+    display: block;
+    height: 3em;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 0.5em;
+    border-color: transparent;
+    border-radius: 5px;
+    background-color: #757575;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    font-size: larger;
+    font-weight: bold;
+}

@@ -45,9 +45,10 @@ let orderType = "";
 
 let showCollectibles = false;
 
-//Tries to initially limit to 102 (17 rows of 6)
+//Defaults to showing 20 rows
 let shouldLimit = true;
-let limitAmount = 102;
+let limittedRowAmount = 20;
+let limitAmount = 0;
 let currentLimitIndex = 0;
 
 Load();
@@ -60,7 +61,8 @@ function Load() {
 
     //Set limit amount
     let boxCount = Math.floor(window.innerWidth / 300); //Box item width
-    //Drops limit amount until it is even
+    limitAmount = boxCount * limittedRowAmount;
+    //Drops limit amount until it is in line with the display amount
     while (limitAmount % boxCount != 0) {
         limitAmount--;
     }
@@ -113,6 +115,20 @@ function Load() {
             }
 
             HeaderSetup();
+
+            //Checks whether the bottom Show All button needs to be appended
+            if (shouldLimit & currentLimitIndex > limitAmount) {
+                let buttonElement = document.createElement("BUTTON");
+                buttonElement.classList.add("show-all-button")
+                buttonElement.name = "ShowAllButton";
+                buttonElement.appendChild(document.createTextNode("Show All Items"));
+                buttonElement.onclick = function ()
+                {
+                    document.getElementById("limitValues").checked = false;
+                    Load();
+                }
+                collectionElement.appendChild(buttonElement);
+            }
 
             LoadedState(false);
         })
