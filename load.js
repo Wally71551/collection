@@ -45,6 +45,11 @@ let orderType = "";
 
 let showCollectibles = false;
 
+//Tries to initially limit to 102 (17 rows of 6)
+let shouldLimit = true;
+let limitAmount = 102;
+let currentLimitIndex = 0;
+
 Load();
 
 //Initial load
@@ -53,11 +58,19 @@ function Load() {
     LoadedState(true);
     ClearInfo();
 
+    //Set limit amount
+    let boxCount = Math.floor(window.innerWidth / 300); //Box item width
+    //Drops limit amount until it is even
+    while (limitAmount % boxCount != 0) {
+        limitAmount--;
+    }
+
     //Checks the search URL parameters to create the final URL
     BuildURL();
 
     //Checks to see if collectibles need to be shown
     showCollectibles = document.getElementById("showCollectibles").checked;
+    shouldLimit = document.getElementById("limitValues").checked;
 
     console.log(searchURL);
 
@@ -90,6 +103,8 @@ function Load() {
                         return true;
 
                     CreateItem(value);
+
+                    currentLimitIndex++;
                 });
             }
 
@@ -892,7 +907,14 @@ function CreateItem(itemInfo) {
         itemInfoDiv.appendChild(progressNoteDiv);
     }
 
-    collectionElement.appendChild(itemInfoDiv);
+    if (shouldLimit) {
+        if (currentLimitIndex < limitAmount) {
+            collectionElement.appendChild(itemInfoDiv);
+        }
+    }
+    else {
+        collectionElement.appendChild(itemInfoDiv);
+    }
 }
 
 function CreateListItem(itemInfo) {
@@ -965,7 +987,14 @@ function CreateListItem(itemInfo) {
     itemInfoDiv.appendChild(leftDiv);
     itemInfoDiv.appendChild(rightDiv);
 
-    collectionElement.appendChild(itemInfoDiv);
+    if (shouldLimit) {
+        if (currentLimitIndex < limitAmount) {
+            collectionElement.appendChild(itemInfoDiv);
+        }
+    }
+    else {
+        collectionElement.appendChild(itemInfoDiv);
+    }
 }
 
 function CreateImage(imageLink, isTallImage) {
@@ -1686,6 +1715,8 @@ function ResetVariables() {
     totalAchievements = 0;
     totalTime = [0, 0, 0];
     allAchievements = 0;
+
+    currentLimitIndex = 0;
 }
 
 function UpdateTypeCount(itemInfo) {
