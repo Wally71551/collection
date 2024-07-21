@@ -4,7 +4,6 @@ body {
     font-family: 'Roboto', 'coda-symbol', sans-serif;
     text-align: center;
     margin: 0;
-    overflow: overlay;
 }
 
 #display {

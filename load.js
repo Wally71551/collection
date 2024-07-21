@@ -27,6 +27,8 @@ let collectibleCount = 0;
 let totalTrophies = [0, 0, 0, 0];
 let totalGamerscore = 0;
 let totalAchievements = 0;
+let totalEpicXP = 0;
+let totalGPlayXP = 0;
 let totalPerfectGames = 0;
 let totalTime = [0, 0, 0];
 let allAchievements = 0;
@@ -510,13 +512,43 @@ function HeaderSetup() {
         itemGamerscoreNode = document.createTextNode(totalGamerscore);
         itemGamerscore.classList.add("gamerscore");
         itemGamerscore.classList.add("header-flex-wrapper");
-        let gamerscoreIcon = document.createElement("img")
+        let gamerscoreIcon = document.createElement("img");
         gamerscoreIcon.src = "icons/gamerscore.svg";
         gamerscoreIcon.classList.add("icon-intext");
         gamerscoreIcon.style.marginRight = "0.25em";
         itemGamerscore.appendChild(gamerscoreIcon);
         itemGamerscore.appendChild(itemGamerscoreNode);
         headerElement.appendChild(itemGamerscore);
+    }
+
+    //Epic XP generation
+    if (totalEpicXP > 0) {
+        let itemEpic = document.createElement("h2");
+        itemEpicNode = document.createTextNode(totalEpicXP + " XP");
+        itemEpic.classList.add("gamerscore");
+        itemEpic.classList.add("header-flex-wrapper");
+        let epicIcon = document.createElement("img");
+        epicIcon.src = "icons/epic.svg";
+        epicIcon.classList.add("icon-intext");
+        epicIcon.style.marginRight = "0.25em";
+        itemEpic.appendChild(epicIcon);
+        itemEpic.appendChild(itemEpicNode);
+        headerElement.appendChild(itemEpic);
+    }
+
+    //GPlay XP generation
+    if (totalGPlayXP > 0) {
+        let itemGPlay = document.createElement("h2");
+        itemGPlayNode = document.createTextNode(totalGPlayXP + " XP");
+        itemGPlay.classList.add("gamerscore");
+        itemGPlay.classList.add("header-flex-wrapper");
+        let gplayIcon = document.createElement("img");
+        gplayIcon.src = "icons/gplay.svg";
+        gplayIcon.classList.add("icon-intext");
+        gplayIcon.style.marginRight = "0.25em";
+        itemGPlay.appendChild(gplayIcon);
+        itemGPlay.appendChild(itemGPlayNode);
+        headerElement.appendChild(itemGPlay);
     }
 
     //Total achievements generation
@@ -739,6 +771,19 @@ function CreateItem(itemInfo) {
                 switch (itemInfo.xptype) {
                     case ('XBOX'):
                         totalGamerscore += Number(itemInfo.xp);
+                        break;
+                    case ('EPIC'):
+                        totalEpicXP += Number(itemInfo.xp);
+                        break;
+                    case ('GPLAY'):
+                        totalGPlayXP += Number(itemInfo.xp);
+                        break;
+                    case ('UBI'):
+                        if (itemInfo.xp == itemInfo.xpmax) {
+                            allAchievements++;
+                        }
+                        totalAchievements += Number(itemInfo.xp);
+                        break;
                 }
             }
         }
@@ -752,6 +797,19 @@ function CreateItem(itemInfo) {
             switch (itemInfo.xptype) {
                 case ('XBOX'):
                     totalGamerscore += Number(itemInfo.xp);
+                    break;
+                case ('EPIC'):
+                    totalEpicXP += Number(itemInfo.xp);
+                    break;
+                case ('GPLAY'):
+                    totalGPlayXP += Number(itemInfo.xp);
+                    break;
+                case ('UBI'):
+                    if (itemInfo.xp == itemInfo.xpmax) {
+                        allAchievements++;
+                    }
+                    totalAchievements += Number(itemInfo.xp);
+                    break;
             }
         }
     }
@@ -1401,6 +1459,7 @@ function UpdateCollectionCounts(gameType) {
         case "Toy Car":
         case "Steelbook":
         case "Coaster Set":
+        case "Art Card Set":
             collectibleCount++;
             break;  
     }
@@ -1507,6 +1566,7 @@ function GetTypeIcon(itemType) {
         case "Pokémon TCG Portfolio":
         case "Jumbo Pokémon TCG Card":
         case "Steelbook":
+        case "Art Card Set":
             return "icons/card.svg";
         case "Pin":
         case "Pin Set":
@@ -1621,6 +1681,8 @@ function ResetVariables() {
     collectibleCount = 0;
     totalTrophies = [0, 0, 0, 0];
     totalGamerscore = 0;
+    totalEpicXP = 0;
+    totalGPlayXP = 0;
     totalAchievements = 0;
     totalTime = [0, 0, 0];
     allAchievements = 0;
