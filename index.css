@@ -399,6 +399,15 @@ footer {
     width: auto;
     margin-left: 10px;
     margin-right: 10px;
+    align-items: center;
+}
+
+.header-small-text-span {
+    font-size: small;
+    margin-top: auto;
+    margin-bottom: 2.5%;
+    text-wrap: nowrap;
+    margin-left: 2%;
 }
 
 .trophy-figure {

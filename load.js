@@ -25,10 +25,15 @@ let peripheralCount = 0;
 let collectibleCount = 0;
 
 let totalTrophies = [0, 0, 0, 0];
+let maxTrophies = 0;
 let totalGamerscore = 0;
+let maxGamerscore = 0;
 let totalAchievements = 0;
+let maxAchievements = 0;
 let totalEpicXP = 0;
+let maxEpicXP = 0;
 let totalGPlayXP = 0;
+let maxGPlayXP = 0;
 let totalPerfectGames = 0;
 let totalTime = [0, 0, 0];
 let allAchievements = 0;
@@ -103,6 +108,10 @@ function Load() {
                 $.each(data, function (key, value) {
                     if (!showCollectibles && value.internaltype == "Collectible")
                         return true;
+
+                    if (document.getElementById("sort").value == "_orderby=review&_order=desc" && value.review == null) {
+                        return true;
+                    }
 
                     CreateItem(value);
 
@@ -423,7 +432,7 @@ function HeaderSetup() {
 
     //Achievement display
     //Total trophies
-    if (totalTrophies[0] + totalTrophies[1] + totalTrophies[2] + totalTrophies[3] > 0) {
+    if (totalTrophies[0] + totalTrophies[1] + totalTrophies[2] + totalTrophies[3] > 0 || maxTrophies > 0) {
         let trophyWrapper = document.createElement("div");
         trophyWrapper.classList.add("trophy-wrapper");
         trophyWrapper.classList.add("header-flex-wrapper");
@@ -517,6 +526,20 @@ function HeaderSetup() {
         totalFig.appendChild(totalText);
         trophyWrapper.appendChild(totalFig);
 
+        //Max trophy generation
+        let maxFig = document.createElement("figure");
+        maxFig.classList.add("trophy-figure");
+        let maxIcon = document.createElement("img");
+        maxIcon.src = "icons/trophy.svg";
+        maxIcon.classList.add("trophy-icon");
+        maxFig.appendChild(maxIcon);
+        let maxText = document.createElement("figcaption");
+        let maxTextNode = document.createTextNode("/ " + maxTrophies);
+        maxText.classList.add("trophy-text");
+        maxText.appendChild(maxTextNode);
+        maxFig.appendChild(maxText);
+        trophyWrapper.appendChild(maxFig);
+
         //PS level generation
         let trophyXP = (300 * totalTrophies[0]) + (90 * totalTrophies[1]) + (30 * totalTrophies[2]) + (15 * totalTrophies[3]);
         let trophyLevel = CalculateTrophyLevel(trophyXP);
@@ -538,62 +561,90 @@ function HeaderSetup() {
     }
 
     //Total gamerscore generation
-    if (totalGamerscore > 0) {
+    if (totalGamerscore > 0 || maxGamerscore > 0) {
         let itemGamerscore = document.createElement("h2");
         itemGamerscoreNode = document.createTextNode(totalGamerscore);
         itemGamerscore.classList.add("gamerscore");
         itemGamerscore.classList.add("header-flex-wrapper");
+
         let gamerscoreIcon = document.createElement("img");
         gamerscoreIcon.src = "icons/gamerscore.svg";
         gamerscoreIcon.classList.add("icon-intext");
         gamerscoreIcon.style.marginRight = "0.25em";
+
+        let itemGamerscoreTotal = document.createElement("span");
+        itemGamerscoreTotal.classList.add("header-small-text-span");
+        itemGamerscoreTotal.textContent = " / " + maxGamerscore;
+
         itemGamerscore.appendChild(gamerscoreIcon);
         itemGamerscore.appendChild(itemGamerscoreNode);
+        itemGamerscore.appendChild(itemGamerscoreTotal);
         headerElement.appendChild(itemGamerscore);
     }
 
     //Epic XP generation
-    if (totalEpicXP > 0) {
+    if (totalEpicXP > 0 || maxEpicXP > 0) {
         let itemEpic = document.createElement("h2");
-        itemEpicNode = document.createTextNode(totalEpicXP + " XP");
+        itemEpicNode = document.createTextNode(totalEpicXP);
         itemEpic.classList.add("gamerscore");
         itemEpic.classList.add("header-flex-wrapper");
+
         let epicIcon = document.createElement("img");
         epicIcon.src = "icons/epic.svg";
         epicIcon.classList.add("icon-intext");
         epicIcon.style.marginRight = "0.25em";
+
+        let epicTotal = document.createElement("span");
+        epicTotal.classList.add("header-small-text-span");
+        epicTotal.textContent = " / " + maxEpicXP + " XP";
+
         itemEpic.appendChild(epicIcon);
         itemEpic.appendChild(itemEpicNode);
+        itemEpic.appendChild(epicTotal);
         headerElement.appendChild(itemEpic);
     }
 
     //GPlay XP generation
-    if (totalGPlayXP > 0) {
+    if (totalGPlayXP > 0 || maxGPlayXP > 0) {
         let itemGPlay = document.createElement("h2");
-        itemGPlayNode = document.createTextNode(totalGPlayXP + " XP");
+        itemGPlayNode = document.createTextNode(totalGPlayXP);
         itemGPlay.classList.add("gamerscore");
         itemGPlay.classList.add("header-flex-wrapper");
+
         let gplayIcon = document.createElement("img");
         gplayIcon.src = "icons/gplay.svg";
         gplayIcon.classList.add("icon-intext");
         gplayIcon.style.marginRight = "0.25em";
+
+        let gplayTotal = document.createElement("span");
+        gplayTotal.classList.add("header-small-text-span");
+        gplayTotal.textContent = " / " + maxGPlayXP + " XP"
+
         itemGPlay.appendChild(gplayIcon);
         itemGPlay.appendChild(itemGPlayNode);
+        itemGPlay.appendChild(gplayTotal);
         headerElement.appendChild(itemGPlay);
     }
 
     //Total achievements generation
-    if (totalAchievements > 0) {
+    if (totalAchievements > 0 || maxAchievements > 0) {
         let itemAchievements = document.createElement("h2");
         let itemAchievementsNode = document.createTextNode(totalAchievements);
         itemAchievements.classList.add("gamerscore");
         itemAchievements.classList.add("header-flex-wrapper");
+
         let achievementsIcon = document.createElement("img");
         achievementsIcon.src = "icons/achievement.svg";
         achievementsIcon.classList.add("icon-intext");
         achievementsIcon.style.marginRight = "0.25em";
+
+        let maxAchItem = document.createElement("span");
+        maxAchItem.classList.add("header-small-text-span");
+        maxAchItem.textContent = " / " + maxAchievements;
+
         itemAchievements.appendChild(achievementsIcon);
         itemAchievements.appendChild(itemAchievementsNode);
+        itemAchievements.appendChild(maxAchItem);
         headerElement.appendChild(itemAchievements);
     }
 
@@ -712,6 +763,15 @@ function CreateItem(itemInfo) {
                 itemTitleDiv.appendChild(subtitleItem1);
                 let subtitleItem2 = CreateSubtitle(subtitles[1]);
                 itemTitleDiv.appendChild(subtitleItem2);
+
+                //Checks the sizes
+                if (subtitles[0].length > 40) {
+                    subtitleItem1.style.fontSize = "0.75em";
+                    subtitleItem2.style.fontSize = "0.75em";
+                }
+                else if (subtitles[1].length > 30) {
+                    subtitleItem2.style.fontSize = "0.75em";
+                }
             }
         }
         else {
@@ -746,6 +806,7 @@ function CreateItem(itemInfo) {
         if (!itemInfo.removeachievements) {
             UpdateTrophyCount(trophies);
             totalAchievements += itemInfo.progresscurrent;
+            maxAchievements += itemInfo.progressfull;
             if (itemInfo.progress != null && itemInfo.progress >= 100) {
                 allAchievements++;
             }
@@ -802,18 +863,22 @@ function CreateItem(itemInfo) {
                 switch (itemInfo.xptype) {
                     case ('XBOX'):
                         totalGamerscore += Number(itemInfo.xp);
+                        maxGamerscore += Number(itemInfo.xpmax);
                         break;
                     case ('EPIC'):
                         totalEpicXP += Number(itemInfo.xp);
+                        maxEpicXP += Number(itemInfo.xpmax);
                         break;
                     case ('GPLAY'):
                         totalGPlayXP += Number(itemInfo.xp);
+                        maxGPlayXP += Number(itemInfo.xpmax);
                         break;
                     case ('UBI'):
                         if (itemInfo.xp == itemInfo.xpmax) {
                             allAchievements++;
                         }
                         totalAchievements += Number(itemInfo.xp);
+                        maxAchievements += Number(itemInfo.xpmax);
                         break;
                 }
             }
@@ -828,18 +893,22 @@ function CreateItem(itemInfo) {
             switch (itemInfo.xptype) {
                 case ('XBOX'):
                     totalGamerscore += Number(itemInfo.xp);
+                    maxGamerscore += Number(itemInfo.xpmax);
                     break;
                 case ('EPIC'):
                     totalEpicXP += Number(itemInfo.xp);
+                    maxEpicXP += Number(itemInfo.xpmax);
                     break;
                 case ('GPLAY'):
                     totalGPlayXP += Number(itemInfo.xp);
+                    maxGPlayXP += Number(itemInfo.xpmax);
                     break;
                 case ('UBI'):
                     if (itemInfo.xp == itemInfo.xpmax) {
                         allAchievements++;
                     }
                     totalAchievements += Number(itemInfo.xp);
+                    maxAchievements += Number(itemInfo.xpmax);
                     break;
             }
         }
@@ -854,6 +923,7 @@ function CreateItem(itemInfo) {
             //Increments the achievement count
             if ((itemInfo.progressprefix == "Achievements" || itemInfo.progressprefix == "Achievement") && !itemInfo.removeachievements) {
                 totalAchievements += Number(itemInfo.progresscurrent);
+                maxAchievements += Number(itemInfo.progressfull);
 
                 if (itemInfo.progress >= 100) {
                     allAchievements++;
@@ -989,11 +1059,14 @@ function CreateListItem(itemInfo) {
     let itemTypeNode = document.createTextNode(itemInfo.type)
     itemType.classList.add("list-type");
 
-    let typeIcon = document.createElement("img");
-    typeIcon.src = GetTypeIcon(itemInfo.type);
-    typeIcon.classList.add("icon-intext");
-    typeIcon.style.marginLeft = "0.25em";
-    typeIcon.style.paddingRight = "10px";
+    //Gates whether the image is made to reduce loading times
+    if (shouldLimit == false || (shouldLimit && currentLimitIndex < limitAmount)) {
+        let typeIcon = document.createElement("img");
+        typeIcon.src = GetTypeIcon(itemInfo.type);
+        typeIcon.classList.add("icon-intext");
+        typeIcon.style.marginLeft = "0.25em";
+        typeIcon.style.paddingRight = "10px";
+    }
 
     itemType.appendChild(itemTypeNode);
     itemType.appendChild(typeIcon);
@@ -1500,11 +1573,14 @@ function UpdateCollectionCounts(gameType) {
         case "Diorama":
         case "LEGO Set":
         case "LEGO Polybag Set":
+        case "MEGA Set":
         case "HOT WHEELS Car":
         case "Toy Car":
         case "Steelbook":
         case "Coaster Set":
         case "Art Card Set":
+        case "Keychain":
+        case "Keyring":
             collectibleCount++;
             break;  
     }
@@ -1595,6 +1671,7 @@ function GetTypeIcon(itemType) {
         case "Diorama":
         case "LEGO Set":
         case "LEGO Polybag Set":
+        case "MEGA Set":
         default:
             return "icons/cube.svg";
         case "Minecraft Dungeons Arcade Card":
@@ -1612,6 +1689,8 @@ function GetTypeIcon(itemType) {
         case "Jumbo Pokémon TCG Card":
         case "Steelbook":
         case "Art Card Set":
+        case "Keychain":
+        case "Keyring":
             return "icons/card.svg";
         case "Pin":
         case "Pin Set":
@@ -1653,9 +1732,12 @@ function GetRegionIcon(region) {
 
 function UpdateTrophyCount(trophyArray) {
     for (let i = 0; i < trophyArray.length; i++) {
-        if (trophyArray[i] != "/")
+        if (trophyArray[i] != "/") {
             totalTrophies[i] = Number(totalTrophies[i]) + Number(trophyArray[i]);
+        }
     }
+
+    maxTrophies += Number(trophyArray[trophyArray.length - 1]);
 }
 
 function UpdateTotalTime(time) {
@@ -1725,10 +1807,15 @@ function ResetVariables() {
     peripheralCount = 0;
     collectibleCount = 0;
     totalTrophies = [0, 0, 0, 0];
+    maxTrophies = 0;
     totalGamerscore = 0;
+    maxGamerscore = 0;
     totalEpicXP = 0;
+    maxEpicXP = 0;
     totalGPlayXP = 0;
+    maxGPlayXP = 0;
     totalAchievements = 0;
+    maxAchievements = 0;
     totalTime = [0, 0, 0];
     allAchievements = 0;
 
