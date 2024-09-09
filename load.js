@@ -1108,6 +1108,8 @@ function CreateImage(imageLink, isTallImage) {
         itemImage.classList.add("image");
     }
 
+    itemImage.loading = "lazy";
+
     itemImageWrapper.appendChild(itemImage);
     return itemImageWrapper;
 }
