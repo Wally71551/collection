@@ -109,7 +109,15 @@ function Load() {
                     if (!showCollectibles && value.internaltype == "Collectible")
                         return true;
 
-                    if (document.getElementById("sort").value == "_orderby=review&_order=desc" && value.review == null) {
+                    //Dont display if dont have the correct value
+                    var sortValue = document.getElementById("sort").value;
+                    if (sortValue == "_orderby=review&_order=desc" && value.review == null) {
+                        return true;
+                    }
+                    if (sortValue == "_orderby=completiondate&_order=desc" && value.completiondate == null) {
+                        return true;
+                    }
+                    if (sortValue == "_orderby=progress&_order=desc" && value.progresscurrent == null && value.progressmax == null) {
                         return true;
                     }
 
