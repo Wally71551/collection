@@ -721,6 +721,39 @@ body::-webkit-scrollbar-track-piece {
     border-radius: 20px;
 }
 
+.detailed-right-div {
+    width: auto;
+    max-width: 100%;
+    height: 90%;
+    flex-grow: 1;
+    flex-shrink: 0;
+    display: inline-flex;
+    margin-right: 2%;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.detailed-text-wrapper {
+    width: 95%;
+    height: auto;
+    background-color: lightgrey;
+    border-radius: 5px;
+    text-align: left;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.detailed-text {
+    margin: 2%;
+    font-weight: 500;
+    width: auto;
+}
+
+.detailed-text-title {
+    font-weight: 900;
+}
+
 .left-text, .right-text, .center-char {
     display: inline-block;
 }

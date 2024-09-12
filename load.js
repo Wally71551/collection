@@ -79,7 +79,7 @@ function Load() {
     showCollectibles = document.getElementById("showCollectibles").checked;
     shouldLimit = document.getElementById("limitValues").checked;
 
-    console.log(searchURL);
+    //console.log(searchURL);
 
     //Gets the url and searches the array
     $.ajax({
@@ -1994,7 +1994,7 @@ function SortData(sortType) {
 //Finds the row data to use as a popup
 function FindRowData(rowID) {
     searchURL = baseAPIURL + "?rowid=" + rowID;
-    console.log(searchURL);
+    //console.log(searchURL);
     //Gets the url and searches the array
     $.ajax({
         url: searchURL,
@@ -2022,7 +2022,7 @@ function StartCreatePopUp(rowID) {
 }
 
 function CreatePopUp(itemInfo) {
-    console.log(itemInfo.title);
+    //console.log(itemInfo.title);
 
     //Creates the base popup element
     popupElement = document.createElement("div");
@@ -2044,10 +2044,25 @@ function CreatePopUp(itemInfo) {
     imageWrapper.appendChild(CreatePopUpImage(itemInfo.image, itemInfo.tallimage));
 
     //Sets up the opposite side of the object
+    let rightDiv = document.createElement("div");
+    rightDiv.classList.add("detailed-right-div");
 
     //Creates the title element
+    let titleDiv = document.createElement("div");
+    titleDiv.classList.add("detailed-text-wrapper");
+    titleDiv.style.marginTop = "0px";
+
+    //Add the title
+    let title = document.createElement("h1");
+    title.classList.add("detailed-text");
+    title.classList.add("detailed-text-title");
+    title.textContent = itemInfo.title;
+    titleDiv.appendChild(title);
 
     //Creates subtitle elements (if needed)
+
+    //End the title element
+    rightDiv.appendChild(titleDiv);
 
     //Creates category
 
@@ -2056,6 +2071,8 @@ function CreatePopUp(itemInfo) {
     //Creates type elements
 
     //Creates time elements
+
+    popupElement.appendChild(rightDiv); //Appends right div to the end
 
     collectionElement.appendChild(popupBackground);
     collectionElement.appendChild(popupElement);
