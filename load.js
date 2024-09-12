@@ -2084,5 +2084,10 @@ function CreatePopUpImage(imageLink, isTallImage) {
         itemImage.classList.add("detailed-image");
     }
 
-    return itemImage;
+    let itemImageContainer = document.createElement("div");
+    itemImageContainer.classList.add("detailed-image-container");
+
+    itemImageContainer.appendChild(itemImage);
+
+    return itemImageContainer;
 }
