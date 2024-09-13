@@ -756,6 +756,10 @@ body::-webkit-scrollbar-track-piece {
     font-size: 1.5em;
 }
 
+.detailed-text-small {
+    font-size: 0.8em;
+}
+
 .left-text, .right-text, .center-char {
     display: inline-block;
 }

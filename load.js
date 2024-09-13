@@ -2087,15 +2087,44 @@ function CreatePopUp(itemInfo) {
         }
 
         var subtitle = document.createElement("h2");
-        
     }
+
+    if (itemInfo.series != null) {
+        var series = document.createElement("h3");
+        series.classList.add("detailed-text");
+        series.classList.add("detailed-text-small");
+        series.textContent = itemInfo.series;
+        titleDiv.appendChild(series);
+    }
+
+    //Add series element to other side of the object
 
     //End the title element
     rightDiv.appendChild(titleDiv);
 
-    //Creates category
+    //Creates platform / storefront elements
+    if (itemInfo.platform != null || itemInfo.storefront != null) {
+        var platformDiv = document.createElement("div");
+        platformDiv.classList.add("detailed-text-wrapper");
 
-    //Creates type / platform elements
+        if (itemInfo.platform != null) {
+            var platform = document.createElement("h2");
+            platform.classList.add("detailed-text");
+            platform.textContent = itemInfo.platform;
+            platformDiv.appendChild(platform);
+        }
+
+        if (itemInfo.storefront != null) {
+            var storefront = document.createElement("h2");
+            storefront.classList.add("detailed-text");
+            storefront.textContent = itemInfo.storefront;
+            platformDiv.appendChild(storefront);
+        }
+
+        rightDiv.appendChild(platformDiv);
+    }
+
+    //Creates types
 
     //Creates type elements
 
