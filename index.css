@@ -727,7 +727,6 @@ body::-webkit-scrollbar-track-piece {
     max-width: 100%;
     height: 90%;
     flex-grow: 1;
-    flex-shrink: 0;
     display: inline-flex;
     margin-right: 2%;
     align-items: flex-start;
