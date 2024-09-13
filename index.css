@@ -696,6 +696,7 @@ body::-webkit-scrollbar-track-piece {
     height: 100%;
     overflow: hidden;
     object-fit: contain;
+    aspect-ratio: 2/3;
 }
 
 .detailed-image {
@@ -745,13 +746,15 @@ body::-webkit-scrollbar-track-piece {
 }
 
 .detailed-text {
-    margin: 2%;
+    margin: 1%;
     font-weight: 500;
     width: auto;
+    font-size: 1em;
 }
 
 .detailed-text-title {
     font-weight: 900;
+    font-size: 1.5em;
 }
 
 .left-text, .right-text, .center-char {

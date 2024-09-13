@@ -2053,6 +2053,14 @@ function CreatePopUp(itemInfo) {
     titleDiv.style.marginTop = "0px";
 
     //Add the title
+    //Checks to see if the item is DLC and adjusts how the name is displayed
+    if (itemInfo.removefromtitle) {
+        itemInfo.linkedtitles += " ";
+        itemInfo.title = itemInfo.title.replace(itemInfo.linkedtitles, "");
+        //console.log(itemInfo.title);
+        itemInfo.subtitle = itemInfo.linkedtitles;
+    }
+
     let title = document.createElement("h1");
     title.classList.add("detailed-text");
     title.classList.add("detailed-text-title");
@@ -2060,6 +2068,27 @@ function CreatePopUp(itemInfo) {
     titleDiv.appendChild(title);
 
     //Creates subtitle elements (if needed)
+    if (itemInfo.subtitle != null) {
+        if (itemInfo.subtitle.indexOf(" || ") > -1) {
+            let subtitles = itemInfo.subtitle.split(" || ");
+
+            subtitles.forEach((element) => {
+                var subtitle = document.createElement("h2");
+                subtitle.classList.add("detailed-text");
+                subtitle.textContent = element;
+                titleDiv.appendChild(subtitle);
+            })
+        }
+        else {
+            var subtitle = document.createElement("h2");
+            subtitle.classList.add("detailed-text");
+            subtitle.textContent = itemInfo.subtitle;
+            titleDiv.appendChild(subtitle);
+        }
+
+        var subtitle = document.createElement("h2");
+        
+    }
 
     //End the title element
     rightDiv.appendChild(titleDiv);
