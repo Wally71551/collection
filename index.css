@@ -768,6 +768,14 @@ body::-webkit-scrollbar-track-piece {
     font-weight: bolder;
 }
 
+.detailed-categories-div {
+
+}
+
+.detailed-category {
+
+}
+
 .left-text, .right-text, .center-char {
     display: inline-block;
 }
