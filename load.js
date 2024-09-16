@@ -2129,6 +2129,32 @@ function CreatePopUp(itemInfo) {
     //Creates type elements
 
     //Creates time elements
+    if (itemInfo.time != null) {
+        var timeDiv = document.createElement("div");
+        timeDiv.classList.add("detailed-text-wrapper");
+
+        var itemTime = document.createElement("div");
+
+        if (itemInfo.time.endsWith(":00")) {
+            itemInfo.time = itemInfo.time.slice(0, -3);
+        }
+
+        var itemTimeNode = document.createTextNode(itemInfo.time);
+        itemTime.classList.add("detailed-text");
+        itemTime.classList.add("detailed-time-display");
+
+        let timeIcon = document.createElement("img");
+        timeIcon.src = "icons/time.svg";
+        timeIcon.classList.add("icon-intext");
+
+        timeIcon.style.marginRight = "0.25em";
+
+        itemTime.appendChild(timeIcon);
+        itemTime.appendChild(itemTimeNode);
+        timeDiv.appendChild(itemTime);
+
+        rightDiv.appendChild(timeDiv);
+    }
 
     popupElement.appendChild(rightDiv); //Appends right div to the end
 

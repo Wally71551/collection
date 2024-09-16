@@ -735,7 +735,7 @@ body::-webkit-scrollbar-track-piece {
 }
 
 .detailed-text-wrapper {
-    width: 95%;
+    width: 100%;
     height: auto;
     background-color: lightgrey;
     border-radius: 5px;
@@ -758,6 +758,14 @@ body::-webkit-scrollbar-track-piece {
 
 .detailed-text-small {
     font-size: 0.8em;
+}
+
+.detailed-time-display {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    font-size: 1.25em;
+    font-weight: bolder;
 }
 
 .left-text, .right-text, .center-char {
