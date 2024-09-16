@@ -2003,8 +2003,23 @@ function CreatePopUp(itemInfo) {
         rightDiv.appendChild(categoryDiv);
     }
 
-    //Creates time elements
+    //Create date elements
+    rightDiv.appendChild(CreateTimeElement("Last Updated", itemInfo.lastupdated));
+    rightDiv.appendChild(CreateTimeElement("Date Added", itemInfo.addeddate));
+    if (itemInfo.completiondate != null) {
+        rightDiv.appendChild(CreateTimeElement("Completion Date", itemInfo.completiondate));
+    }
 
+    //Creates time elements
+    if (itemInfo.mainstory != null) {
+        rightDiv.appendChild(CreateCompletionElement("Main Story", itemInfo.mainstorynotes, itemInfo.mainstory, itemInfo.mainstorydate));
+    }
+    if (itemInfo.mainextras != null) {
+        rightDiv.appendChild(CreateCompletionElement("Main + Extras", itemInfo.mainextrasnotes, itemInfo.mainextras, itemInfo.mainextrasdate));
+    }
+    if (itemInfo.completionist != null) {
+        rightDiv.appendChild(CreateCompletionElement("Completionist", itemInfo.completionistnotes, itemInfo.completionist, itemInfo.completionistdate));
+    }
 
     popupElement.appendChild(rightDiv); //Appends right div to the end
 
@@ -2041,4 +2056,115 @@ function CreatePopUpImage(imageLink, isTallImage) {
     itemImageContainer.appendChild(itemImage);
 
     return itemImageContainer;
+}
+
+function CreateTimeElement(leadingText, time) {
+    var timeDiv = document.createElement("div");
+    timeDiv.classList.add("detailed-text-wrapper");
+
+    let timeHeader = document.createElement("h2");
+    timeHeader.classList.add("detailed-text");
+    timeHeader.classList.add("detailed-text-bold");
+    timeHeader.textContent = leadingText;
+    timeDiv.appendChild(timeHeader);
+
+    let timeDisplay = document.createElement("h2");
+    timeDisplay.classList.add("detailed-text");
+    timeDisplay.classList.add("detailed-text-bold");
+    timeDisplay.textContent = TimeConversion(time);
+    timeDiv.appendChild(timeDisplay);
+
+    return timeDiv;
+}
+
+function CreateCompletionElement(completionType, leadingText, time, dateTime) {
+    var completionDiv = document.createElement("div");
+    completionDiv.classList.add("detailed-text-wrapper");
+
+    let completionHeader = document.createElement("h2");
+    completionHeader.classList.add("detailed-text");
+    completionHeader.classList.add("detailed-text-bold");
+    completionHeader.textContent = completionType;
+    completionDiv.appendChild(completionHeader);
+    if (leadingText != null) {
+        let completionHeader2 = document.createElement("h2");
+        completionHeader2.classList.add("detailed-text");
+        completionHeader2.classList.add("detailed-text-bold");
+        completionHeader2.textContent = leadingText;
+        completionDiv.appendChild(completionHeader2);
+    }
+
+    var itemTime = document.createElement("div");
+    if (time.endsWith(":00")) {
+        time = time.slice(0, -3);
+    }
+
+    var itemTimeNode = document.createTextNode(time);
+    itemTime.classList.add("detailed-text");
+    itemTime.classList.add("detailed-time-display");
+
+    let timeIcon = document.createElement("img");
+    timeIcon.src = "icons/time.svg";
+    timeIcon.classList.add("icon-intext");
+
+    timeIcon.style.marginRight = "0.25em";
+
+    itemTime.appendChild(timeIcon);
+    itemTime.appendChild(itemTimeNode);
+    completionDiv.appendChild(itemTime);
+
+    if (dateTime != null) {
+        let timeDisplay = document.createElement("h2");
+        timeDisplay.classList.add("detailed-text");
+        timeDisplay.classList.add("detailed-text-bold");
+        timeDisplay.textContent = TimeConversion(dateTime);
+        completionDiv.appendChild(timeDisplay);
+    }
+
+    return completionDiv;
+}
+
+function TimeConversion(time) {
+    dateTime = new Date(time); //ISO 6401 formatting to date
+
+    if (dateTime.getUTCDate() == 1) {
+        if (dateTime.getUTCMonth() == 1) {
+            if (dateTime.getUTCHours() == 0 && dateTime.getUTCMinutes() == 0) {
+                switch (dateTime.getUTCSeconds()) {
+                    case 0:
+                        return dateTime.getUTCFullYear(); //Year only
+                    case 1:
+                        return "January " + dateTime.getUTCFullYear(); //January
+                    case 2:
+                        return "01/01/" + dateTime.getUTCFullYear(); //January 1st
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        else {
+            if (dateTime.getUTCHours() == 0 && dateTime.getUTCMinutes() == 0) {
+                if (dateTime.getUTCSeconds() == 0) {
+                    return dateTime.toLocaleString('default', { month: 'long', timeZone: 'UTC' }) + "" + dateTime.getUTCFullYear(); //Month + year only
+                }
+                else if (dateTime.getSeconds() == 1) {
+                    return dateTime.toLocaleDateString('en-GB', {timeZone: "UTC"}); //First day of the month
+                }
+            }
+        }
+    }
+    else {
+        //output normally
+        if (dateTime.getUTCSeconds() == 0) {
+            if (dateTime.getUTCHours() == 0 && dateTime.getUTCMinutes() == 0) {
+                return dateTime.toLocaleDateString('en-GB', { timeZone: "UTC" });
+            }
+            else {
+                return dateTime.toLocaleDateString('en-GB', { timeZone: "UTC" }) + " " + dateTime.toLocaleTimeString('eo', { hour12: false, timeZone: 'UTC', hour: "2-digit", minute: "2-digit" });
+            }
+        }
+
+        return dateTime.toLocaleDateString('en-GB', {timeZone: "UTC"}) + " " + dateTime.toLocaleTimeString('eo', { hour12: false, timeZone: 'UTC' });
+    }
 }

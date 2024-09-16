@@ -756,6 +756,10 @@ body::-webkit-scrollbar-track-piece {
     font-size: 1.5em;
 }
 
+.detailed-text-bold {
+    font-weight: 900;
+}
+
 .detailed-text-small {
     font-size: 0.8em;
 }
