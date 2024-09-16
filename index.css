@@ -769,11 +769,22 @@ body::-webkit-scrollbar-track-piece {
 }
 
 .detailed-categories-div {
-
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .detailed-category {
+    font-size: 0.8em;
+    border-radius: 5px;
+    margin-right: 0.25em;
+    margin-bottom: 0.125em;
+}
 
+.detailed-category-text {
+    margin-top: 0.375em;
+    margin-bottom: 0.375em;
+    margin-left: 0.25em;
+    margin-right: 0.25em;
 }
 
 .left-text, .right-text, .center-char {

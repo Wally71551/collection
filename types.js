@@ -246,7 +246,7 @@ function GetTypeIcon(itemType) {
 }
 
 function GetTypeCategory(itemType) {
-    switch (gameType) {
+    switch (itemType) {
         case "Game":
         case "Arcade Game":
         case "Collection":

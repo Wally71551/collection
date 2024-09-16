@@ -1906,7 +1906,102 @@ function CreatePopUp(itemInfo) {
     }
 
     //Create type elements
+    var elementCreated = false;
+    var categoryDiv = document.createElement("div");
+    categoryDiv.classList.add("detailed-categories-div");
 
+    if (itemInfo.playing) {
+        elementCreated = true;
+        var playing = document.createElement("div");
+        playing.classList.add("detailed-category");
+        playing.classList.add("playing-bar");
+        var playingText = document.createElement("p");
+        playingText.classList.add("detailed-category-text");
+        playingText.textContent = GetCategoryNames("Playing", GetTypeCategory(itemInfo.type))
+        playing.appendChild(playingText);
+        categoryDiv.appendChild(playing);
+    }
+    if (itemInfo.backlog) {
+        elementCreated = true;
+        var backlog = document.createElement("div");
+        backlog.classList.add("detailed-category");
+        backlog.classList.add("backlog-bar");
+        var backlogText = document.createElement("p");
+        backlogText.classList.add("detailed-category-text");
+        backlogText.textContent = GetCategoryNames("Backlog", GetTypeCategory(itemInfo.type))
+        backlog.appendChild(backlogText);
+        categoryDiv.appendChild(backlog);
+    }
+    if (itemInfo.unplayed) {
+        elementCreated = true;
+        var unplayed = document.createElement("div");
+        unplayed.classList.add("detailed-category");
+        unplayed.classList.add("unplayed-bar");
+        var unplayedText = document.createElement("p");
+        unplayedText.classList.add("detailed-category-text");
+        unplayedText.textContent = GetCategoryNames("Unplayed", GetTypeCategory(itemInfo.type))
+        unplayed.appendChild(unplayedText);
+        categoryDiv.appendChild(unplayed);
+    }
+    if (itemInfo.replay) {
+        elementCreated = true;
+        var replay = document.createElement("div");
+        replay.classList.add("detailed-category");
+        replay.classList.add("replay-bar");
+        var replayText = document.createElement("p");
+        replayText.classList.add("detailed-category-text");
+        replayText.textContent = GetCategoryNames("Replay", GetTypeCategory(itemInfo.type))
+        replay.appendChild(replayText);
+        categoryDiv.appendChild(replay);
+    }
+    if (itemInfo.retired) {
+        elementCreated = true;
+        var retired = document.createElement("div");
+        retired.classList.add("detailed-category");
+        retired.classList.add("retired-bar");
+        var retiredText = document.createElement("p");
+        retiredText.classList.add("detailed-category-text");
+        retiredText.textContent = GetCategoryNames("Retired", GetTypeCategory(itemInfo.type))
+        retired.appendChild(retiredText);
+        categoryDiv.appendChild(retired);
+    }
+    if (itemInfo.beaten) {
+        elementCreated = true;
+        var beaten = document.createElement("div");
+        beaten.classList.add("detailed-category");
+        beaten.classList.add("beaten-bar");
+        var beatenText = document.createElement("p");
+        beatenText.classList.add("detailed-category-text");
+        beatenText.textContent = GetCategoryNames("Beaten", GetTypeCategory(itemInfo.type))
+        beaten.appendChild(beatenText);
+        categoryDiv.appendChild(beaten);
+    }
+    if (itemInfo.completed) {
+        elementCreated = true;
+        var completed = document.createElement("div");
+        completed.classList.add("detailed-category");
+        completed.classList.add("completed-bar");
+        var completedText = document.createElement("p");
+        completedText.classList.add("detailed-category-text");
+        completedText.textContent = GetCategoryNames("Completed", GetTypeCategory(itemInfo.type))
+        completed.appendChild(completedText);
+        categoryDiv.appendChild(completed);
+    }
+    if (itemInfo.null) {
+        elementCreated = true;
+        var nullType = document.createElement("div");
+        nullType.classList.add("detailed-category");
+        nullType.classList.add("null-bar");
+        var nullText = document.createElement("p");
+        nullText.classList.add("detailed-category-text");
+        nullText.textContent = GetCategoryNames("Null", GetTypeCategory(itemInfo.type))
+        nullType.appendChild(nullText);
+        categoryDiv.appendChild(nullType);
+    }
+
+    if (elementCreated) {
+        rightDiv.appendChild(categoryDiv);
+    }
 
     //Creates time elements
 
