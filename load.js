@@ -1792,7 +1792,7 @@ function CreatePopUp(itemInfo) {
 
     //Sets up the image display
     let imageWrapper = document.createElement("div");
-    imageWrapper.classList.add("detailed-image-wrapper");
+    imageWrapper.classList.add("detailed-left-div");
     popupElement.appendChild(imageWrapper);
     imageWrapper.appendChild(CreatePopUpImage(itemInfo.image, itemInfo.tallimage));
 
@@ -1842,6 +1842,7 @@ function CreatePopUp(itemInfo) {
         var subtitle = document.createElement("h2");
     }
 
+    //Series item
     if (itemInfo.series != null) {
         var series = document.createElement("h3");
         series.classList.add("detailed-text");
@@ -1850,8 +1851,6 @@ function CreatePopUp(itemInfo) {
         titleDiv.appendChild(series);
     }
 
-    //Add series element to other side of the object
-
     //End the title element
     rightDiv.appendChild(titleDiv);
 
@@ -1859,19 +1858,56 @@ function CreatePopUp(itemInfo) {
     if (itemInfo.platform != null || itemInfo.storefront != null) {
         var platformDiv = document.createElement("div");
         platformDiv.classList.add("detailed-text-wrapper");
+        platformDiv.classList.add("detailed-date-wrapper");
+
+        var leftDiv = document.createElement("div");
+        leftDiv.style.margin = "1%";
 
         if (itemInfo.platform != null) {
             var platform = document.createElement("h2");
             platform.classList.add("detailed-text");
+            platform.style.margin = "0";
             platform.textContent = itemInfo.platform;
-            platformDiv.appendChild(platform);
+            leftDiv.appendChild(platform);
         }
 
         if (itemInfo.storefront != null) {
             var storefront = document.createElement("h2");
             storefront.classList.add("detailed-text");
+            storefront.style.margin = "0";
             storefront.textContent = itemInfo.storefront;
-            platformDiv.appendChild(storefront);
+            leftDiv.appendChild(storefront);
+        }
+
+        platformDiv.appendChild(leftDiv);
+
+        if (itemInfo.type != null) {
+            var type = document.createElement("div");
+            type.classList.add("detailed-text");
+            type.classList.add("detailed-time-display");
+            type.classList.add("detailed-text-bold");
+
+            let typeIcon = document.createElement("img");
+            typeIcon.src = GetTypeIcon(itemInfo.type);
+            typeIcon.classList.add("icon-intext");
+            typeIcon.style.marginRight = "0.25em";
+            type.appendChild(typeIcon);
+
+            var typeText = document.createElement("h2");
+            typeText.textContent = itemInfo.type;
+            typeText.classList.add("detailed-text");
+            typeText.classList.add("detailed-text-bold");
+            type.appendChild(typeText);
+
+            if (itemInfo.replay == true) {
+                var replayIcon = document.createElement("img");
+                replayIcon.src = "icons/replay.svg";
+                replayIcon.classList.add("icon-intext");
+                replayIcon.style.marginLeft = "0.25em";
+                type.appendChild(replayIcon);
+            }
+
+            platformDiv.appendChild(type);
         }
 
         rightDiv.appendChild(platformDiv);

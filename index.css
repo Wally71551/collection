@@ -682,9 +682,9 @@ body::-webkit-scrollbar-track-piece {
     z-index: 11;
 }
 
-.detailed-image-wrapper {
+.detailed-left-div {
     display: inline-block;
-    height: 90%;
+    height: 95%;
     margin-left: 2%;
     margin-right: 2%;
     object-fit: contain;
@@ -725,7 +725,7 @@ body::-webkit-scrollbar-track-piece {
 .detailed-right-div {
     width: auto;
     max-width: 100%;
-    height: 90%;
+    height: 95%;
     flex-grow: 1;
     display: inline-flex;
     margin-right: 2%;
