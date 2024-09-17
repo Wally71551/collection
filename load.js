@@ -2093,6 +2093,26 @@ function CreatePopUp(itemInfo) {
         rightDiv.appendChild(linkedTitlesDiv);
     }
 
+    //Notes element
+    if (itemInfo.notes != null) {
+        var notesDiv = document.createElement("div");
+        notesDiv.classList.add("detailed-linkedtitles-bg");
+        notesDiv.style.maxHeight = "15%";
+
+        notesHeader = document.createElement("h2");
+        notesHeader.classList.add("detailed-linkedtitles-title");
+        notesHeader.textContent = "Notes";
+        notesDiv.appendChild(notesHeader);
+
+        notesElement = document.createElement("p");
+        notesElement.classList.add("scrollable-text");
+        notesElement.classList.add("detailed-notes-text");
+        notesElement.textContent = itemInfo.notes;
+        notesDiv.appendChild(notesElement);
+
+        rightDiv.appendChild(notesDiv);
+    }
+
     popupElement.appendChild(rightDiv); //Appends right div to the end
 
     collectionElement.appendChild(popupBackground);

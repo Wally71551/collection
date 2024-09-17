@@ -836,6 +836,7 @@ body::-webkit-scrollbar-track-piece {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    margin-bottom: 0.1em;
 }
 
 .detailed-linkedtitles-title {
@@ -884,6 +885,16 @@ body::-webkit-scrollbar-track-piece {
     margin: 0px;
     padding-left: 0.2em;
     padding-right: 0.2em;
+}
+
+.detailed-notes-text {
+    text-align: left;
+    max-width: 100%;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    font-size: 0.9em;
+    font-weight: 400;
+    margin: 0px;
 }
 
 .left-text, .right-text, .center-char {
