@@ -835,6 +835,7 @@ body::-webkit-scrollbar-track-piece {
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .detailed-linkedtitles-title {
@@ -846,23 +847,43 @@ body::-webkit-scrollbar-track-piece {
 
 .detailed-linkedtitles-scroller {
     width: 100%;
+    height: auto;
     max-height: 100%;
-    overflow-y: auto;
+    overflow-y: hidden;
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: auto;
+    display: flex;
+    gap: 1px;
+    flex-direction: column;
+}
+
+.detailed-linkedtitles-scroller:hover {
+    overflow-y: auto;
+}
+
+.detailed-linkedtitles-scroller::-webkit-scrollbar {
+    width: 0.25em;
+}
+
+.detailed-linkedtitles-scroller::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 5px;
+    opacity: 0.5;
 }
 
 .detailed-linkedtitles-element {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     height: auto;
     background-color: darkgrey;
     border-radius: 5px;
     text-align: left;
     font-size: 0.9em;
     font-weight: 600;
-    margin-top: 0px;
-    margin-bottom: 1px;
+    margin: 0px;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
 }
 
 .left-text, .right-text, .center-char {

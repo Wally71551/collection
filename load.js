@@ -2030,7 +2030,7 @@ function CreatePopUp(itemInfo) {
         nullType.classList.add("null-bar");
         var nullText = document.createElement("p");
         nullText.classList.add("detailed-category-text");
-        nullText.style.color = white;
+        nullText.style.color = "white";
         nullText.textContent = GetCategoryNames("Null", GetTypeCategory(itemInfo.type))
         nullType.appendChild(nullText);
         categoryDiv.appendChild(nullType);
