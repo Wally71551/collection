@@ -645,16 +645,16 @@ body::-webkit-scrollbar-track-piece {
 }
 
 .center-screen {
-    width: 80%;
-    height: 80%;
+    width: 90%;
+    height: 90%;
     position: fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
     align-content: center;
     text-align: center;
-    top: 10%;
-    left: 10%;
+    top: 5%;
+    left: 5%;
     border-radius: 20px;
     background-color: #606060;
     z-index: 10;
@@ -744,11 +744,30 @@ body::-webkit-scrollbar-track-piece {
     margin-bottom: 3px;
 }
 
+.detailed-date-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+.detailed-completion-wrapper {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 .detailed-text {
     margin: 1%;
     font-weight: 500;
     width: auto;
     font-size: 1em;
+}
+
+.detailed-text-right {
+    text-align: right;
+    justify-content: flex-end;
 }
 
 .detailed-text-title {
@@ -762,6 +781,16 @@ body::-webkit-scrollbar-track-piece {
 
 .detailed-text-small {
     font-size: 0.8em;
+}
+
+.detailed-text-inline {
+    display: inline-block;
+}
+
+.detailed-text-completion {
+    display: inline-block;
+    flex-basis: 40%;
+    flex-grow: 1;
 }
 
 .detailed-time-display {

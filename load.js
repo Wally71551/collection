@@ -2061,16 +2061,20 @@ function CreatePopUpImage(imageLink, isTallImage) {
 function CreateTimeElement(leadingText, time) {
     var timeDiv = document.createElement("div");
     timeDiv.classList.add("detailed-text-wrapper");
+    timeDiv.classList.add("detailed-date-wrapper");
 
     let timeHeader = document.createElement("h2");
     timeHeader.classList.add("detailed-text");
     timeHeader.classList.add("detailed-text-bold");
+    timeHeader.classList.add("detailed-text-inline");
     timeHeader.textContent = leadingText;
     timeDiv.appendChild(timeHeader);
 
     let timeDisplay = document.createElement("h2");
     timeDisplay.classList.add("detailed-text");
     timeDisplay.classList.add("detailed-text-bold");
+    timeDisplay.classList.add("detailed-text-inline");
+    timeDisplay.classList.add("detailed-text-right");
     timeDisplay.textContent = TimeConversion(time);
     timeDiv.appendChild(timeDisplay);
 
@@ -2080,19 +2084,14 @@ function CreateTimeElement(leadingText, time) {
 function CreateCompletionElement(completionType, leadingText, time, dateTime) {
     var completionDiv = document.createElement("div");
     completionDiv.classList.add("detailed-text-wrapper");
+    completionDiv.classList.add("detailed-completion-wrapper");
 
     let completionHeader = document.createElement("h2");
     completionHeader.classList.add("detailed-text");
     completionHeader.classList.add("detailed-text-bold");
+    completionHeader.classList.add("detailed-text-completion");
     completionHeader.textContent = completionType;
     completionDiv.appendChild(completionHeader);
-    if (leadingText != null) {
-        let completionHeader2 = document.createElement("h2");
-        completionHeader2.classList.add("detailed-text");
-        completionHeader2.classList.add("detailed-text-bold");
-        completionHeader2.textContent = leadingText;
-        completionDiv.appendChild(completionHeader2);
-    }
 
     var itemTime = document.createElement("div");
     if (time.endsWith(":00")) {
@@ -2102,6 +2101,8 @@ function CreateCompletionElement(completionType, leadingText, time, dateTime) {
     var itemTimeNode = document.createTextNode(time);
     itemTime.classList.add("detailed-text");
     itemTime.classList.add("detailed-time-display");
+    itemTime.classList.add("detailed-text-completion");
+    itemTime.classList.add("detailed-text-right");
 
     let timeIcon = document.createElement("img");
     timeIcon.src = "icons/time.svg";
@@ -2113,10 +2114,21 @@ function CreateCompletionElement(completionType, leadingText, time, dateTime) {
     itemTime.appendChild(itemTimeNode);
     completionDiv.appendChild(itemTime);
 
+    if (leadingText != null) {
+        let completionHeader2 = document.createElement("h2");
+        completionHeader2.classList.add("detailed-text");
+        completionHeader2.classList.add("detailed-text-small");
+        completionHeader2.classList.add("detailed-text-completion");
+        completionHeader2.textContent = leadingText;
+        completionDiv.appendChild(completionHeader2);
+    }
+
     if (dateTime != null) {
         let timeDisplay = document.createElement("h2");
         timeDisplay.classList.add("detailed-text");
         timeDisplay.classList.add("detailed-text-bold");
+        timeDisplay.classList.add("detailed-text-completion");
+        timeDisplay.classList.add("detailed-text-right");
         timeDisplay.textContent = TimeConversion(dateTime);
         completionDiv.appendChild(timeDisplay);
     }
