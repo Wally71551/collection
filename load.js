@@ -2030,6 +2030,7 @@ function CreatePopUp(itemInfo) {
         nullType.classList.add("null-bar");
         var nullText = document.createElement("p");
         nullText.classList.add("detailed-category-text");
+        nullText.style.color = white;
         nullText.textContent = GetCategoryNames("Null", GetTypeCategory(itemInfo.type))
         nullType.appendChild(nullText);
         categoryDiv.appendChild(nullType);
@@ -2055,6 +2056,41 @@ function CreatePopUp(itemInfo) {
     }
     if (itemInfo.completionist != null) {
         rightDiv.appendChild(CreateCompletionElement("Completionist", itemInfo.completionistnotes, itemInfo.completionist, itemInfo.completionistdate));
+    }
+
+    //Creates the linked titles element
+    if (itemInfo.linkedtitles != null) {
+        var linkedTitlesDiv = document.createElement("div");
+        linkedTitlesDiv.classList.add("detailed-linkedtitles-bg");
+
+        var linkedHeader = document.createElement("h2");
+        linkedHeader.classList.add("detailed-linkedtitles-title");
+        if (itemInfo.linkedtitlesheader != null) {
+            linkedHeader.textContent = itemInfo.linkedtitlesheader;
+        }
+        else {
+            linkedHeader.textContent = "Linked Titles";
+        }
+        linkedTitlesDiv.appendChild(linkedHeader);
+
+        var linkedTitles = [itemInfo.linkedtitles];
+        if (itemInfo.linkedtitles.indexOf(" | ") > -1) {
+            linkedTitles = itemInfo.linkedtitles.split(" | ");
+        }
+
+        //Linked titles scroller
+        var linkedTitlesScroller = document.createElement("div");
+        linkedTitlesScroller.classList.add("detailed-linkedtitles-scroller");
+
+        linkedTitles.forEach((element) => {
+            var linkedTitle = document.createElement("h2");
+            linkedTitle.classList.add("detailed-linkedtitles-element");
+            linkedTitle.textContent = element;
+            linkedTitlesScroller.appendChild(linkedTitle);
+        })
+
+        linkedTitlesDiv.appendChild(linkedTitlesScroller);
+        rightDiv.appendChild(linkedTitlesDiv);
     }
 
     popupElement.appendChild(rightDiv); //Appends right div to the end
