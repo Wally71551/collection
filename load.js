@@ -2227,7 +2227,50 @@ function CreatePopUp(itemInfo) {
     divSplitter.appendChild(rightDivR);
     rightDiv.appendChild(divSplitter);
 
+    //Checks for banner
+    if (itemInfo.bannerimage != null) {
+        var bannerImage = document.createElement("img");
+        bannerImage.classList.add("detailed-banner-image");
+        bannerImage.src = itemInfo.bannerimage;
+        rightDiv.appendChild(bannerImage);
+    }
+
     popupElement.appendChild(rightDiv); //Appends right div to the end
+
+    if (itemInfo.uniqueitem) {
+        var squareWrapper = document.createElement("div");
+        squareWrapper.classList.add("detailed-collection-wrapper");
+
+        collectionItemDisplay = document.createElement("div");
+        collectionItemDisplay.classList.add("box-collection-item");
+        if (itemInfo.playing) {
+            collectionItemDisplay.classList.add("playing-bar");
+        }
+        else if (itemInfo.completed) {
+            collectionItemDisplay.classList.add("completed-bar");
+        }
+        else if (itemInfo.beaten) {
+            collectionItemDisplay.classList.add("beaten-bar");
+        }
+        else if (itemInfo.unplayed) {
+            collectionItemDisplay.classList.add("unplayed-bar");
+        }
+        else if (itemInfo.retired) {
+            collectionItemDisplay.classList.add("retired-bar");
+        }
+        else if (itemInfo.replay) {
+            collectionItemDisplay.classList.add("replay-bar");
+        }
+        else if (itemInfo.null) {
+            collectionItemDisplay.classList.add("null-bar");
+        }
+        else {
+            collectionItemDisplay.classList.add("backlog-bar");
+        }
+
+        squareWrapper.appendChild(collectionItemDisplay);
+        popupElement.appendChild(squareWrapper);
+    }
 
     collectionElement.appendChild(popupBackground);
     collectionElement.appendChild(popupElement);

@@ -679,7 +679,7 @@ body::-webkit-scrollbar-track-piece {
     right: -12px;
     top: -12px;
     border-radius: 5px;
-    background-color: white;
+    background-color: red;
     z-index: 11;
 }
 
@@ -928,6 +928,22 @@ body::-webkit-scrollbar-track-piece {
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
     position: relative;
+}
+
+.detailed-collection-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+    pointer-events: none;
+}
+
+.detailed-banner-image {
+    width: 100%;
+    z-index: 10;
+    border-radius: 5px;
+    margin-top: auto;
 }
 
 .left-text, .right-text, .center-char {
