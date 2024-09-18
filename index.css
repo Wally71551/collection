@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 body {
     font-family: 'Roboto', 'coda-symbol', sans-serif;
@@ -907,6 +907,10 @@ body::-webkit-scrollbar-track-piece {
     padding-right: 0.2em;
 }
 
+.detailed-notes-text-limit {
+    max-height: 300px;
+}
+
 .detailed-notes-text {
     text-align: left;
     max-width: 100%;
@@ -937,6 +941,7 @@ body::-webkit-scrollbar-track-piece {
     overflow: hidden;
     border-radius: 20px;
     pointer-events: none;
+    z-index: -1;
 }
 
 .detailed-banner-image {
@@ -944,6 +949,25 @@ body::-webkit-scrollbar-track-piece {
     z-index: 10;
     border-radius: 5px;
     margin-top: auto;
+}
+
+.detailed-review-titlediv {
+    display: flex;
+}
+
+.detailed-review-title {
+    margin: 0.1rem;
+    font-weight: 1000;
+    width: fit-content;
+    font-size: 1em;
+}
+
+.detailed-flag {
+    width: 2.25rem;
+    height: 1.5rem;
+    margin-right: 0.25rem;
+    margin-top: 0.25rem;
+    margin-bottom: auto;
 }
 
 .left-text, .right-text, .center-char {

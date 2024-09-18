@@ -1,4 +1,4 @@
-let collectionElement = document.getElementById("collection");
+﻿let collectionElement = document.getElementById("collection");
 let headerElement = document.getElementById("header-main");
 let loaderElement = document.getElementById("loader");
 let errorElement = document.getElementById("error");
@@ -848,7 +848,7 @@ function CreateItem(itemInfo) {
                 itemTop.classList.add("trophy-xp-text");
                 itemXPDiv.appendChild(itemTop);
                 let itemLine = document.createElement("p");
-                itemLine.innerText = '�'
+                itemLine.innerText = '—'
                 itemLine.classList.add("trophy-xp-line");
                 itemXPDiv.appendChild(itemLine);
                 let itemBottom = document.createElement("p");
@@ -1804,7 +1804,10 @@ function CreatePopUp(itemInfo) {
     //Creates the title element
     let titleDiv = document.createElement("div");
     titleDiv.classList.add("detailed-text-wrapper");
+    titleDiv.classList.add("detailed-date-wrapper");
     titleDiv.style.marginTop = "0px";
+
+    mainDiv = document.createElement("div");
 
     //Add the title
     //Checks to see if the item is DLC and adjusts how the name is displayed
@@ -1819,7 +1822,7 @@ function CreatePopUp(itemInfo) {
     title.classList.add("detailed-text");
     title.classList.add("detailed-text-title");
     title.textContent = itemInfo.title;
-    titleDiv.appendChild(title);
+    mainDiv.appendChild(title);
 
     //Creates subtitle elements (if needed)
     if (itemInfo.subtitle != null) {
@@ -1831,7 +1834,7 @@ function CreatePopUp(itemInfo) {
                 subtitle.classList.add("detailed-text");
                 subtitle.classList.add("detailed-text-bold");
                 subtitle.textContent = element;
-                titleDiv.appendChild(subtitle);
+                mainDiv.appendChild(subtitle);
             })
         }
         else {
@@ -1839,7 +1842,7 @@ function CreatePopUp(itemInfo) {
             subtitle.classList.add("detailed-text");
             subtitle.classList.add("detailed-text-bold");
             subtitle.textContent = itemInfo.subtitle;
-            titleDiv.appendChild(subtitle);
+            mainDiv.appendChild(subtitle);
         }
     }
 
@@ -1849,7 +1852,17 @@ function CreatePopUp(itemInfo) {
         series.classList.add("detailed-text");
         series.classList.add("detailed-text-small");
         series.textContent = itemInfo.series;
-        titleDiv.appendChild(series);
+        mainDiv.appendChild(series);
+    }
+
+    titleDiv.appendChild(mainDiv);
+
+    //Adds flag if needed
+    if (itemInfo.region != null) {
+        let regionIcon = document.createElement("img");
+        regionIcon.src = GetRegionIcon(itemInfo.region);
+        regionIcon.classList.add("detailed-flag");
+        titleDiv.appendChild(regionIcon);
     }
 
     //End the title element
@@ -2176,6 +2189,7 @@ function CreatePopUp(itemInfo) {
         progressElement = document.createElement("p");
         progressElement.classList.add("scrollable-text");
         progressElement.classList.add("detailed-notes-text");
+        progressElement.classList.add("detailed-notes-text-limit");
 
         if (itemInfo.progressnote.indexOf(" | ") > -1) {
             itemInfo.progressnote = itemInfo.progressnote.replaceAll(" | ", "<br />");
@@ -2193,8 +2207,21 @@ function CreatePopUp(itemInfo) {
         reviewDiv.classList.add("detailed-linkedtitles-bg");
 
         reviewHeader = document.createElement("div");
-        reviewHeader.classList.add("detailed-linkedtitles-title");
-        reviewHeader.textContent = "Review: " + itemInfo.review;
+        reviewHeader.classList.add("detailed-review-titlediv");
+
+        reviewTitle = document.createElement("div");
+        reviewTitle.classList.add("detailed-review-title");
+        reviewTitle.textContent = "Review: " + itemInfo.review;
+
+        reviewHeader.appendChild(reviewTitle);
+
+        //Ratings
+        reviewStars = document.createElement("div");
+        reviewStars.classList.add("stars-landing");
+        reviewStars.style = "--rating: " + itemInfo.review;
+
+        reviewHeader.appendChild(reviewStars);
+
         reviewDiv.appendChild(reviewHeader);
 
         //Checks for if review notes need to be added
@@ -2202,6 +2229,7 @@ function CreatePopUp(itemInfo) {
             reviewNotes = document.createElement("p");
             reviewNotes.classList.add("scrollable-text");
             reviewNotes.classList.add("detailed-notes-text");
+            reviewNotes.classList.add("detailed-notes-text-limit");
 
             if (itemInfo.reviewnotes.indexOf(" | ") > -1) {
                 itemInfo.reviewnotes = itemInfo.reviewnotes.replaceAll(" | ", "<br />");
@@ -2227,6 +2255,7 @@ function CreatePopUp(itemInfo) {
         notesElement = document.createElement("p");
         notesElement.classList.add("scrollable-text");
         notesElement.classList.add("detailed-notes-text");
+        notesElement.classList.add("detailed-notes-text-limit");
 
         if (itemInfo.notes.indexOf(" | ") > -1) {
             itemInfo.notes = itemInfo.notes.replaceAll(" | ", "<br />");
