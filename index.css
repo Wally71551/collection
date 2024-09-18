@@ -684,11 +684,13 @@ body::-webkit-scrollbar-track-piece {
 }
 
 .detailed-left-div {
-    display: inline-block;
+    display: inline-flex;
     height: 95%;
     max-height: 95%;
     margin-left: 0.5em;
     object-fit: contain;
+    flex-direction: column;
+    width: fit-content;
 }
 
 .detailed-image-container {
@@ -698,6 +700,7 @@ body::-webkit-scrollbar-track-piece {
     overflow: hidden;
     object-fit: contain;
     aspect-ratio: 2/3;
+    flex: 1 0 auto;
 }
 
 .detailed-image {
@@ -737,6 +740,26 @@ body::-webkit-scrollbar-track-piece {
     gap: 0.15em;
 }
 
+.detailed-splitter {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.1rem;
+    height: auto;
+    overflow: hidden;
+    width: 100%;
+}
+
+.detailed-split-div {
+    flex-grow: 1;
+    flex-basis: 45%;
+    margin-right: 0px;
+    height: auto;
+    flex-shrink: 1;
+    overflow: hidden;
+    max-height: 100%;
+}
+
 .detailed-text-wrapper {
     width: 100%;
     height: auto;
@@ -773,7 +796,7 @@ body::-webkit-scrollbar-track-piece {
 }
 
 .detailed-text-title {
-    font-weight: 900;
+    font-weight: 1000;
     font-size: 1.5em;
 }
 
@@ -805,19 +828,19 @@ body::-webkit-scrollbar-track-piece {
 
 .detailed-categories-div {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex-shrink: 0;
     width: 100%;
     flex-direction: row;
     justify-content: space-between;
-    gap: 1px;
+    gap: 0.1rem;
 }
 
 .detailed-category {
     font-size: 0.8em;
     border-radius: 5px;
     flex-grow: 1;
-    flex-basis: 40%;
+    flex-basis: 50%;
 }
 
 .detailed-category-text {
@@ -829,7 +852,6 @@ body::-webkit-scrollbar-track-piece {
 .detailed-linkedtitles-bg {
     width: 100%;
     height: auto;
-    max-height: initial;
     background-color: lightgrey;
     border-radius: 5px;
     display: flex;
@@ -839,7 +861,7 @@ body::-webkit-scrollbar-track-piece {
 
 .detailed-linkedtitles-title {
     margin: 0.1rem;
-    font-weight: 900;
+    font-weight: 1000;
     width: auto;
     font-size: 1em;
 }
@@ -893,6 +915,19 @@ body::-webkit-scrollbar-track-piece {
     font-size: 0.9em;
     font-weight: 400;
     margin: 0px;
+}
+
+.detailed-progress-bar {
+    width: auto;
+    position: relative;
+    top: auto;
+    margin: 0.1rem 0.1rem 0.1rem 0.1rem;
+}
+
+.detailed-xp {
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+    position: relative;
 }
 
 .left-text, .right-text, .center-char {

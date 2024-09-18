@@ -1791,10 +1791,11 @@ function CreatePopUp(itemInfo) {
     popupElement.appendChild(deleteButton);
 
     //Sets up the image display
-    let imageWrapper = document.createElement("div");
-    imageWrapper.classList.add("detailed-left-div");
-    popupElement.appendChild(imageWrapper);
-    imageWrapper.appendChild(CreatePopUpImage(itemInfo.image, itemInfo.tallimage));
+    let leftDiv = document.createElement("div");
+    leftDiv.classList.add("detailed-left-div");
+    leftDiv.appendChild(CreatePopUpImage(itemInfo.image, itemInfo.tallimage));
+    //Puts the left div on the popup
+    popupElement.appendChild(leftDiv);
 
     //Sets up the opposite side of the object
     let rightDiv = document.createElement("div");
@@ -1828,6 +1829,7 @@ function CreatePopUp(itemInfo) {
             subtitles.forEach((element) => {
                 var subtitle = document.createElement("h2");
                 subtitle.classList.add("detailed-text");
+                subtitle.classList.add("detailed-text-bold");
                 subtitle.textContent = element;
                 titleDiv.appendChild(subtitle);
             })
@@ -1835,11 +1837,10 @@ function CreatePopUp(itemInfo) {
         else {
             var subtitle = document.createElement("h2");
             subtitle.classList.add("detailed-text");
+            subtitle.classList.add("detailed-text-bold");
             subtitle.textContent = itemInfo.subtitle;
             titleDiv.appendChild(subtitle);
         }
-
-        var subtitle = document.createElement("h2");
     }
 
     //Series item
@@ -1860,23 +1861,23 @@ function CreatePopUp(itemInfo) {
         platformDiv.classList.add("detailed-text-wrapper");
         platformDiv.classList.add("detailed-date-wrapper");
 
-        var leftDiv = document.createElement("div");
+        var leftSide = document.createElement("div");
 
         if (itemInfo.platform != null) {
             var platform = document.createElement("h2");
             platform.classList.add("detailed-text");
             platform.textContent = itemInfo.platform;
-            leftDiv.appendChild(platform);
+            leftSide.appendChild(platform);
         }
 
         if (itemInfo.storefront != null) {
             var storefront = document.createElement("h2");
             storefront.classList.add("detailed-text");
             storefront.textContent = itemInfo.storefront;
-            leftDiv.appendChild(storefront);
+            leftSide.appendChild(storefront);
         }
 
-        platformDiv.appendChild(leftDiv);
+        platformDiv.appendChild(leftSide);
 
         if (itemInfo.type != null) {
             var type = document.createElement("div");
@@ -2037,26 +2038,37 @@ function CreatePopUp(itemInfo) {
         rightDiv.appendChild(categoryDiv);
     }
 
+    //Div splits into two here
+    let divSplitter = document.createElement("div");
+    divSplitter.classList.add("detailed-splitter");
+    //Add formatting
+    let rightDivL = document.createElement("div");
+    rightDivL.classList.add("detailed-right-div");
+    rightDivL.classList.add("detailed-split-div");
+    let rightDivR = document.createElement("div");
+    rightDivR.classList.add("detailed-right-div");
+    rightDivR.classList.add("detailed-split-div");
+
     //Create date elements
-    rightDiv.appendChild(CreateTimeElement("Last Updated", itemInfo.lastupdated));
-    rightDiv.appendChild(CreateTimeElement("Date Added", itemInfo.addeddate));
+    rightDivL.appendChild(CreateTimeElement("Last Updated", itemInfo.lastupdated));
+    rightDivL.appendChild(CreateTimeElement("Date Added", itemInfo.addeddate));
     if (itemInfo.completiondate != null) {
-        rightDiv.appendChild(CreateTimeElement("Completion Date", itemInfo.completiondate));
+        rightDivL.appendChild(CreateTimeElement("Completion Date", itemInfo.completiondate));
     }
 
     var completionElementCount = 0;
 
     //Creates time elements
     if (itemInfo.mainstory != null) {
-        rightDiv.appendChild(CreateCompletionElement("Main Story", itemInfo.mainstorynotes, itemInfo.mainstory, itemInfo.mainstorydate));
+        rightDivL.appendChild(CreateCompletionElement("Main Story", itemInfo.mainstorynotes, itemInfo.mainstory, itemInfo.mainstorydate));
         completionElementCount++;
     }
     if (itemInfo.mainextras != null) {
-        rightDiv.appendChild(CreateCompletionElement("Main + Extras", itemInfo.mainextrasnotes, itemInfo.mainextras, itemInfo.mainextrasdate));
+        rightDivL.appendChild(CreateCompletionElement("Main + Extras", itemInfo.mainextrasnotes, itemInfo.mainextras, itemInfo.mainextrasdate));
         completionElementCount++;
     }
     if (itemInfo.completionist != null) {
-        rightDiv.appendChild(CreateCompletionElement("Completionist", itemInfo.completionistnotes, itemInfo.completionist, itemInfo.completionistdate));
+        rightDivL.appendChild(CreateCompletionElement("Completionist", itemInfo.completionistnotes, itemInfo.completionist, itemInfo.completionistdate));
         completionElementCount++;
     }
 
@@ -2091,21 +2103,111 @@ function CreatePopUp(itemInfo) {
             linkedTitlesScroller.appendChild(linkedTitle);
         })
 
-        //Check if notes are going to exist and the box needs to shrink
-        if (itemInfo.notes != null) {
-            var maxHeight = 50 - (10 * completionElementCount);
-            linkedTitlesDiv.style.maxHeight = maxHeight + "%";
+        linkedTitlesDiv.appendChild(linkedTitlesScroller);
+        rightDivL.appendChild(linkedTitlesDiv);
+    }
+
+    //Adds the progress elements
+    if ((itemInfo.progresscurrent != null && itemInfo.progressfull != null) || itemInfo.progressprefix == "Percentage Completion") {
+        var progressDiv = document.createElement("div");
+        progressDiv.classList.add("detailed-text-wrapper");
+
+        var progressBar = CreateProgressBar(itemInfo.progress);
+        progressBar.classList.add("detailed-progress-bar");
+
+        let itemProgressText = document.createElement("p");
+        itemProgressText.classList.add("detailed-text");
+        var itemProgressTextNode;
+        if (itemInfo.progressprefix == "Percentage Completion") {
+            itemProgressTextNode = document.createTextNode(itemInfo.progress + "% Completion");
+        }
+        else if (itemInfo.trophies != null && itemInfo.progressprefix == null)
+        {
+            itemProgressTextNode = document.createTextNode("Trophies: " + itemInfo.progresscurrent + " / " + itemInfo.progressfull);
+        }
+        else {
+            itemProgressTextNode = document.createTextNode(itemInfo.progressprefix + ": " + itemInfo.progresscurrent + " / " + itemInfo.progressfull);
+        }
+        itemProgressText.appendChild(itemProgressTextNode);
+
+        progressDiv.appendChild(progressBar);
+        progressDiv.appendChild(itemProgressText);
+
+        //Check for trophies
+        if (itemInfo.trophies != null) {
+            let trophies = itemInfo.trophies.split(".");
+            var trophyElement = CreateTrophyDisplay(trophies);
+            trophyElement.classList.add("detailed-xp");
+            progressDiv.appendChild(trophyElement);
         }
 
-        linkedTitlesDiv.appendChild(linkedTitlesScroller);
-        rightDiv.appendChild(linkedTitlesDiv);
+        if (itemInfo.xp != null) {
+            var xpElement = CreateXPIcon(itemInfo.xp, itemInfo.xpmax, itemInfo.xptype);
+            xpElement.classList.add("detailed-xp");
+            progressDiv.appendChild(xpElement);
+        }
+
+        rightDivR.appendChild(progressDiv);
+    }
+
+    //Progress note
+    if (itemInfo.progressnote != null) {
+        var progressNoteDiv = document.createElement("div");
+        progressNoteDiv.classList.add("detailed-linkedtitles-bg");
+
+        progressHeader = document.createElement("h2");
+        progressHeader.classList.add("detailed-linkedtitles-title");
+        let str = "";
+        if (itemInfo.retired) {
+            str = "Retired Notes";
+        }
+        else if (itemInfo.beaten) {
+            str = "Playthrough Notes";
+        }
+        else if (itemInfo.completed) {
+            str = "Playthrough Notes";
+        }
+        else {
+            str = "Progress";
+        }
+        progressHeader.textContent = str;
+        progressNoteDiv.appendChild(progressHeader);
+
+        progressElement = document.createElement("p");
+        progressElement.classList.add("scrollable-text");
+        progressElement.classList.add("detailed-notes-text");
+        progressElement.textContent = itemInfo.progressnote;
+        progressNoteDiv.appendChild(progressElement);
+
+        rightDivR.appendChild(progressNoteDiv);
+    }
+
+    //Review element
+    if (itemInfo.review != null) {
+        var reviewDiv = document.createElement("div");
+        reviewDiv.classList.add("detailed-linkedtitles-bg");
+
+        reviewHeader = document.createElement("div");
+        reviewHeader.classList.add("detailed-linkedtitles-title");
+        reviewHeader.textContent = "Review: " + itemInfo.review;
+        reviewDiv.appendChild(reviewHeader);
+
+        //Checks for if review notes need to be added
+        if (itemInfo.reviewnotes != null) {
+            reviewNotes = document.createElement("p");
+            reviewNotes.classList.add("scrollable-text");
+            reviewNotes.classList.add("detailed-notes-text");
+            reviewNotes.textContent = itemInfo.reviewnotes;
+            reviewDiv.appendChild(reviewNotes);
+        }
+
+        rightDivR.appendChild(reviewDiv);
     }
 
     //Notes element
     if (itemInfo.notes != null) {
         var notesDiv = document.createElement("div");
         notesDiv.classList.add("detailed-linkedtitles-bg");
-        notesDiv.style.maxHeight = "15%";
 
         notesHeader = document.createElement("h2");
         notesHeader.classList.add("detailed-linkedtitles-title");
@@ -2118,8 +2220,12 @@ function CreatePopUp(itemInfo) {
         notesElement.textContent = itemInfo.notes;
         notesDiv.appendChild(notesElement);
 
-        rightDiv.appendChild(notesDiv);
+        rightDivR.appendChild(notesDiv);
     }
+
+    divSplitter.appendChild(rightDivL);
+    divSplitter.appendChild(rightDivR);
+    rightDiv.appendChild(divSplitter);
 
     popupElement.appendChild(rightDiv); //Appends right div to the end
 
