@@ -737,7 +737,7 @@ body::-webkit-scrollbar-track-piece {
     align-items: flex-start;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 0.15em;
+    gap: 0.15rem;
 }
 
 .detailed-splitter {
