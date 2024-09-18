@@ -2176,7 +2176,12 @@ function CreatePopUp(itemInfo) {
         progressElement = document.createElement("p");
         progressElement.classList.add("scrollable-text");
         progressElement.classList.add("detailed-notes-text");
-        progressElement.textContent = itemInfo.progressnote;
+
+        if (itemInfo.progressnote.indexOf(" | ") > -1) {
+            itemInfo.progressnote = itemInfo.progressnote.replaceAll(" | ", "<br />");
+        }
+
+        progressElement.innerHTML = itemInfo.progressnote;
         progressNoteDiv.appendChild(progressElement);
 
         rightDivR.appendChild(progressNoteDiv);
@@ -2197,7 +2202,12 @@ function CreatePopUp(itemInfo) {
             reviewNotes = document.createElement("p");
             reviewNotes.classList.add("scrollable-text");
             reviewNotes.classList.add("detailed-notes-text");
-            reviewNotes.textContent = itemInfo.reviewnotes;
+
+            if (itemInfo.reviewnotes.indexOf(" | ") > -1) {
+                itemInfo.reviewnotes = itemInfo.reviewnotes.replaceAll(" | ", "<br />");
+            }
+
+            reviewNotes.innerHTML = itemInfo.reviewnotes;
             reviewDiv.appendChild(reviewNotes);
         }
 
@@ -2217,7 +2227,11 @@ function CreatePopUp(itemInfo) {
         notesElement = document.createElement("p");
         notesElement.classList.add("scrollable-text");
         notesElement.classList.add("detailed-notes-text");
-        notesElement.textContent = itemInfo.notes;
+
+        if (itemInfo.notes.indexOf(" | ") > -1) {
+            itemInfo.notes = itemInfo.notes.replaceAll(" | ", "<br />");
+        }
+        notesElement.innerHTML = itemInfo.notes;
         notesDiv.appendChild(notesElement);
 
         rightDivR.appendChild(notesDiv);
@@ -2237,6 +2251,7 @@ function CreatePopUp(itemInfo) {
 
     popupElement.appendChild(rightDiv); //Appends right div to the end
 
+    //Unique item element
     if (itemInfo.uniqueitem) {
         var squareWrapper = document.createElement("div");
         squareWrapper.classList.add("detailed-collection-wrapper");
