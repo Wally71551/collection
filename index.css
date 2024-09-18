@@ -658,6 +658,7 @@ body::-webkit-scrollbar-track-piece {
     border-radius: 20px;
     background-color: #606060;
     z-index: 10;
+    gap: 0.5em;
 }
 
 .popup-background {
@@ -686,8 +687,7 @@ body::-webkit-scrollbar-track-piece {
     display: inline-block;
     height: 95%;
     max-height: 95%;
-    margin-left: 2%;
-    margin-right: 2%;
+    margin-left: 0.5em;
     object-fit: contain;
 }
 
@@ -730,10 +730,11 @@ body::-webkit-scrollbar-track-piece {
     max-height: 95%;
     flex-grow: 1;
     display: inline-flex;
-    margin-right: 2%;
+    margin-right: 0.75em;
     align-items: flex-start;
     flex-direction: column;
     justify-content: flex-start;
+    gap: 0.15em;
 }
 
 .detailed-text-wrapper {
@@ -742,8 +743,6 @@ body::-webkit-scrollbar-track-piece {
     background-color: lightgrey;
     border-radius: 5px;
     text-align: left;
-    margin-top: 3px;
-    margin-bottom: 3px;
 }
 
 .detailed-date-wrapper {
@@ -761,7 +760,7 @@ body::-webkit-scrollbar-track-piece {
 }
 
 .detailed-text {
-    margin: 1%;
+    margin: 0.1rem 0.1rem 0.1rem 0.2rem;
     font-weight: 500;
     width: auto;
     font-size: 1em;
@@ -770,6 +769,7 @@ body::-webkit-scrollbar-track-piece {
 .detailed-text-right {
     text-align: right;
     justify-content: flex-end;
+    margin: 0.1rem 0.2rem 0.1rem 0.1rem;
 }
 
 .detailed-text-title {
@@ -816,15 +816,14 @@ body::-webkit-scrollbar-track-piece {
 .detailed-category {
     font-size: 0.8em;
     border-radius: 5px;
-    margin-bottom: 0.125em;
     flex-grow: 1;
+    flex-basis: 40%;
 }
 
 .detailed-category-text {
-    margin-top: 0.375em;
-    margin-bottom: 0.375em;
-    margin-left: 0.25em;
-    margin-right: 0.25em;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-weight: 1000;
 }
 
 .detailed-linkedtitles-bg {
@@ -836,11 +835,10 @@ body::-webkit-scrollbar-track-piece {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    margin-bottom: 0.1em;
 }
 
 .detailed-linkedtitles-title {
-    margin: 0.1em;
+    margin: 0.1rem;
     font-weight: 900;
     width: auto;
     font-size: 1em;

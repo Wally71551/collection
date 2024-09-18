@@ -1861,12 +1861,10 @@ function CreatePopUp(itemInfo) {
         platformDiv.classList.add("detailed-date-wrapper");
 
         var leftDiv = document.createElement("div");
-        leftDiv.style.margin = "1%";
 
         if (itemInfo.platform != null) {
             var platform = document.createElement("h2");
             platform.classList.add("detailed-text");
-            platform.style.margin = "0";
             platform.textContent = itemInfo.platform;
             leftDiv.appendChild(platform);
         }
@@ -1874,7 +1872,6 @@ function CreatePopUp(itemInfo) {
         if (itemInfo.storefront != null) {
             var storefront = document.createElement("h2");
             storefront.classList.add("detailed-text");
-            storefront.style.margin = "0";
             storefront.textContent = itemInfo.storefront;
             leftDiv.appendChild(storefront);
         }
@@ -1890,7 +1887,6 @@ function CreatePopUp(itemInfo) {
             let typeIcon = document.createElement("img");
             typeIcon.src = GetTypeIcon(itemInfo.type);
             typeIcon.classList.add("icon-intext");
-            typeIcon.style.marginRight = "0.25em";
             type.appendChild(typeIcon);
 
             var typeText = document.createElement("h2");
@@ -1903,7 +1899,7 @@ function CreatePopUp(itemInfo) {
                 var replayIcon = document.createElement("img");
                 replayIcon.src = "icons/replay.svg";
                 replayIcon.classList.add("icon-intext");
-                replayIcon.style.marginLeft = "0.25em";
+                replayIcon.style.marginLeft = "0.1rem";
                 type.appendChild(replayIcon);
             }
 
@@ -1964,6 +1960,7 @@ function CreatePopUp(itemInfo) {
         backlog.classList.add("backlog-bar");
         var backlogText = document.createElement("p");
         backlogText.classList.add("detailed-category-text");
+        backlogText.style.color = "white";
         backlogText.textContent = GetCategoryNames("Backlog", GetTypeCategory(itemInfo.type))
         backlog.appendChild(backlogText);
         categoryDiv.appendChild(backlog);
@@ -2047,15 +2044,20 @@ function CreatePopUp(itemInfo) {
         rightDiv.appendChild(CreateTimeElement("Completion Date", itemInfo.completiondate));
     }
 
+    var completionElementCount = 0;
+
     //Creates time elements
     if (itemInfo.mainstory != null) {
         rightDiv.appendChild(CreateCompletionElement("Main Story", itemInfo.mainstorynotes, itemInfo.mainstory, itemInfo.mainstorydate));
+        completionElementCount++;
     }
     if (itemInfo.mainextras != null) {
         rightDiv.appendChild(CreateCompletionElement("Main + Extras", itemInfo.mainextrasnotes, itemInfo.mainextras, itemInfo.mainextrasdate));
+        completionElementCount++;
     }
     if (itemInfo.completionist != null) {
         rightDiv.appendChild(CreateCompletionElement("Completionist", itemInfo.completionistnotes, itemInfo.completionist, itemInfo.completionistdate));
+        completionElementCount++;
     }
 
     //Creates the linked titles element
@@ -2088,6 +2090,12 @@ function CreatePopUp(itemInfo) {
             linkedTitle.textContent = element;
             linkedTitlesScroller.appendChild(linkedTitle);
         })
+
+        //Check if notes are going to exist and the box needs to shrink
+        if (itemInfo.notes != null) {
+            var maxHeight = 50 - (10 * completionElementCount);
+            linkedTitlesDiv.style.maxHeight = maxHeight + "%";
+        }
 
         linkedTitlesDiv.appendChild(linkedTitlesScroller);
         rightDiv.appendChild(linkedTitlesDiv);
