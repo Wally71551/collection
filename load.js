@@ -2208,6 +2208,7 @@ function CreatePopUp(itemInfo) {
 
         reviewHeader = document.createElement("div");
         reviewHeader.classList.add("detailed-review-titlediv");
+        reviewHeader.style.alignItems = "center";
 
         reviewTitle = document.createElement("div");
         reviewTitle.classList.add("detailed-review-title");
@@ -2216,9 +2217,33 @@ function CreatePopUp(itemInfo) {
         reviewHeader.appendChild(reviewTitle);
 
         //Ratings
+        var reviewAmount = itemInfo.review;
+
         reviewStars = document.createElement("div");
-        reviewStars.classList.add("stars-landing");
-        reviewStars.style = "--rating: " + itemInfo.review;
+        reviewStars.classList.add("detailed-star-div");
+        for (let i = 0; i < 10; i++) {
+            var starBase = document.createElement("div");
+            starBase.classList.add("detailed-review-star-base");
+            starBase.textContent = "★";
+
+            if (reviewAmount > 0) {
+                var starColour = document.createElement("div");
+                starColour.classList.add("detailed-review-star");
+                starColour.textContent = "★";
+
+                if (reviewAmount >= 10) {
+                    starColour.style.width = "100%";
+                }
+                else {
+                    //1 = 15%, 9 = 85%
+                    starColour.style.width = `${15 + ((reviewAmount - 1) * 8.75)}%`;
+                }
+
+                starBase.appendChild(starColour);
+                reviewAmount = reviewAmount - 10;
+            }
+            reviewStars.appendChild(starBase);
+        }
 
         reviewHeader.appendChild(reviewStars);
 

@@ -953,6 +953,7 @@ body::-webkit-scrollbar-track-piece {
 
 .detailed-review-titlediv {
     display: flex;
+    justify-content: space-between;
 }
 
 .detailed-review-title {
@@ -968,6 +969,40 @@ body::-webkit-scrollbar-track-piece {
     margin-right: 0.25rem;
     margin-top: 0.25rem;
     margin-bottom: auto;
+}
+
+.detailed-star-div {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    align-content: center;
+    flex-wrap: wrap;
+    margin-right: 0.25rem;
+    margin-top: 0.125rem;
+    margin-bottom: 0.125rem;
+    position: relative;
+}
+
+.detailed-star-container {
+    position: relative;
+}
+
+.detailed-review-star-base {
+    font-size: 2.0rem;
+    color: black;
+    display: inline-block;
+    position: relative;
+    margin-top: -0.25em;
+}
+
+.detailed-review-star {
+    color: gold;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 0%;
 }
 
 .left-text, .right-text, .center-char {
