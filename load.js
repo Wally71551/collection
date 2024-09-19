@@ -2291,8 +2291,12 @@ function CreatePopUp(itemInfo) {
         rightDivR.appendChild(notesDiv);
     }
 
-    divSplitter.appendChild(rightDivL);
-    divSplitter.appendChild(rightDivR);
+    if (rightDivL.hasChildNodes()) {
+        divSplitter.appendChild(rightDivL);
+    }
+    if (rightDivR.hasChildNodes()) {
+        divSplitter.appendChild(rightDivR);
+    }
     rightDiv.appendChild(divSplitter);
 
     //Checks for banner
