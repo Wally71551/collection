@@ -2069,20 +2069,21 @@ function CreatePopUp(itemInfo) {
         rightDivL.appendChild(CreateTimeElement("Completion Date", itemInfo.completiondate));
     }
 
-    var completionElementCount = 0;
-
     //Creates time elements
     if (itemInfo.mainstory != null) {
         rightDivL.appendChild(CreateCompletionElement("Main Story", itemInfo.mainstorynotes, itemInfo.mainstory, itemInfo.mainstorydate));
-        completionElementCount++;
     }
     if (itemInfo.mainextras != null) {
         rightDivL.appendChild(CreateCompletionElement("Main + Extras", itemInfo.mainextrasnotes, itemInfo.mainextras, itemInfo.mainextrasdate));
-        completionElementCount++;
     }
     if (itemInfo.completionist != null) {
         rightDivL.appendChild(CreateCompletionElement("Completionist", itemInfo.completionistnotes, itemInfo.completionist, itemInfo.completionistdate));
-        completionElementCount++;
+    }
+    if (itemInfo.coop != null) {
+        rightDivL.appendChild(CreateDurationElement("Co-Op", itemInfo.coop));
+    }
+    if (itemInfo.multiplayer != null) {
+        rightDivL.appendChild(CreateDurationElement("Multiplayer", itemInfo.multiplayer));
     }
 
     //Creates the linked titles element
@@ -2401,6 +2402,42 @@ function CreateTimeElement(leadingText, time) {
     timeDiv.appendChild(timeDisplay);
 
     return timeDiv;
+}
+
+function CreateDurationElement(text, time) {
+    var durationDiv = document.createElement("div");
+    durationDiv.classList.add("detailed-text-wrapper");
+    durationDiv.classList.add("detailed-completion-wrapper");
+
+    let durationHeader = document.createElement("h2");
+    durationHeader.classList.add("detailed-text");
+    durationHeader.classList.add("detailed-text-bold");
+    durationHeader.classList.add("detailed-text-completion");
+    durationHeader.textContent = text;
+    durationDiv.appendChild(durationHeader);
+
+    var itemTime = document.createElement("div");
+    if (time.endsWith(":00")) {
+        time = time.slice(0, -3);
+    }
+
+    var itemTimeNode = document.createTextNode(time);
+    itemTime.classList.add("detailed-text");
+    itemTime.classList.add("detailed-time-display");
+    itemTime.classList.add("detailed-text-completion");
+    itemTime.classList.add("detailed-text-right");
+
+    let timeIcon = document.createElement("img");
+    timeIcon.src = "icons/time.svg";
+    timeIcon.classList.add("icon-intext");
+
+    timeIcon.style.marginRight = "0.25em";
+
+    itemTime.appendChild(timeIcon);
+    itemTime.appendChild(itemTimeNode);
+    durationDiv.appendChild(itemTime);
+
+    return durationDiv;
 }
 
 function CreateCompletionElement(completionType, leadingText, time, dateTime) {
