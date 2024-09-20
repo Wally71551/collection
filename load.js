@@ -2063,11 +2063,11 @@ function CreatePopUp(itemInfo) {
     rightDivR.classList.add("detailed-split-div");
 
     //Create date elements
-    rightDivL.appendChild(CreateTimeElement("Last Updated", itemInfo.lastupdated));
-    rightDivL.appendChild(CreateTimeElement("Date Added", itemInfo.addeddate));
     if (itemInfo.completiondate != null) {
         rightDivL.appendChild(CreateTimeElement("Completion Date", itemInfo.completiondate));
     }
+    rightDivL.appendChild(CreateTimeElement("Last Updated", itemInfo.lastupdated));
+    rightDivL.appendChild(CreateTimeElement("Date Added", itemInfo.addeddate));
 
     //Creates time elements
     if (itemInfo.mainstory != null) {

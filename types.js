@@ -426,7 +426,7 @@ function GetCategoryNames(category, itemType) {
                 case "Collectible":
                     return "Reuse";
                 case "Miscellaneous":
-                    return "Reuse";
+                    return "Repeat";
             }
         case "Retired":
             switch (itemType) {
@@ -464,7 +464,7 @@ function GetCategoryNames(category, itemType) {
                 case "Collectible":
                     return "Used";
                 case "Miscellaneous":
-                    return "Used";
+                    return "Done";
             }
         case "Completed":
             switch (itemType) {
