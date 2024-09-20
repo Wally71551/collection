@@ -2508,7 +2508,6 @@ function TimeConversion(time) {
                         return "January " + dateTime.getUTCFullYear(); //January
                     case 2:
                         return "01/01/" + dateTime.getUTCFullYear(); //January 1st
-                        break;
                     default:
                         break;
                 }
@@ -2525,17 +2524,16 @@ function TimeConversion(time) {
             }
         }
     }
-    else {
-        //output normally
-        if (dateTime.getUTCSeconds() == 0) {
-            if (dateTime.getUTCHours() == 0 && dateTime.getUTCMinutes() == 0) {
-                return dateTime.toLocaleDateString('en-GB', { timeZone: "UTC" });
-            }
-            else {
-                return dateTime.toLocaleDateString('en-GB', { timeZone: "UTC" }) + " " + dateTime.toLocaleTimeString('eo', { hour12: false, timeZone: 'UTC', hour: "2-digit", minute: "2-digit" });
-            }
-        }
 
-        return dateTime.toLocaleDateString('en-GB', {timeZone: "UTC"}) + " " + dateTime.toLocaleTimeString('eo', { hour12: false, timeZone: 'UTC' });
+    //If all conditions fail: output normally
+    if (dateTime.getUTCSeconds() == 0) {
+        if (dateTime.getUTCHours() == 0 && dateTime.getUTCMinutes() == 0) {
+            return dateTime.toLocaleDateString('en-GB', { timeZone: "UTC" });
+        }
+        else {
+            return dateTime.toLocaleDateString('en-GB', { timeZone: "UTC" }) + " " + dateTime.toLocaleTimeString('eo', { hour12: false, timeZone: 'UTC', hour: "2-digit", minute: "2-digit" });
+        }
     }
+
+    return dateTime.toLocaleDateString('en-GB', {timeZone: "UTC"}) + " " + dateTime.toLocaleTimeString('eo', { hour12: false, timeZone: 'UTC' });
 }
