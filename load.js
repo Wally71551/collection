@@ -2262,6 +2262,7 @@ function CreatePopUp(itemInfo) {
             }
 
             reviewNotes.innerHTML = itemInfo.reviewnotes;
+            reviewNotes.style.marginBottom = "0.1em";
             reviewDiv.appendChild(reviewNotes);
         }
 
@@ -2499,7 +2500,7 @@ function TimeConversion(time) {
     dateTime = new Date(time); //ISO 6401 formatting to date
 
     if (dateTime.getUTCDate() == 1) {
-        if (dateTime.getUTCMonth() == 1) {
+        if (dateTime.getUTCMonth() == 0) {
             if (dateTime.getUTCHours() == 0 && dateTime.getUTCMinutes() == 0) {
                 switch (dateTime.getUTCSeconds()) {
                     case 0:
@@ -2516,7 +2517,7 @@ function TimeConversion(time) {
         else {
             if (dateTime.getUTCHours() == 0 && dateTime.getUTCMinutes() == 0) {
                 if (dateTime.getUTCSeconds() == 0) {
-                    return dateTime.toLocaleString('default', { month: 'long', timeZone: 'UTC' }) + "" + dateTime.getUTCFullYear(); //Month + year only
+                    return dateTime.toLocaleString('default', { month: 'long', timeZone: 'UTC' }) + " " + dateTime.getUTCFullYear(); //Month + year only
                 }
                 else if (dateTime.getSeconds() == 1) {
                     return dateTime.toLocaleDateString('en-GB', {timeZone: "UTC"}); //First day of the month
