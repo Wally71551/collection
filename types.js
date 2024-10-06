@@ -203,7 +203,6 @@ function GetTypeIcon(itemType) {
         case "Funko POP!":
         case "Funko POP! Bobble-Head":
         case "Figure":
-        case "Tamagotchi":
         case "Diorama":
         case "LEGO Set":
         case "LEGO Polybag Set":
@@ -233,6 +232,7 @@ function GetTypeIcon(itemType) {
         case "Pinball Machine":
         case "Coaster Set":
         case "Medal":
+        case "Tamagotchi":
             return "icons/circle.svg";
         case "HOT WHEELS Car":
         case "Toy Car":

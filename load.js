@@ -520,6 +520,7 @@ function HeaderSetup() {
             bronzeIcon.src = "icons/bronze_outline.png";
         }
         trophyWrapper.appendChild(bronzeFig);
+
         //Total generation (only gets here if more than 1 trophy)
         let totalFig = document.createElement("figure");
         totalFig.classList.add("trophy-figure");
@@ -535,6 +536,11 @@ function HeaderSetup() {
         trophyWrapper.appendChild(totalFig);
 
         //Max trophy generation
+        let maxBorder = document.createElement("figcaption");
+        maxBorder.textContent = "/";
+        maxBorder.classList.add("trophy-text");
+        trophyWrapper.appendChild(maxBorder);
+
         let maxFig = document.createElement("figure");
         maxFig.classList.add("trophy-figure");
         let maxIcon = document.createElement("img");
@@ -542,7 +548,7 @@ function HeaderSetup() {
         maxIcon.classList.add("trophy-icon");
         maxFig.appendChild(maxIcon);
         let maxText = document.createElement("figcaption");
-        let maxTextNode = document.createTextNode("/ " + maxTrophies);
+        let maxTextNode = document.createTextNode(maxTrophies);
         maxText.classList.add("trophy-text");
         maxText.appendChild(maxTextNode);
         maxFig.appendChild(maxText);
@@ -694,6 +700,10 @@ function CreateItem(itemInfo) {
     let itemInfoDiv = document.createElement("li");
     itemInfoDiv.classList.add("box-item");
     itemInfoDiv.setAttribute("name", itemInfo.rowid);
+
+    if (itemInfo.removed) {
+        itemInfoDiv.classList.add("removed-border");
+    }
 
     let collectionItemDisplay = null;
 
@@ -1781,6 +1791,10 @@ function CreatePopUp(itemInfo) {
     popupElement = document.createElement("div");
     popupElement.classList.add("center-screen");
 
+    if (itemInfo.removed) {
+        popupElement.classList.add("removed-border");
+    }
+
     popupBackground = document.createElement("div");
     popupBackground.classList.add("popup-background");
 
@@ -2046,6 +2060,17 @@ function CreatePopUp(itemInfo) {
         nullType.appendChild(nullText);
         categoryDiv.appendChild(nullType);
     }
+    if (itemInfo.removed) {
+        elementCreated = true;
+        var removed = document.createElement("div");
+        removed.classList.add("detailed-category");
+        removed.style.backgroundColor = "#f00";
+        var removedText = document.createElement("p");
+        removedText.classList.add("detailed-category-text");
+        removedText.textContent = "Removed";
+        removed.appendChild(removedText);
+        categoryDiv.appendChild(removed);
+    }
 
     if (elementCreated) {
         rightDiv.appendChild(categoryDiv);
@@ -2068,6 +2093,9 @@ function CreatePopUp(itemInfo) {
     }
     rightDivL.appendChild(CreateTimeElement("Last Updated", itemInfo.lastupdated));
     rightDivL.appendChild(CreateTimeElement("Date Added", itemInfo.addeddate));
+    if (itemInfo.removeddate != null) {
+        rightDivL.appendChild(CreateTimeElement("Removed Date", itemInfo.removeddate));
+    }
 
     //Creates time elements
     if (itemInfo.mainstory != null) {
