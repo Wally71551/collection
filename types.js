@@ -102,6 +102,10 @@ function UpdateCollectionCounts(gameType) {
         case "Pokémon TCG Collection":
         case "Pokémon TCG Deck":
         case "Pokémon TCG Portfolio":
+        case "Pokémon TCG Collector's Album":
+        case "Pokémon TCG Mini Binder":
+        case "Pokémon TCG Bundle":
+        case "Pokémon TCG Tin":
         case "Jumbo Pokémon TCG Card":
         case "Pin":
         case "Pin Set":
@@ -221,6 +225,10 @@ function GetTypeIcon(itemType) {
         case "Pokémon TCG Collection":
         case "Pokémon TCG Deck":
         case "Pokémon TCG Portfolio":
+        case "Pokémon TCG Collector's Album":
+        case "Pokémon TCG Mini Binder":
+        case "Pokémon TCG Bundle":
+        case "Pokémon TCG Tin":
         case "Jumbo Pokémon TCG Card":
         case "Steelbook":
         case "Art Card Set":
@@ -339,6 +347,10 @@ function GetTypeCategory(itemType) {
         case "Pokémon TCG Collection":
         case "Pokémon TCG Deck":
         case "Pokémon TCG Portfolio":
+        case "Pokémon TCG Collector's Album":
+        case "Pokémon TCG Mini Binder":
+        case "Pokémon TCG Bundle":
+        case "Pokémon TCG Tin":
         case "Jumbo Pokémon TCG Card":
         case "Pin":
         case "Pin Set":

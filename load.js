@@ -1468,11 +1468,15 @@ function CreateProgressBar(progress) {
     //Changes the colour
     if (progress == 100)
         itemProgressBar.style.backgroundColor = "gold";
-    else if (progress > 100) {
-        //Handles displaying progress over 100%
-        itemProgressBar.style.backgroundColor = "purple";
-        itemProgressBase.style.backgroundColor = "gold";
-        progress -= 100;
+    //TODO: Come up with a better way to handle this
+    else if (progress > 100)
+    {
+        const barCount = Math.floor(progress / 100);
+
+        //handles displaying over 200%
+        itemProgressBar.style.backgroundColor = GetExtraProgressBarColour(barCount);
+        itemProgressBase.style.backgroundColor = GetExtraProgressBarColour(barCount - 1);
+        progress -= (barCount * 100);
     }
 
     //Sets the percentage
@@ -1480,6 +1484,50 @@ function CreateProgressBar(progress) {
 
     itemProgressBase.appendChild(itemProgressBar);
     return itemProgressBase;
+}
+
+function GetExtraProgressBarColour(index) {
+    switch (index) {
+        case 0:
+            return "gold";
+            break;
+        case 1:
+            return "purple";
+            break;
+        case 2:
+            return "rgb(130, 130, 130)";
+            break;
+        case 3:
+            return "red";
+            break;
+        case 4:
+            return "lightblue";
+            break;
+        case 5:
+            return "yellow";
+            break;
+        case 6:
+            return "brown";
+            break;
+        case 7:
+            return "pink";
+            break;
+        case 8:
+            return "aqua";
+            break;
+        case 9:
+            return "coral";
+            break;
+        case 10:
+            return "greencoral";
+            break;
+        case 11:
+            return "mediumorchid";
+            break;
+        case 12:
+            return "violet";
+            break;
+    }
 }
 
 function GetRegionIcon(region) {
