@@ -5,21 +5,23 @@ function UpdateCollectionCounts(gameType) {
         case "Game":
         case "Arcade Game":
         case "Collection":
-        case "Application":
         case "Modpack":
         case "Mod":
+        case "Game Map":
         case "Bundle":
         case "Pinball Machine":
-        default:
             gameCount++;
             break;
         case "DLC":
         case "DLC Bundle":
         case "Season Pass":
+        case "Update":
         case "Game Update":
         case "Texture Pack":
         case "Demo":
         case "Skin Pack":
+        case "Add-On":
+        case "Expansion":
             dlcCount++;
             break;
         case "Film":
@@ -94,9 +96,14 @@ function UpdateCollectionCounts(gameType) {
         case "Poster":
         case "Tamagotchi":
         case "Trading Card":
+        case "Trading Card Collection":
         case "Collectible Card":
+        case "Collectible Card Set":
         case "Trading Card Game":
         case "Trading Card Game Set":
+        case "Trading Card Game Deck":
+        case "Trading Card Game Expansion":
+        case "Trading Card Game Opus":
         case "Pokémon TCG Card":
         case "Pokémon TCG Expansion":
         case "Pokémon TCG Collection":
@@ -106,6 +113,7 @@ function UpdateCollectionCounts(gameType) {
         case "Pokémon TCG Mini Binder":
         case "Pokémon TCG Bundle":
         case "Pokémon TCG Tin":
+        case "Pokémon TCG Elite Trainer Box":
         case "Jumbo Pokémon TCG Card":
         case "Pin":
         case "Pin Set":
@@ -114,6 +122,7 @@ function UpdateCollectionCounts(gameType) {
         case "LEGO Set":
         case "LEGO Polybag Set":
         case "MEGA Set":
+        case "K'NEX Set":
         case "HOT WHEELS Car":
         case "Toy Car":
         case "Steelbook":
@@ -121,7 +130,19 @@ function UpdateCollectionCounts(gameType) {
         case "Art Card Set":
         case "Keychain":
         case "Keyring":
+        case "Calendar":
+        case "Magnet Set":
+        case "Plush":
+        case "Coin":
+        case "Collectible Coin":
+        case "T-Shirt":
+        default:
             collectibleCount++;
+            break;
+        case "Application":
+        case "Theme Park Attraction":
+        case "Rollercoaster":
+            miscellaneousCount++;
             break;
     }
 }
@@ -129,23 +150,25 @@ function UpdateCollectionCounts(gameType) {
 function GetTypeIcon(itemType) {
     switch (itemType) {
         case "Game":
-        case "Arcade Game":
         case "Modpack":
         case "Controller":
             return "icons/game.svg";
+        case "Arcade Game":
+            return "icons/joystick.svg";
         case "DLC":
         case "DLC Bundle":
         case "Update":
+        case "Game Update":
         case "Demo":
         case "Application":
         case "Skin Pack":
         case "Goodie Pack":
-        case "Update":
         case "Add-On":
         case "Expansion":
         case "Season Pass":
         case "Texture Pack":
         case "Mod":
+        case "Game Map":
             return "icons/dlc.svg";
         case "Film":
         case "Short Film":
@@ -210,16 +233,26 @@ function GetTypeIcon(itemType) {
         case "Diorama":
         case "LEGO Set":
         case "LEGO Polybag Set":
+        case "K'NEX Set":
         case "MEGA Set":
+        case "Calendar":
+        case "Magnet Set":
+        case "Plush":
+        case "Pokémon TCG Elite Trainer Box":
         default:
             return "icons/cube.svg";
         case "Minecraft Dungeons Arcade Card":
         case "amiibo Card":
         case "Poster":
         case "Trading Card":
+        case "Trading Card Collection":
         case "Collectible Card":
+        case "Collectible Card Set":
         case "Trading Card Game":
         case "Trading Card Game Set":
+        case "Trading Card Game Deck":
+        case "Trading Card Game Expansion":
+        case "Trading Card Game Opus":
         case "Pokémon TCG Card":
         case "Pokémon TCG Expansion":
         case "Pokémon TCG Collection":
@@ -241,6 +274,8 @@ function GetTypeIcon(itemType) {
         case "Coaster Set":
         case "Medal":
         case "Tamagotchi":
+        case "Coin":
+        case "Collectible Coin":
             return "icons/circle.svg";
         case "HOT WHEELS Car":
         case "Toy Car":
@@ -258,20 +293,23 @@ function GetTypeCategory(itemType) {
         case "Game":
         case "Arcade Game":
         case "Collection":
-        case "Application":
         case "Modpack":
         case "Mod":
         case "Bundle":
         case "Pinball Machine":
+        case "Game Map":
         default:
             return ("Game");
         case "DLC":
         case "DLC Bundle":
         case "Season Pass":
+        case "Update":
         case "Game Update":
         case "Texture Pack":
         case "Demo":
         case "Skin Pack":
+        case "Add-On":
+        case "Expansion":
             return ("DLC");
         case "Film":
         case "Short Film":
@@ -339,9 +377,14 @@ function GetTypeCategory(itemType) {
         case "Poster":
         case "Tamagotchi":
         case "Trading Card":
+        case "Trading Card Collection":
         case "Collectible Card":
+        case "Collectible Card Set":
         case "Trading Card Game":
         case "Trading Card Game Set":
+        case "Trading Card Game Deck":
+        case "Trading Card Game Expansion":
+        case "Trading Card Game Opus":
         case "Pokémon TCG Card":
         case "Pokémon TCG Expansion":
         case "Pokémon TCG Collection":
@@ -351,6 +394,7 @@ function GetTypeCategory(itemType) {
         case "Pokémon TCG Mini Binder":
         case "Pokémon TCG Bundle":
         case "Pokémon TCG Tin":
+        case "Pokémon TCG Elite Trainer Box":
         case "Jumbo Pokémon TCG Card":
         case "Pin":
         case "Pin Set":
@@ -359,6 +403,7 @@ function GetTypeCategory(itemType) {
         case "LEGO Set":
         case "LEGO Polybag Set":
         case "MEGA Set":
+        case "K'NEX Set":
         case "HOT WHEELS Car":
         case "Toy Car":
         case "Steelbook":
@@ -366,9 +411,16 @@ function GetTypeCategory(itemType) {
         case "Art Card Set":
         case "Keychain":
         case "Keyring":
+        case "Calendar":
+        case "Magnet Set":
+        case "Plush":
+        case "Coin":
+        case "Collectible Coin":
+        case "T-Shirt":
             return ("Collectible");
         case "Theme Park Attraction":
         case "Rollercoaster":
+        case "Application":
             return ("Miscellaneous");
     }
 }

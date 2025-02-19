@@ -35,13 +35,13 @@ footer {
 }
 
 #header-top {
-    background-color: #222222;
+    background-color: #353535;
 }
 
 #header-main {
     display: none;
     width: 100%;
-    background-color: #222222;
+    background-color: #353535;
 }
 
 #collection {
@@ -250,7 +250,7 @@ footer {
     margin: 1.5px;
     border-radius: 20px;
     overflow: hidden;
-    background-color: #555555;
+    background-color: #707070;
     position: relative;
 }
 
@@ -656,7 +656,7 @@ body::-webkit-scrollbar-track-piece {
     top: 5%;
     left: 5%;
     border-radius: 20px;
-    background-color: #606060;
+    background-color: #707070;
     z-index: 10;
     gap: 0.5em;
 }

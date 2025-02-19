@@ -23,6 +23,7 @@ let albumCount = 0;
 let consoleCount = 0;
 let peripheralCount = 0;
 let collectibleCount = 0;
+let miscellaneousCount = 0;
 
 let totalTrophies = [0, 0, 0, 0];
 let maxTrophies = 0;
@@ -190,11 +191,23 @@ function BuildURL() {
             searchURL += "&";
         }
 
-        if (document.getElementById("searchtype").value == "series" && (document.getElementById("searchbar").value).toUpperCase() == "MCU") {
+        var searchElement = document.getElementById("searchbar").value;
+
+        //Handling of specific accent elements
+        if (searchElement.toUpperCase().includes("POKEMON")) {
+            searchElement = searchElement.toUpperCase().replaceAll("POKEMON", "POKÉMON");
+        }
+        if (searchElement.toUpperCase().includes("É"))
+        {
+            searchElement = searchElement.toUpperCase().replaceAll("É", "%C3%89");
+        }
+
+        //Special abbreviations added here
+        if (document.getElementById("searchtype").value == "series" && searchElement.toUpperCase() == "MCU") {
             searchURL += document.getElementById("searchtype").value + "=" + "Marvel Cinematic Universe*";
         }
         else {
-            searchURL += document.getElementById("searchtype").value + "=" + document.getElementById("searchbar").value + "*";
+            searchURL += document.getElementById("searchtype").value + "=" + searchElement + "*";
         }
 
         firstElement = false;
@@ -423,9 +436,9 @@ function HeaderSetup() {
         headerElement.appendChild(peripheralDisplay);
     }
 
-    if (collectibleCount > 0) {
+    if (collectibleCount + miscellaneousCount > 0) {
         let collectibleDisplay = document.createElement("h2");
-        collectibleCountNode = document.createTextNode(collectibleCount);
+        collectibleCountNode = document.createTextNode(collectibleCount + miscellaneousCount);
         collectibleDisplay.classList.add("counter");
         let collectibleIcon = document.createElement("img");
         collectibleIcon.src = "icons/cube.svg";
@@ -1627,6 +1640,7 @@ function ResetVariables() {
     consoleCount = 0;
     peripheralCount = 0;
     collectibleCount = 0;
+    miscellaneousCount = 0;
     totalTrophies = [0, 0, 0, 0];
     maxTrophies = 0;
     totalGamerscore = 0;
