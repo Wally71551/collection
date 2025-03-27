@@ -2203,6 +2203,12 @@ function CreatePopUp(itemInfo) {
         linkedTitles.forEach((element) => {
             var linkedTitle = document.createElement("h2");
             linkedTitle.classList.add("detailed-linkedtitles-element");
+
+            if (element.startsWith("[M]", 0)) {
+                linkedTitle.classList.add("detailed-linkedtitles-element-mid");
+                element = element.replace("[M]", "");
+            }
+
             linkedTitle.textContent = element;
             linkedTitlesScroller.appendChild(linkedTitle);
         })

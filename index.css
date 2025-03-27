@@ -907,6 +907,11 @@ body::-webkit-scrollbar-track-piece {
     padding-right: 0.2em;
 }
 
+.detailed-linkedtitles-element-mid {
+    background-color: grey;
+    text-align: center;
+}
+
 .detailed-notes-text-limit {
     max-height: 300px;
 }
