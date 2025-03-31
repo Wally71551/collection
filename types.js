@@ -70,6 +70,8 @@ function UpdateCollectionCounts(gameType) {
         case "Concert":
         case "Track":
         case "Single":
+        case "EP":
+        case "LP":
         case "2-Disc CD Collection":
             albumCount++;
             break;
@@ -216,6 +218,8 @@ function GetTypeIcon(itemType) {
         case "Audiobook":
         case "Audio Drama":
         case "Track":
+        case "EP":
+        case "LP":
         case "2-Disc CD Collection":
             return "icons/album.svg";
         case "Console":
@@ -354,6 +358,8 @@ function GetTypeCategory(itemType) {
         case "Concert":
         case "Track":
         case "Single":
+        case "EP":
+        case "LP":
         case "2-Disc CD Collection":
             return ("Album");
         case "Console":
