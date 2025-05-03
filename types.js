@@ -98,6 +98,7 @@ function UpdateCollectionCounts(gameType) {
         case "Pre-Order Bonus":
         case "Poster":
         case "Tamagotchi":
+        case "Card":
         case "Trading Card":
         case "Trading Card Collection":
         case "Collectible Card":
@@ -250,6 +251,7 @@ function GetTypeIcon(itemType) {
         case "Minecraft Dungeons Arcade Card":
         case "amiibo Card":
         case "Poster":
+        case "Card":
         case "Trading Card":
         case "Trading Card Collection":
         case "Collectible Card":
@@ -385,6 +387,7 @@ function GetTypeCategory(itemType) {
         case "Pre-Order Bonus":
         case "Poster":
         case "Tamagotchi":
+        case "Card":
         case "Trading Card":
         case "Trading Card Collection":
         case "Collectible Card":
