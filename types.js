@@ -64,6 +64,8 @@ function UpdateCollectionCounts(gameType) {
         case "Audiobook":
         case "Audio Drama":
         case "Artbook":
+        case "Story":
+        case "Short Story":
             bookCount++;
             break;
         case "Album":
@@ -213,6 +215,8 @@ function GetTypeIcon(itemType) {
         case "Book":
         case "Web Comic":
         case "Artbook":
+        case "Story":
+        case "Short Story":
             return "icons/book.svg";
         case "Album":
         case "Single":
@@ -357,6 +361,8 @@ function GetTypeCategory(itemType) {
         case "Audiobook":
         case "Audio Drama":
         case "Artbook":
+        case "Story":
+        case "Short Story":
             return ("Book");
         case "Album":
         case "Soundtrack":

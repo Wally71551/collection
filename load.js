@@ -1559,6 +1559,8 @@ function GetRegionIcon(region) {
             return "icons/KR.jpg";
         case "FR":
             return "icons/FR.jpg";
+        case "CH":
+            return "icons/CH.jpg";
         default:
             return null;
     }
