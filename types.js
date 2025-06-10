@@ -22,6 +22,7 @@ function UpdateCollectionCounts(gameType) {
         case "Skin Pack":
         case "Add-On":
         case "Expansion":
+        case "Upgrade Pack":
             dlcCount++;
             break;
         case "Film":
@@ -175,6 +176,7 @@ function GetTypeIcon(itemType) {
         case "Texture Pack":
         case "Mod":
         case "Game Map":
+        case "Upgrade Pack":
             return "icons/dlc.svg";
         case "Film":
         case "Short Film":
@@ -322,6 +324,7 @@ function GetTypeCategory(itemType) {
         case "Skin Pack":
         case "Add-On":
         case "Expansion":
+        case "Upgrade Pack":
             return ("DLC");
         case "Film":
         case "Short Film":
