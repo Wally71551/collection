@@ -979,6 +979,16 @@ function CreateItem(itemInfo) {
         itemProgressText.appendChild(itemProgressTextNode);
         itemInfoDiv.appendChild(itemProgressText);
     }
+    else if (String(itemInfo.progressprefix).startsWith("%")) {
+        itemInfoDiv.appendChild(CreateProgressBar(itemInfo.progress));
+
+        let itemProgressText = document.createElement("p");
+        itemProgressText.classList.add("progress-text");
+        itemProgressTextNode = document.createTextNode(String(itemInfo.progressprefix).slice(1) + ": " + itemInfo.progress + "%");
+
+        itemProgressText.appendChild(itemProgressTextNode);
+        itemInfoDiv.appendChild(itemProgressText);
+    }
 
     //Creates the progress note
     if (itemInfo.progressnote != null) {
@@ -2220,7 +2230,7 @@ function CreatePopUp(itemInfo) {
     }
 
     //Adds the progress elements
-    if ((itemInfo.progresscurrent != null && itemInfo.progressfull != null) || itemInfo.progressprefix == "Percentage Completion") {
+    if ((itemInfo.progresscurrent != null && itemInfo.progressfull != null) || itemInfo.progressprefix == "Percentage Completion" || String(itemInfo.progressprefix).startsWith("%")) {
         var progressDiv = document.createElement("div");
         progressDiv.classList.add("detailed-text-wrapper");
 
@@ -2232,6 +2242,9 @@ function CreatePopUp(itemInfo) {
         var itemProgressTextNode;
         if (itemInfo.progressprefix == "Percentage Completion") {
             itemProgressTextNode = document.createTextNode(itemInfo.progress + "% Completion");
+        }
+        else if (String(itemInfo.progressprefix).startsWith("%")) {
+            itemProgressTextNode = document.createTextNode(String(itemInfo.progressprefix).slice(1) + ": " + itemInfo.progress + "%");
         }
         else if (itemInfo.trophies != null && itemInfo.progressprefix == null)
         {
