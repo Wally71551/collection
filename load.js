@@ -1554,26 +1554,7 @@ function GetExtraProgressBarColour(index) {
 }
 
 function GetRegionIcon(region) {
-    switch (region) {
-        case "NTSC":
-            return "icons/NTSC.jpg";
-        case "US":
-            return "icons/US.jpg";
-        case "ITL":
-            return "icons/ITL.jpg";
-        case "CZ":
-            return "icons/CZ.jpg";
-        case "JP":
-            return "icons/JP.jpg";
-        case "KR":
-            return "icons/KR.jpg";
-        case "FR":
-            return "icons/FR.jpg";
-        case "CH":
-            return "icons/CH.jpg";
-        default:
-            return null;
-    }
+    return "icons/" + region + ".jpg";
 }
 
 function UpdateTrophyCount(trophyArray) {
