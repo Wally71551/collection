@@ -62,6 +62,7 @@ function UpdateCollectionCounts(gameType) {
         case "Light Novel":
         case "Book":
         case "Web Comic":
+        case "Web Posts":
         case "Audiobook":
         case "Audio Drama":
         case "Artbook":
@@ -216,6 +217,7 @@ function GetTypeIcon(itemType) {
         case "Light Novel":
         case "Book":
         case "Web Comic":
+        case "Web Posts":
         case "Artbook":
         case "Story":
         case "Short Story":
@@ -361,6 +363,7 @@ function GetTypeCategory(itemType) {
         case "Light Novel":
         case "Book":
         case "Web Comic":
+        case "Web Posts":
         case "Audiobook":
         case "Audio Drama":
         case "Artbook":
