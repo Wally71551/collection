@@ -70,6 +70,7 @@ function UpdateCollectionCounts(gameType) {
         case "Short Story":
             bookCount++;
             break;
+        case "Song":
         case "Album":
         case "Soundtrack":
         case "Concert":
@@ -177,8 +178,9 @@ function GetTypeIcon(itemType) {
         case "Texture Pack":
         case "Mod":
         case "Game Map":
-        case "Upgrade Pack":
             return "icons/dlc.svg";
+        case "Upgrade Pack":
+            return "icons/upgrade.svg";
         case "Film":
         case "Short Film":
         case "Animated Short":
@@ -222,6 +224,7 @@ function GetTypeIcon(itemType) {
         case "Story":
         case "Short Story":
             return "icons/book.svg";
+        case "Song":
         case "Album":
         case "Single":
         case "Soundtrack":
@@ -370,6 +373,7 @@ function GetTypeCategory(itemType) {
         case "Story":
         case "Short Story":
             return ("Book");
+        case "Song":
         case "Album":
         case "Soundtrack":
         case "Concert":
