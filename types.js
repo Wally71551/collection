@@ -145,7 +145,11 @@ function UpdateCollectionCounts(gameType) {
         case "Plush":
         case "Coin":
         case "Collectible Coin":
+        case "Coin Set":
         case "T-Shirt":
+        case "Shirt":
+        case "Token":
+        case "Hat":
         default:
             collectibleCount++;
             break;
@@ -259,6 +263,7 @@ function GetTypeIcon(itemType) {
         case "Magnet Set":
         case "Plush":
         case "Pokémon TCG Elite Trainer Box":
+        case "Hat":
         default:
             return "icons/cube.svg";
         case "Minecraft Dungeons Arcade Card":
@@ -297,11 +302,14 @@ function GetTypeIcon(itemType) {
         case "Tamagotchi":
         case "Coin":
         case "Collectible Coin":
+        case "Token":
+        case "Coin Set":
             return "icons/circle.svg";
         case "HOT WHEELS Car":
         case "Toy Car":
             return "icons/car-side.svg";
         case "T-Shirt":
+        case "Shirt":
             return "icons/tshirt.svg";
         case "Theme Park Attraction":
         case "Rollercoaster":
@@ -448,6 +456,10 @@ function GetTypeCategory(itemType) {
         case "Coin":
         case "Collectible Coin":
         case "T-Shirt":
+        case "Shirt":
+        case "Token":
+        case "Hat":
+        case "Coin Set":
             return ("Collectible");
         case "Theme Park Attraction":
         case "Rollercoaster":
