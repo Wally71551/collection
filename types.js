@@ -150,6 +150,7 @@ function UpdateCollectionCounts(gameType) {
         case "Shirt":
         case "Token":
         case "Hat":
+        case "nanoblock Set":
         default:
             collectibleCount++;
             break;
@@ -264,6 +265,7 @@ function GetTypeIcon(itemType) {
         case "Plush":
         case "Pokémon TCG Elite Trainer Box":
         case "Hat":
+        case "nanoblock Set":
         default:
             return "icons/cube.svg";
         case "Minecraft Dungeons Arcade Card":
@@ -460,6 +462,7 @@ function GetTypeCategory(itemType) {
         case "Token":
         case "Hat":
         case "Coin Set":
+        case "nanoblock Set":
             return ("Collectible");
         case "Theme Park Attraction":
         case "Rollercoaster":
