@@ -34,6 +34,7 @@ function UpdateCollectionCounts(gameType) {
         case "OVA":
         case "Serial Reconstruction":
         case "Video":
+        case "Film Preview":
             filmCount++;
             break;
         case "Series":
@@ -194,6 +195,7 @@ function GetTypeIcon(itemType) {
         case "OVA":
         case "Serial Reconstruction":
         case "Video":
+        case "Film Preview":
             return "icons/film.svg";
         case "Collection":
         case "Film Box Set":
@@ -352,6 +354,7 @@ function GetTypeCategory(itemType) {
         case "OVA":
         case "Serial Reconstruction":
         case "Video":
+        case "Film Preview":
             return ("Film");
         case "Series":
         case "Animated Series":
