@@ -1027,7 +1027,13 @@ function CreateItem(itemInfo) {
         let progressNote = document.createElement("p");
         progressNote.classList.add("progress-note-text");
         progressNote.classList.add("scrollable-text");
-        let progressNoteNode = document.createTextNode(itemInfo.progressnote);
+
+        let progressnote = itemInfo.progressnote;
+        if (progressnote.indexOf(" || ") > -1) {
+            progressnote = progressnote.replaceAll(" || ", " | ");
+        }
+
+        let progressNoteNode = document.createTextNode(progressnote);
         progressNote.appendChild(progressNoteNode);
         progressNoteDiv.appendChild(progressNote);
 
@@ -2185,7 +2191,10 @@ function CreatePopUp(itemInfo) {
         linkedTitlesDiv.appendChild(linkedHeader);
 
         var linkedTitles = [itemInfo.linkedtitles];
-        if (itemInfo.linkedtitles.indexOf(" | ") > -1) {
+        if (itemInfo.linkedtitles.indexOf(" || ") > -1) {
+            linkedTitles = itemInfo.linkedtitles.split(" || ");
+        }
+        else if (itemInfo.linkedtitles.indexOf(" | ") > -1) {
             linkedTitles = itemInfo.linkedtitles.split(" | ");
         }
 
@@ -2284,7 +2293,10 @@ function CreatePopUp(itemInfo) {
         progressElement.classList.add("detailed-notes-text");
         progressElement.classList.add("detailed-notes-text-limit");
 
-        if (itemInfo.progressnote.indexOf(" | ") > -1) {
+        if (itemInfo.progressnote.indexOf(" || ") > -1) {
+            itemInfo.progressnote = itemInfo.progressnote.replaceAll(" || ", "<br />");
+        }
+        else if (itemInfo.progressnote.indexOf(" | ") > -1) {
             itemInfo.progressnote = itemInfo.progressnote.replaceAll(" | ", "<br />");
         }
 
