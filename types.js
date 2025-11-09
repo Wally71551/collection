@@ -115,6 +115,7 @@ function UpdateCollectionCounts(gameType) {
         case "Trading Card Game Deck":
         case "Trading Card Game Expansion":
         case "Trading Card Game Opus":
+        case "Trading Card Game Box":
         case "Pokémon TCG Card":
         case "Pokémon TCG Expansion":
         case "Pokémon TCG Collection":
@@ -265,6 +266,7 @@ function GetTypeIcon(itemType) {
         case "Calendar":
         case "Magnet Set":
         case "Plush":
+        case "Trading Card Game Box":
         case "Pokémon TCG Elite Trainer Box":
         case "Hat":
         case "nanoblock Set":
@@ -429,6 +431,7 @@ function GetTypeCategory(itemType) {
         case "Trading Card Game Deck":
         case "Trading Card Game Expansion":
         case "Trading Card Game Opus":
+        case "Trading Card Game Box":
         case "Pokémon TCG Card":
         case "Pokémon TCG Expansion":
         case "Pokémon TCG Collection":
