@@ -149,6 +149,7 @@ function UpdateCollectionCounts(gameType) {
         case "Collectible Coin":
         case "Coin Set":
         case "T-Shirt":
+        case "Jumper":
         case "Shirt":
         case "Token":
         case "Hat":
@@ -316,6 +317,7 @@ function GetTypeIcon(itemType) {
             return "icons/car-side.svg";
         case "T-Shirt":
         case "Shirt":
+        case "Jumper":
             return "icons/tshirt.svg";
         case "Theme Park Attraction":
         case "Rollercoaster":
@@ -465,6 +467,7 @@ function GetTypeCategory(itemType) {
         case "Collectible Coin":
         case "T-Shirt":
         case "Shirt":
+        case "Jumper":
         case "Token":
         case "Hat":
         case "Coin Set":
