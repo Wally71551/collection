@@ -160,6 +160,7 @@ function UpdateCollectionCounts(gameType) {
         case "Application":
         case "Theme Park Attraction":
         case "Rollercoaster":
+        case "Attraction":
             miscellaneousCount++;
             break;
     }
@@ -321,6 +322,7 @@ function GetTypeIcon(itemType) {
             return "icons/tshirt.svg";
         case "Theme Park Attraction":
         case "Rollercoaster":
+        case "Attraction":
             return "icons/rollercoaster.svg";
     }
 }
@@ -476,6 +478,7 @@ function GetTypeCategory(itemType) {
         case "Theme Park Attraction":
         case "Rollercoaster":
         case "Application":
+        case "Attraction":
             return ("Miscellaneous");
     }
 }
